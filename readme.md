@@ -40,7 +40,8 @@ Sometimes keeping a config locally can work; sometimes manual fixes are the way 
 
 ```
 3. Add all containers to traefik network
-4. Update `.env` to use tag for dataverse to `alpha` version (otherwise it'll be unstable)
-5. Set the reboot parameter to `always` for all containers.
-6. Start containers normally
+4. Declare traefik network at the bottom; this network is NOT bridge.
+5. Update `.env` to use tag for dataverse to `alpha` version (otherwise it'll be unstable)
+6. Set the reboot parameter to `always` for all containers.
+7. Start containers normally
 
