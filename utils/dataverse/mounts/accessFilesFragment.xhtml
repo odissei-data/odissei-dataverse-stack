@@ -1,0 +1,92 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+        xmlns:jsf="http://xmlns.jcp.org/jsf"
+        xmlns:pt="http://java.sun.com/jsf/passthrough"
+        xmlns:cc="http://java.sun.com/jsf/composite"
+        xmlns:o="http://omnifaces.org/ui"
+        xmlns:iqbs="http://xmlns.jcp.org/jsf/composite/iqbs">
+    <o:importFunctions type="java.lang.Math" />
+    <p:remoteCommand name="refreshPaginator" action="#{DatasetPage.refreshPaginator()}" process="@this" update="@form" />
+
+    <ui:remove>
+        <!--
+        This fragment is included only on the dataset pg, empty editMode render logic
+        -->
+    </ui:remove>
+
+    <div class="form-horizontal">
+        <div class="form-group" jsf:rendered="true">
+            <!-- Username -->
+            <div class="col-sm-9">
+                <div class="help-block">
+                    <ui:fragment  rendered="#{fn:startsWith(fn:toLowerCase(DatasetPage.dataset.owner.alias),'cbs')}">
+                        <h:outputText value="#{bundle['odissei.access.file.cbs.text']}" escape="false"/>
+                    </ui:fragment>
+                    <ui:fragment  rendered="#{fn:startsWith(fn:toLowerCase(DatasetPage.dataset.owner.alias),'liss')}">
+                        <h:outputText value="#{bundle['odissei.access.file.liss.text']}" escape="false"/>
+                    </ui:fragment>
+                    <ui:fragment  rendered="#{fn:startsWith(fn:toLowerCase(DatasetPage.dataset.owner.alias),'easy')}">
+                        <h:outputText value="#{bundle['odissei.access.file.dans.text']}" escape="false"/>
+                    </ui:fragment>
+                    <ui:fragment  rendered="#{fn:startsWith(fn:toLowerCase(DatasetPage.dataset.owner.alias),'dv_nl')}">
+                        <h:outputText value="#{bundle['odissei.access.file.DV_NL.text']}" escape="false"/>
+                    </ui:fragment>
+                    <ui:fragment  rendered="#{fn:startsWith(fn:toLowerCase(DatasetPage.dataset.owner.alias),'leidenuniversity')}">
+                        <h:outputText value="#{bundle['odissei.access.file.leidenuniversity.text']}" escape="false"/>
+                    </ui:fragment>
+                    <ui:fragment  rendered="#{fn:startsWith(fn:toLowerCase(DatasetPage.dataset.owner.alias),'dans')}">
+                        <h:outputText value="#{bundle['odissei.access.file.dans.text']}" escape="false"/>
+                    </ui:fragment>
+                    <ui:fragment  rendered="#{fn:startsWith(fn:toLowerCase(DatasetPage.dataset.owner.alias),'vuamsterdam')}">
+                        <h:outputText value="#{bundle['odissei.access.file.vuamsterdam.text']}" escape="false"/>
+                    </ui:fragment>
+                    <ui:fragment  rendered="#{fn:startsWith(fn:toLowerCase(DatasetPage.dataset.owner.alias),'umcu')}">
+                        <h:outputText value="#{bundle['odissei.access.file.UMCU.text']}" escape="false"/>
+                    </ui:fragment>
+                    <ui:fragment  rendered="#{fn:startsWith(fn:toLowerCase(DatasetPage.dataset.owner.alias),'trimbos')}">
+                        <h:outputText value="#{bundle['odissei.access.file.trimbos.text']}" escape="false"/>
+                    </ui:fragment>
+                    <ui:fragment  rendered="#{fn:startsWith(fn:toLowerCase(DatasetPage.dataset.owner.alias),'avanshogeschool')}">
+                        <h:outputText value="#{bundle['odissei.access.file.AvansHogeschool.text']}" escape="false"/>
+                    </ui:fragment>
+                    <ui:fragment  rendered="#{fn:startsWith(fn:toLowerCase(DatasetPage.dataset.owner.alias),'hr')}">
+                        <h:outputText value="#{bundle['odissei.access.file.hr.text']}" escape="false"/>
+                    </ui:fragment>
+                    <ui:fragment  rendered="#{fn:startsWith(fn:toLowerCase(DatasetPage.dataset.owner.alias),'hanze')}">
+                        <h:outputText value="#{bundle['odissei.access.file.hanze.text']}" escape="false"/>
+                    </ui:fragment>
+                    <ui:fragment  rendered="#{fn:startsWith(fn:toLowerCase(DatasetPage.dataset.owner.alias),'fontys')}">
+                        <h:outputText value="#{bundle['odissei.access.file.fontys.text']}" escape="false"/>
+                    </ui:fragment>
+                    <ui:fragment  rendered="#{fn:startsWith(fn:toLowerCase(DatasetPage.dataset.owner.alias),'tiu')}">
+                        <h:outputText value="#{bundle['odissei.access.file.tiu.text']}" escape="false"/>
+                    </ui:fragment>
+                    <ui:fragment  rendered="#{fn:startsWith(fn:toLowerCase(DatasetPage.dataset.owner.alias),'groningen')}">
+                        <h:outputText value="#{bundle['odissei.access.file.groningen.text']}" escape="false"/>
+                    </ui:fragment>
+                    <ui:fragment  rendered="#{fn:startsWith(fn:toLowerCase(DatasetPage.dataset.owner.alias),'4tu')}">
+                        <h:outputText value="#{bundle['odissei.access.file.dans.text']}" escape="false"/>
+                    </ui:fragment>
+                    <ui:fragment  rendered="#{fn:startsWith(fn:toLowerCase(DatasetPage.dataset.owner.alias),'maastricht')}">
+                        <h:outputText value="#{bundle['odissei.access.file.4tu.text']}" escape="false"/>
+                    </ui:fragment>
+                    <ui:fragment  rendered="#{fn:startsWith(fn:toLowerCase(DatasetPage.dataset.owner.alias),'uu')}">
+                        <h:outputText value="#{bundle['odissei.access.file.UU.text']}" escape="false"/>
+                    </ui:fragment>
+                    <ui:fragment  rendered="#{fn:startsWith(fn:toLowerCase(DatasetPage.dataset.owner.alias),'hsn_nl')}">
+                        <h:outputText value="#{bundle['odissei.access.file.HSN_NL.text']}" escape="false"/>
+                    </ui:fragment>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Files Table -->
+    <!-- TABLESTYLE + WIDTH:AUTO FIX COL WIDTH OVERFLOW HIDDEN, MIN-WIDTH 100% ADDED FOR TABLE CONTENT LESS THAN 100% https://stackoverflow.com/a/38582318 -->
+</ui:composition>
