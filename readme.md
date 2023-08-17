@@ -19,7 +19,13 @@ At the present date, a number of manual steps are (unfortunately) still required
 
 Now get to manual steps.
 
-## (17-08-2023) Fix dataverse docker file.
+## Manual steps
+
+Below is a list of manual steps. Manual steps aren't great; the reason why they're here is because automation is tricky with quickly moving targets, and/or something upstream is busted which was found through experimentation.
+
+Sometimes keeping a config locally can work; sometimes manual fixes are the way to go.
+
+### (17-08-2023) Change dataverse docker file.
 
 1. Copy `utils/dataverse/mount` to the root folder of the dataverse directory
 2. Add the following lines to the dataverse container under dataverse volumes:
