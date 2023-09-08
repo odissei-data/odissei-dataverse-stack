@@ -25,9 +25,9 @@ DATA_SOURCE_TYPE_URL='https://vocabularies.cessda.eu/v2/vocabularies/DataSourceT
 SUMMARY_STATISTICS_URL='https://vocabularies.cessda.eu/v2/vocabularies/SummaryStatisticType/2.1.2?languageVersion=en-2.1.2_nl-2.1.2'
 MODE_OF_COLLECTION_URL='https://vocabularies.cessda.eu/v2/vocabularies/ModeOfCollection/4.0.3?languageVersion=en-4.0.3_nl-4.0.3'
 
-MCAL_RESEARCHTYPEQUESTION_URL='https://raw.githubusercontent.com/odissei-data/vocabularies/main/mcal/ResearchQuestionType.ttl'
-MCAL_CONTENTTYPEANALYSIS_URL='https://raw.githubusercontent.com/odissei-data/vocabularies/main/mcal/ContentAnalysisType.ttl'
-MCAL_CONTENTFEATURES_URL='https://raw.githubusercontent.com/odissei-data/vocabularies/main/mcal/ContentFeature.ttl'
+MCAL_RESEARCH_TYPE_QUESTION_URL='https://raw.githubusercontent.com/odissei-data/vocabularies/main/mcal/ResearchQuestionType.ttl'
+MCAL_CONTENT_ANALYSIS_TYPE_URL='https://raw.githubusercontent.com/odissei-data/vocabularies/main/mcal/ContentAnalysisType.ttl'
+MCAL_CONTENT_FEATURES_URL='https://raw.githubusercontent.com/odissei-data/vocabularies/main/mcal/ContentFeatureScheme.ttl'
 
 # The endpoints where the created triples should be deposited. This is required for
 # Skosmos to connect to.
@@ -46,9 +46,9 @@ DATA_SOURCE_TYPE_GRAPH_ENDPOINT=https://vocabularies.cessda.eu/vocabulary/DataSo
 SUMMARY_STATISTICS_GRAPH_ENDPOINT=https://vocabularies.cessda.eu/vocabulary/SummaryStatistics
 MODE_OF_COLLECTION_GRAPH_ENDPOINT=https://vocabularies.cessda.eu/vocabulary/ModeOfCollection
 
-MCAL_RESEARCHTYPEQUESTION_GRAPH_ENDPOINT='https://odissei-data/mcal/researchtypequestion'
-MCAL_CONTENTTYPEANALYSIS_GRAPH_ENDPOINT='https://odissei-data/mcal/contenttypeanalysis'
-MCAL_CONTENTFEATURES_GRAPH_ENDPOINT='https://odissei-data/mcal/contentfeatures'
+MCAL_RESEARCH_TYPE_QUESTION_GRAPH_ENDPOINT=https://odissei-data/mcal/researchtypequestion
+MCAL_CONTENT_ANALYSIS_TYPE_GRAPH_ENDPOINT=https://odissei-data/mcal/contenttypeanalysis
+MCAL_CONTENT_FEATURES_GRAPH_ENDPOINT=https://odissei-data/mcal/contentfeatures
 
 # Fair warning; you might see some errors with the rapper parsing. This shouldn't be breaking,
 # but can be verified by checking the output of the curl into the Fuseki instance.
@@ -186,8 +186,8 @@ curl -l -o ResearchTypeQuestion.ttl $MCAL_RESEARCH_TYPE_QUESTION_URL
 curl -X POST \
  -H "Content-Type: text/turtle" \
  -H "Authorization: Basic $AUTHHEADER" \
- --data-binary @ModeOfCollection.ttl \
- $TARGET/skosmos/data?graph=$MCAL_RESEARCH_TYPE_QUESTION_URL
+ --data-binary @ResearchTypeQuestion.ttl \
+ $TARGET/skosmos/data?graph=$MCAL_RESEARCH_TYPE_QUESTION_GRAPH_ENDPOINT
 
 # Mcal content analysis type
 echo "Mcal content analysis type"
