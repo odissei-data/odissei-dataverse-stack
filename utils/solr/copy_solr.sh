@@ -1,7 +1,10 @@
 #!/usr/bin/env sh
 #
 # This file takes care to copy the solr config to the correct location and rebooting the container.
+#
 
-cp ../../dataverse/conf/solr/8.11.1/schema.xml schema-backup.xml
-cp schema.xml ../../dataverse/conf/solr/8.11.1/schema.xml
-docker restart solr
+docker cp schema.xml dev_solr:/template/conf/schema.xml
+docker cp schema.xml dev_solr:/var/solr/data/collection1/conf/schema.xml
+docker cp solrconfig.xml dev_solr:/template/conf/solrconfig.xml
+docker cp solrconfig.xml dev_solr:/var/solr/data/collection1/conf/solrconfig.xml
+docker restart dev_solr
