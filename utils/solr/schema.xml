@@ -229,7 +229,7 @@
 
     <!-- incomplete datasets issue 8822 -->
     <field name="datasetValid" type="boolean" stored="true" indexed="true" multiValued="false"/>
-
+    <field name="license" type="string" stored="true" indexed="true" multiValued="false"/>
     <!--
         METADATA SCHEMA FIELDS
         Now following: any fields generated from the metadata schemas loaded into Dataverse.
@@ -380,7 +380,7 @@
     <field name="kindOfData" type="text_en" multiValued="true" stored="true" indexed="true"/>
     <field name="language" type="text_en" multiValued="true" stored="true" indexed="true"/>
     <field name="NaamInDscCatalogus" type="text_en" multiValued="false" stored="true" indexed="true"/>
-    <field name="northLongitude" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="northLatitude" type="text_en" multiValued="true" stored="true" indexed="true"/>
     <field name="notesText" type="text_en" multiValued="false" stored="true" indexed="true"/>
     <field name="odisseiConceptVariableDefinition" type="text_en" multiValued="true" stored="true" indexed="true"/>
     <field name="odisseiConceptVariableGroeppad" type="text_en" multiValued="true" stored="true" indexed="true"/>
@@ -450,7 +450,7 @@
     <field name="software" type="text_en" multiValued="true" stored="true" indexed="true"/>
     <field name="softwareName" type="text_en" multiValued="true" stored="true" indexed="true"/>
     <field name="softwareVersion" type="text_en" multiValued="true" stored="true" indexed="true"/>
-    <field name="southLongitude" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="southLatitude" type="text_en" multiValued="true" stored="true" indexed="true"/>
     <field name="state" type="text_en" multiValued="true" stored="true" indexed="true"/>
     <field name="statlineTabel" type="text_en" multiValued="true" stored="true" indexed="true"/>
     <field name="studyAssayCellType" type="text_en" multiValued="true" stored="true" indexed="true"/>
@@ -682,12 +682,6 @@
     <copyField source="vocabVarUri3" dest="_text_" maxChars="3000"/>
     <copyField source="cbsLinkage" dest="_text_" maxChars="3000"/>
     <copyField source="cbsLinkageDetails" dest="_text_" maxChars="3000"/>
-    <copyField source="elsstVarLabel1" dest="_text_" maxChars="3000"/>
-    <copyField source="elsstVarLabel2" dest="_text_" maxChars="3000"/>
-    <copyField source="elsstVarLabel3" dest="_text_" maxChars="3000"/>
-    <copyField source="elsstVarUri1" dest="_text_" maxChars="3000"/>
-    <copyField source="elsstVarUri2" dest="_text_" maxChars="3000"/>
-    <copyField source="elsstVarUri3" dest="_text_" maxChars="3000"/>
     <copyField source="frequencyOfDataCollection" dest="_text_" maxChars="3000"/>
     <copyField source="frequencyOfUse" dest="_text_" maxChars="3000"/>
     <copyField source="GeldigTot" dest="_text_" maxChars="3000"/>
@@ -711,7 +705,7 @@
     <copyField source="language" dest="_text_" maxChars="3000"/>
     <copyField source="matchedTerm" dest="_text_" maxChars="3000"/>
     <copyField source="NaamInDscCatalogus" dest="_text_" maxChars="3000"/>
-    <copyField source="northLongitude" dest="_text_" maxChars="3000"/>
+    <copyField source="northLatitude" dest="_text_" maxChars="3000"/>
     <copyField source="notesText" dest="_text_" maxChars="3000"/>
     <copyField source="odisseiConceptVariableDefinition" dest="_text_" maxChars="3000"/>
     <copyField source="odisseiConceptVariableGroeppad" dest="_text_" maxChars="3000"/>
@@ -781,7 +775,7 @@
     <copyField source="software" dest="_text_" maxChars="3000"/>
     <copyField source="softwareName" dest="_text_" maxChars="3000"/>
     <copyField source="softwareVersion" dest="_text_" maxChars="3000"/>
-    <copyField source="southLongitude" dest="_text_" maxChars="3000"/>
+    <copyField source="southLatitude" dest="_text_" maxChars="3000"/>
     <copyField source="state" dest="_text_" maxChars="3000"/>
     <copyField source="statlineTabel" dest="_text_" maxChars="3000"/>
     <copyField source="studyAssayCellType" dest="_text_" maxChars="3000"/>
