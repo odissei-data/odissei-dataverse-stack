@@ -9,4 +9,4 @@
 	url = https://github.com/odissei-data/Custom-Metadata-Blocks.git
 [submodule "utils/translations"]
 	path = utils/translations
-	url = git@github.com:odissei-data/TranslationDataverseUI.git
+	url = https://github.com/odissei-data/TranslationDataverseUI.git
