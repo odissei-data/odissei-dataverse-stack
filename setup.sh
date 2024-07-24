@@ -25,7 +25,7 @@ docker compose -f dataverse/docker-compose-dev.yml up -d
 
 
 # Setup traefik container
-#docker compose -f utils/traefik/docker-compose.yml up -d
+docker compose -f utils/traefik/docker-compose.yml up -d
 
 # Function to check if the bootstrap container is still running
 is_running() {
@@ -59,4 +59,6 @@ cd "$PROJECT_DIR" || exit
 poetry install
 poetry run python create_dataverses.py "$ROOT_URL" "$api_token"
 poetry run python import-licenses.py "$ROOT_URL" "$api_token"
-# Starting our traefik configuration.
+
+# Setup dutch translation
+sh utils/language_setup.sh "$DATAVERSE_CONTAINER"
