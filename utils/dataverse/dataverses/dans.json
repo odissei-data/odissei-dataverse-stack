@@ -1,0 +1,12 @@
+{
+  "name": "DANS",
+  "alias": "dans",
+  "dataverseContacts": [
+    {
+      "contactEmail": "portal@odissei.nl"
+    }
+  ],
+  "affiliation": "DANS",
+  "description": "This section of the Portal includes metadata from the social science datasets available in the DANS Data Station Social Sciences and Humanities. More information is available at: https://dans.knaw.nl/en/data-stations/social-sciences-and-humanities/",
+  "dataverseType": "ORGANIZATIONS_INSTITUTIONS"
+}

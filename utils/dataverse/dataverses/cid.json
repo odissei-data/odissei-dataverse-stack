@@ -1,0 +1,12 @@
+{
+  "name": "CID",
+  "alias": "cid",
+  "dataverseContacts": [
+    {
+      "contactEmail": "portal@odissei.nl"
+    }
+  ],
+  "affiliation": "CID",
+  "description": "This section of the Portal includes metadata from CID.",
+  "dataverseType": "ORGANIZATIONS_INSTITUTIONS"
+}

@@ -1,0 +1,8 @@
+{
+  "uri": "http://www.gnu.org/licenses/gpl-3.0",
+  "name": "GPL-3.0",
+  "shortDescription": "GNU General Public License Version 3.0",
+  "iconUrl": "https://www.gnu.org/graphics/gplv3-88x31.png",
+  "active": true,
+  "sortOrder": 12
+}

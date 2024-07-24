@@ -1,0 +1,12 @@
+{
+  "name": "HSN",
+  "alias": "HSN_NL",
+  "dataverseContacts": [
+    {
+      "contactEmail": "portal@odissei.nl"
+    }
+  ],
+  "affiliation": "HSN",
+  "description": "This section of the Portal includes metadata from the Historical Sample of the Netherlands (HSN). More information about HSN is available at https://iisg.amsterdam/en/hsn",
+  "dataverseType": "ORGANIZATIONS_INSTITUTIONS"
+}

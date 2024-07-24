@@ -1,0 +1,12 @@
+{
+  "name": "LISS",
+  "alias": "liss",
+  "dataverseContacts": [
+    {
+      "contactEmail": "portal@odissei.nl"
+    }
+  ],
+  "affiliation": "Centerdata",
+  "description": "This section of the Portal includes metadata from the LISS study from Centerdata. More information about LISS is available at: https://www.lissdata.nl/about-panel",
+  "dataverseType": "ORGANIZATIONS_INSTITUTIONS"
+}

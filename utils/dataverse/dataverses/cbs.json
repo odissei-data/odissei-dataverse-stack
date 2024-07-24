@@ -1,0 +1,12 @@
+{
+  "name": "CBS",
+  "alias": "cbs",
+  "dataverseContacts": [
+    {
+      "contactEmail": "portal@odissei.nl"
+    }
+  ],
+  "affiliation": "CBS",
+  "description": "This section of the Portal includes metadata on data designs of microdata that can be available for researchers through the remote access facilities of CBS.",
+  "dataverseType": "ORGANIZATIONS_INSTITUTIONS"
+}

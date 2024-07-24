@@ -1,0 +1,12 @@
+{
+  "name": "University Medical Center Utrecht",
+  "alias": "UMCU",
+  "dataverseContacts": [
+    {
+      "contactEmail": "portal@odissei.nl"
+    }
+  ],
+  "affiliation": "DataverseNL",
+  "description": "This section of the Portal includes metadata from DataverseNL. More information about DataverseNL is available at: <a href=\"https://dataverse.nl/\">https://dataverse.nl</a>.",
+  "dataverseType": "ORGANIZATIONS_INSTITUTIONS"
+}
