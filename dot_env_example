@@ -1,0 +1,5 @@
+ROOT_URL="https://portal.staging.odissei.nl"
+HOSTNAME="staging.odissei.nl"
+BOOTSTRAP_CONTAINER="dev_bootstrap"
+POSTGRES_CONTAINER="dev_postgres"
+DATAVERSE_CONTAINER="dev_dataverse"

@@ -1,12 +1,15 @@
-!#bin/bash
+#!/bin/bash
 
-# Be sure to invoke this script from the exact directory it's mounted in. Otherwise - expect side effects.
-CURRENT_PATH=$(pwd)
+container_name=$1
 
-docker cp upload-blocks.sh dataverse:/tmp/
-docker cp upload-variable.sh dataverse:/tmp/
-cd ../Custom-Metadata-Blocks/tsv_files
-docker cp . dataverse:/tmp/
-docker exec -it dataverse chmod +x /tmp/upload-variable.sh
-docker exec -it dataverse sh /tmp/upload-variable.sh
-cd $CURRENT_PATH
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+CURRENT_DIR="$(pwd)"
+
+cd "$SCRIPT_DIR" || exit 1
+
+docker cp upload-blocks.sh "$container_name":/opt/payara/
+docker cp . "$container_name":/opt/payara/
+docker exec -it "$container_name" chmod +x /opt/payara/upload-blocks.sh
+docker exec -it "$container_name" sh /opt/payara/upload-blocks.sh
+
+cd "$CURRENT_DIR" || exit 1
