@@ -32,7 +32,7 @@ services:
         - "8089:8080"
       environment:
         - "traefikhost"
-        - "hostname"
+        - "hostname=${HOSTNAME}"
         - "proxyname"
       volumes:
         # So that Traefik can listen to the Docker events
@@ -43,8 +43,11 @@ services:
         - ./rules-infra.toml:/etc/traefik/conf.d/rules.toml
       networks:
         - dataverse_dataverse
+        - traefik
 
 
 networks:
+  traefik:
+    external: true
   dataverse_dataverse:
     external: true
