@@ -42,10 +42,9 @@ services:
           #- ./traefik.toml:/traefik.toml
         - ./rules-infra.toml:/etc/traefik/conf.d/rules.toml
       networks:
-        - traefik
-        - default
+        - dataverse_dataverse
 
 
 networks:
-  traefik:
+  dataverse_dataverse:
     external: true
