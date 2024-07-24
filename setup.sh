@@ -51,14 +51,8 @@ CUSTOM_METADATA_DIR="utils/Custom-Metadata-Blocks/tsv_files/"
 cp utils/metadata/* "$CUSTOM_METADATA_DIR"
 sh $CUSTOM_METADATA_DIR/upload.sh "$DATAVERSE_CONTAINER"
 
-api_token=$(docker exec -i "$POSTGRES_CONTAINER" psql -U dataverse -d dataverse -t -c "SELECT tokenstring FROM apiToken WHERE authenticateduser_id = 1" | tr -d '[:space:]')
-
-PROJECT_DIR="utils/dataverse/"
-cd "$PROJECT_DIR" || exit
-
-poetry install
-poetry run python create_dataverses.py "$ROOT_URL" "$api_token"
-poetry run python import-licenses.py "$ROOT_URL" "$api_token"
+# setup subverses and import licenses
+sh utils/dataverse/run_py_scripts.sh "$POSTGRES_CONTAINER"
 
 # Setup dutch translation
 sh utils/language_setup.sh "$DATAVERSE_CONTAINER"
