@@ -51,8 +51,11 @@ CUSTOM_METADATA_DIR="utils/Custom-Metadata-Blocks/tsv_files/"
 cp utils/metadata/* "$CUSTOM_METADATA_DIR"
 sh $CUSTOM_METADATA_DIR/upload.sh "$DATAVERSE_CONTAINER"
 
-# setup subverses and import licenses
+# Setup subverses and import licenses
 sh utils/dataverse/run_py_scripts.sh "$POSTGRES_CONTAINER"
 
 # Setup dutch translation
 sh utils/language_setup.sh "$DATAVERSE_CONTAINER"
+
+# Import SOLR schema and config
+sh utils/solr/copy_solr.sh "$SOLR_CONTAINER"
