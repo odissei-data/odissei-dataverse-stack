@@ -57,6 +57,9 @@ sh utils/language_setup.sh "$DATAVERSE_CONTAINER"
 # Import SOLR schema and config
 sh utils/solr/copy_solr.sh "$SOLR_CONTAINER"
 
+# Turn of sign up options
+docker exec "$DATAVERSE_CONTAINER" curl -X PUT -d 'false' http://localhost:8080/api/admin/settings/:AllowSignUp
+
 # Copy dataset.xhtml with file and version tab removed to volume.
 cp -f utils/dataverse/mounts/dataset.xhtml dataverse/target/dataverse/dataset.xhtml
 docker restart "$DATAVERSE_CONTAINER"
