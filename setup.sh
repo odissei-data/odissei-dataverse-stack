@@ -2,27 +2,24 @@
 #
 # This script contains a number of setup actions which help prepare the dataverse and Skosmos environments.
 
-# Load environment variables
+# Load environment variables.
 set -a
 source .env
 set +a
 echo "Bootstrap container: $BOOTSTRAP_CONTAINER"
-# Setting up submodules and creating the traefik network.
-git submodule init && git submodule update
+# Initiating the submodule and fetching any changes.
+git submodule init && git submodule update --remote
 
-# Setting up solr; including it in docker network and loading our config
+# Switching out docker compose for the Skosmos submodule.
 cp Skosmos/dockerfiles/config/config-docker-compose.ttl utils/skosmos/config-docker-compose-backup.ttl
 cp Skosmos/dockerfiles/docker-compose.yml utils/skosmos/docker-compose-backup.yml
 
 cp utils/skosmos/docker-compose-skosmos.ttl Skosmos/dockerfiles/config/config-docker-compose.ttl
 cp utils/skosmos/docker-compose.yml Skosmos/dockerfiles/docker-compose.yml
 
+# Upping the Skosmos and Dataverse stacks.
 docker compose -f Skosmos/dockerfiles/docker-compose.yml up -d
-
-# Setting up solr; adding our schema and starting solr. Also adding dataverse to traefik network.
-
 docker compose -f dataverse/docker-compose-dev.yml up -d
-
 
 # Setup traefik container
 docker compose -f utils/traefik/docker-compose.yml up -d
@@ -59,3 +56,7 @@ sh utils/language_setup.sh "$DATAVERSE_CONTAINER"
 
 # Import SOLR schema and config
 sh utils/solr/copy_solr.sh "$SOLR_CONTAINER"
+
+# Copy dataset.xhtml with file and version tab removed to volume.
+cp -f utils/dataverse/mounts/dataset.xhtml dataverse/target/dataverse/dataset.xhtml
+docker restart "$DATAVERSE_CONTAINER"
