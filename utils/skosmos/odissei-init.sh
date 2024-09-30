@@ -14,7 +14,7 @@ AUTHHEADER="YWRtaW46YWRtaW4="
 STW_URL='http://zbw.eu/stw/version/latest/download/stw.ttl.zip'
 UNESCO_URL='http://skos.um.es/unescothes/unescothes.ttl'
 ELSST_URL='https://thesauri.cessda.eu/rest/v1/elsst-3/data?format=text/turtle'
-CBS_URL='https://raw.githubusercontent.com/odissei-data/vocabularies/main/cbs/cbs-variables-thesaurus-20230310.ttl'
+CBS_URL='https://raw.githubusercontent.com/odissei-data/vocabularies/main/cbs/cbs-variables-thesaurus-20230703.ttl.zip'
 TOPIC_CLASSIFICATION_URL='https://vocabularies.cessda.eu/v2/vocabularies/TopicClassification/4.2.2?languageVersion=en-4.2.2_nl-4.2.2'
 GENERAL_DATA_FORMAT_URL='https://vocabularies.cessda.eu/v2/vocabularies/GeneralDataFormat/2.0.3?languageVersion=en-2.0.3_nl-2.0.3'
 ANALYSIS_UNIT_URL='https://vocabularies.cessda.eu/v2/vocabularies/AnalysisUnit/2.1.3?languageVersion=en-2.1.3_nl-2.1.3'
@@ -28,6 +28,9 @@ MODE_OF_COLLECTION_URL='https://vocabularies.cessda.eu/v2/vocabularies/ModeOfCol
 MCAL_RESEARCH_TYPE_QUESTION_URL='https://raw.githubusercontent.com/odissei-data/vocabularies/main/mcal/ResearchQuestionType.ttl'
 MCAL_CONTENT_ANALYSIS_TYPE_URL='https://raw.githubusercontent.com/odissei-data/vocabularies/main/mcal/ContentAnalysisType.ttl'
 MCAL_CONTENT_FEATURES_URL='https://raw.githubusercontent.com/odissei-data/vocabularies/main/mcal/ContentFeatureScheme.ttl'
+
+ZIP_FILE="cbs.ttl.zip"
+TTL_FILE="cbs-variables-thesaurus-20230703.ttl"
 
 # The endpoints where the created triples should be deposited. This is required for
 # Skosmos to connect to.
@@ -46,9 +49,9 @@ DATA_SOURCE_TYPE_GRAPH_ENDPOINT=https://vocabularies.cessda.eu/vocabulary/DataSo
 SUMMARY_STATISTICS_GRAPH_ENDPOINT=https://vocabularies.cessda.eu/vocabulary/SummaryStatistics
 MODE_OF_COLLECTION_GRAPH_ENDPOINT=https://vocabularies.cessda.eu/vocabulary/ModeOfCollection
 
-MCAL_RESEARCH_TYPE_QUESTION_GRAPH_ENDPOINT=https://odissei-data/mcal/researchtypequestion
-MCAL_CONTENT_ANALYSIS_TYPE_GRAPH_ENDPOINT=https://odissei-data/mcal/contenttypeanalysis
-MCAL_CONTENT_FEATURES_GRAPH_ENDPOINT=https://odissei-data/mcal/contentfeatures
+MCAL_RESEARCH_TYPE_QUESTION_GRAPH_ENDPOINT=https://odissei-data.nl/mcal/researchquestiontype
+MCAL_CONTENT_ANALYSIS_TYPE_GRAPH_ENDPOINT=https://odissei-data.nl/mcal/contentanalysistype
+MCAL_CONTENT_FEATURES_GRAPH_ENDPOINT=https://odissei-data.nl/mcal/contentfeatures
 
 # Fair warning; you might see some errors with the rapper parsing. This shouldn't be breaking,
 # but can be verified by checking the output of the curl into the Fuseki instance.
@@ -83,7 +86,8 @@ curl -X POST \
 
 # CBS
 echo "Getting CBS"
-curl -L -o cbs.ttl $CBS_URL
+curl -L -o $ZIP_FILE $CBS_URL
+unzip -p $ZIP_FILE $TTL_FILE > cbs.ttl
 curl -X POST \
  -H "Content-Type: text/turtle" \
  -H "Authorization: Basic $AUTHHEADER" \
@@ -206,9 +210,3 @@ curl -X POST \
  -H "Authorization: Basic $AUTHHEADER" \
  --data-binary @ContentFeatures.ttl \
  $TARGET/skosmos/data?graph=$MCAL_CONTENT_FEATURES_GRAPH_ENDPOINT
-
-
-
-# And a check..
-echo "Checking search index..."
-# curl "${SKOSMOS_TARGET}/rest/v1/search?vocab=stw&query=a*"
