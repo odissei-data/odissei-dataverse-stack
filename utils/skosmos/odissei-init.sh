@@ -27,8 +27,7 @@ MODE_OF_COLLECTION_URL='https://vocabularies.cessda.eu/v2/vocabularies/ModeOfCol
 
 MCAL_RESEARCH_TYPE_QUESTION_URL='https://raw.githubusercontent.com/odissei-data/vocabularies/main/mcal/ResearchQuestionType.ttl'
 MCAL_CONTENT_ANALYSIS_TYPE_URL='https://raw.githubusercontent.com/odissei-data/vocabularies/main/mcal/ContentAnalysisType.ttl'
-MCAL_CONTENT_FEATURES_URL='https://raw.githubusercontent.com/odissei-data/vocabularies/main/mcal/ContentFeatureScheme.ttl'
-
+MCAL_CONTENT_FEATURES_URL='https://raw.githubusercontent.com/odissei-data/vocabularies/refs/heads/main/mcal/ContentFeature.ttl'
 ZIP_FILE="cbs.ttl.zip"
 TTL_FILE="cbs-variables-thesaurus-20230703.ttl"
 
