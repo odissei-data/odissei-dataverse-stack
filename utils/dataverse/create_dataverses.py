@@ -7,6 +7,8 @@ import requests
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATAVERSE_DIR = os.path.join(SCRIPT_DIR, "dataverses")
 DATAVERSE_NL_SUBDIR = os.path.join(DATAVERSE_DIR, "dataversenl_subverses")
+ROOT_DIR = os.path.join(DATAVERSE_DIR, "root")
+ROOT_ID = "root"
 
 
 def create_dataverse(parent, json_path, dataverse_url, api_token):
@@ -40,38 +42,60 @@ def create_dataverse(parent, json_path, dataverse_url, api_token):
         print("Response content:", response.text)
 
 
-def update_dataverse(dataverse_id, json_path, dataverse_url, api_token):
-    # Read the updated dataverse data from the JSON file
-
-    full_json_path = os.path.join(DATAVERSE_DIR, json_path)
-
-    if not os.path.exists(full_json_path):
-        print(f"Error: JSON file not found at {full_json_path}")
-        return
-
-    with open(full_json_path, "r") as json_file:
-        updated_data = json.load(json_file)
-
-    # Convert the dictionary to JSON format
-    json_data = json.dumps(updated_data)
-
-    # Set the API endpoint for updating the dataverse
-    url = f"{dataverse_url}/api/dataverses/{dataverse_id}"
+def set_search_facets(dataverse_id, facets_file_path, dataverse_url,
+                      api_token):
+    # Set the API endpoint for setting search facets
+    url = f"{dataverse_url}/api/dataverses/{dataverse_id}/facets"
 
     # Set headers for the request, including the API token
     headers = {
         "X-Dataverse-key": api_token,
-        "Content-Type": "application/json"
     }
 
-    # Make the HTTP request to update the dataverse
-    response = requests.put(url, headers=headers, data=json_data)
+    full_json_path = os.path.join(DATAVERSE_DIR, facets_file_path)
+    if not os.path.exists(full_json_path):
+        print(f"Error: JSON file not found at {full_json_path}")
+        return
+
+    with open(facets_file_path, 'rb') as facets_file:
+        response = requests.post(url, headers=headers, data=facets_file)
 
     # Check the response status
     if response.status_code == 200:
-        print("Dataverse updated successfully.")
+        print("Search facets updated successfully.")
     else:
-        print(f"Failed to update dataverse: {response.status_code} - {response.text}")
+        print(
+            f"Failed to update search facets:"
+            f" {response.status_code} - {response.text}")
+
+
+def define_metadata_blocks(dataverse_id, metadata_file_path, dataverse_url,
+                           api_token):
+    # Set the API endpoint for defining metadata blocks
+    url = f"{dataverse_url}/api/dataverses/{dataverse_id}/metadatablocks"
+
+    # Set headers for the request, including the API token
+    headers = {
+        "X-Dataverse-key": api_token,
+        "Content-type": "application/json"
+    }
+
+    full_json_path = os.path.join(DATAVERSE_DIR, metadata_file_path)
+    if not os.path.exists(full_json_path):
+        print(f"Error: JSON file not found at {full_json_path}")
+        return
+
+    with open(full_json_path, 'r') as metadata_file:
+        metadata_json = metadata_file.read()
+        response = requests.post(url, headers=headers, data=metadata_json)
+
+    # Check the response status
+    if response.status_code == 200:
+        print("Metadata blocks defined successfully.")
+    else:
+        print(
+            f"Failed to define metadata blocks:"
+            f" {response.status_code} - {response.text}")
 
 
 def create_odissei_dataverses(dataverse_url, api_token):
@@ -114,7 +138,8 @@ def main():
     api_token = sys.argv[2]
 
     create_odissei_dataverses(root_url, api_token)
-    update_dataverse("0", "odissei-portal.json", root_url, api_token)
+    define_metadata_blocks(ROOT_ID, "metadatablocks.json", root_url, api_token)
+    set_search_facets(ROOT_ID, "facets.json", root_url, api_token)
 
 
 if __name__ == "__main__":
