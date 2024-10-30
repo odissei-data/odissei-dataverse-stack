@@ -42,7 +42,14 @@ def create_dataverse(parent, json_path, dataverse_url, api_token):
 
 def update_dataverse(dataverse_id, json_path, dataverse_url, api_token):
     # Read the updated dataverse data from the JSON file
-    with open(json_path, "r") as json_file:
+
+    full_json_path = os.path.join(DATAVERSE_DIR, json_path)
+
+    if not os.path.exists(full_json_path):
+        print(f"Error: JSON file not found at {full_json_path}")
+        return
+
+    with open(full_json_path, "r") as json_file:
         updated_data = json.load(json_file)
 
     # Convert the dictionary to JSON format
