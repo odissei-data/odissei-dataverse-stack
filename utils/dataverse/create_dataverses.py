@@ -57,7 +57,7 @@ def set_search_facets(dataverse_id, facets_file_path, dataverse_url,
         print(f"Error: JSON file not found at {full_json_path}")
         return
 
-    with open(facets_file_path, 'rb') as facets_file:
+    with open(full_json_path, 'rb') as facets_file:
         response = requests.post(url, headers=headers, data=facets_file)
 
     # Check the response status
