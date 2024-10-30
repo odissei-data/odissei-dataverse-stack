@@ -8,5 +8,22 @@
   ],
   "affiliation": "DANS",
   "description": "This section of the Portal includes metadata from the social science datasets available in the DANS Data Station Social Sciences and Humanities. More information is available at: https://dans.knaw.nl/en/data-stations/social-sciences-and-humanities/",
-  "dataverseType": "ORGANIZATIONS_INSTITUTIONS"
+  "dataverseType": "ORGANIZATIONS_INSTITUTIONS",
+  "metadataBlocks": {
+    "metadataBlockNames": [
+      "citation",
+      "geospatial",
+      "socialscience",
+      "enrichments",
+      "provenance",
+      "questionInformation",
+      "variableInformation",
+      "dansMetadata"
+    ],
+    "facetIds": [
+      "authorName",
+      "topicClassValue",
+      "keywordValue"
+    ]
+  }
 }

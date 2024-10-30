@@ -8,5 +8,24 @@
   ],
   "affiliation": "CBS",
   "description": "This section of the Portal includes metadata on data designs of microdata that can be available for researchers through the remote access facilities of CBS.",
-  "dataverseType": "ORGANIZATIONS_INSTITUTIONS"
+  "dataverseType": "ORGANIZATIONS_INSTITUTIONS",
+  "metadataBlocks": {
+    "metadataBlockNames": [
+      "citation",
+      "geospatial",
+      "socialscience",
+      "enrichments",
+      "provenance",
+      "questionInformation",
+      "variableInformation",
+      "CBSMetadata"
+    ],
+    "facetIds": [
+      "authorName",
+      "topicClassValue",
+      "keywordValue",
+      "odisseiVariableName",
+      "frequencyOfUse"
+    ]
+  }
 }
