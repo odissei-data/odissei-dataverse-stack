@@ -52,7 +52,7 @@ def set_search_facets(dataverse_id, facets_file_path, dataverse_url,
         "X-Dataverse-key": api_token,
     }
 
-    full_json_path = os.path.join(DATAVERSE_DIR, facets_file_path)
+    full_json_path = os.path.join(ROOT_DIR, facets_file_path)
     if not os.path.exists(full_json_path):
         print(f"Error: JSON file not found at {full_json_path}")
         return
@@ -80,7 +80,7 @@ def define_metadata_blocks(dataverse_id, metadata_file_path, dataverse_url,
         "Content-type": "application/json"
     }
 
-    full_json_path = os.path.join(DATAVERSE_DIR, metadata_file_path)
+    full_json_path = os.path.join(ROOT_DIR, metadata_file_path)
     if not os.path.exists(full_json_path):
         print(f"Error: JSON file not found at {full_json_path}")
         return
