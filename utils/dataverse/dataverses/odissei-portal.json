@@ -1,0 +1,27 @@
+{
+  "name": "Scientific Research",
+  "alias": "odissei-portal",
+  "dataverseContacts": [
+    {
+      "contactEmail": "portal@odissei.nl"
+    }
+  ],
+  "description": "Welcome to the prototype of the ODISSEI portal.\n<br>The ODISSEI Portal combines metadata from a wide variety of research data repositories into a single interface, allowing for advanced semantic queries to support findability, and facilitate data access.\n<br>The portal is under active development and features and content will be improved throughout the ODISSEI Roadmap project.\n<br>\n<br>This version features a link to the Data Access Broker (DAB) through which open datasets can be downloaded directly. For restricted access datasets, the DAB links to the provider’s page for more information. The link to the DAB is listed under Terms > Data Access Place for each dataset.",
+  "dataverseType": "ORGANIZATIONS_INSTITUTIONS",
+  "metadataBlocks": {
+    "metadataBlockNames": [
+      "citation",
+      "geospatial",
+      "socialscience",
+      "enrichments",
+      "provenance",
+      "questionInformation",
+      "variableInformation"
+    ],
+    "facetIds": [
+      "distributorName",
+      "topicClassValue",
+      "keywordValue"
+    ]
+  }
+}
