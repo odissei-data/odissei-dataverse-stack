@@ -85,7 +85,7 @@
 # Skosmos vocabularies
 
 :unesco a skosmos:Vocabulary, void:Dataset ;
-    dc:title "UNESCO Thesaurus"@en ;
+    dc:title "UNESCO Thesaurus" ;
     skosmos:shortName "UNESCO";
     dc:subject :cat_general ;
     void:uriSpace "http://skos.um.es/unescothes/";
@@ -98,7 +98,7 @@
     skosmos:sparqlGraph <http://skos.um.es/unescothes/> .
 
 :stw a skosmos:Vocabulary, void:Dataset ;
-    dc:title "STW Thesaurus for Economics"@en ;
+    dc:title "STW Thesaurus for Economics" ;
     skosmos:shortName "STW";
     dc:subject :cat_general ;
     void:uriSpace "http://zbw.eu/stw/";
@@ -108,7 +108,7 @@
     skosmos:sparqlGraph <http://zbw.eu/stw/> .
 
 :cbs a skosmos:Vocabulary, void:Dataset ;
-    dc:title "CBS Variable Thesaurus"@en ;
+    dc:title "CBS Variable Thesaurus" ;
     skosmos:shortName "CBS";
     dc:subject :cat_general ;
     void:uriSpace "http://cbs.nl/variables/";
@@ -119,7 +119,7 @@
     skosmos:sparqlGraph <http://cbs.nl/variables/> .
 
 :elsst a skosmos:Vocabulary, void:Dataset ;
-    dc:title "ELSST Thesaurus"@en ;
+    dc:title "ELSST Thesaurus" ;
     skosmos:shortname "ELSST";
     dc:subject :cat_general ;
     void:uriSpace "https://elsst.cessda.eu/id/";
@@ -130,7 +130,7 @@
     skosmos:sparqlGraph <https://thesauri.cessda.eu/elsst/> .
 
 :topicclassification a skosmos:Vocabulary, void:Dataset ;
-    dc:title "CESSDA Topic Classification"@en ;
+    dc:title "CESSDA Topic Classification" ;
     skosmos:shortname "CESSDA Topic Classification";
     dc:subject :cat_general ;
     void:uriSpace "https://vocabularies.cessda.eu/";
@@ -141,7 +141,7 @@
     skosmos:sparqlGraph <https://vocabularies.cessda.eu/vocabulary/TopicClassification> .
 
 :dataformat a skosmos:Vocabulary, void:Dataset ;
-    dc:title "CESSDA General Data Format"@en ;
+    dc:title "CESSDA General Data Format" ;
     skosmos:shortname "CESSDA Data format";
     dc:subject :cat_general ;
     void:uriSpace "https://vocabularies.cessda.eu/";
@@ -152,7 +152,7 @@
     skosmos:sparqlGraph <https://vocabularies.cessda.eu/vocabulary/GeneralDataFormat> .
 
 :analysisunit a skosmos:Vocabulary, void:Dataset ;
-    dc:title "CESSDA Analysis Unit"@en ;
+    dc:title "CESSDA Analysis Unit" ;
     skosmos:shortname "CESSDA Analysis Unit" ;
     dc:subject :cat_general ;
     void:uriSpace "https://vocabularies.cessda.eu/vocabulary/AnalysisUnit/";
@@ -163,7 +163,7 @@
     skosmos:sparqlGraph <https://vocabularies.cessda.eu/vocabulary/AnalysisUnit> .
 
 :timemethod a skosmos:Vocabulary, void:Dataset ;
-    dc:title "CESSDA Time Method"@en ;
+    dc:title "CESSDA Time Method" ;
     skosmos:shortname "CESSDA Time Method";
     dc:subject :cat_general ;
     void:uriSpace "https://vocabularies.cessda.eu/vocabulary/TimeMethod/";
@@ -174,7 +174,7 @@
     skosmos:sparqlGraph <https://vocabularies.cessda.eu/vocabulary/TimeMethod> .
 
 :samplingprocedure a skosmos:Vocabulary, void:Dataset ;
-    dc:title "CESSDA Sampling Procedure"@en ;
+    dc:title "CESSDA Sampling Procedure" ;
     skosmos:shortname "CESSDA Sampling procedure";
     dc:subject :cat_general ;
     void:uriSpace "https://vocabularies.cessda.eu/vocabulary/SamplingProcedure/";
@@ -185,7 +185,7 @@
     skosmos:sparqlGraph <https://vocabularies.cessda.eu/vocabulary/SamplingProcedure> .
 
 :typeofinstrument a skosmos:Vocabulary, void:Dataset ;
-    dc:title "CESSDA Type of Instrument Unit"@en ;
+    dc:title "CESSDA Type of Instrument Unit" ;
     skosmos:shortname "CESSDA Type of instrument";
     dc:subject :cat_general ;
     void:uriSpace "https://vocabularies.cessda.eu/vocabulary/TypeOfInstrument/";
@@ -196,7 +196,7 @@
     skosmos:sparqlGraph <https://vocabularies.cessda.eu/vocabulary/TypeOfInstrument> .
 
 :datasourcetype a skosmos:Vocabulary, void:Dataset ;
-    dc:title "CESSDA Data Source Type"@en ;
+    dc:title "CESSDA Data Source Type" ;
     skosmos:shortname "CESSDA Data Source Type";
     dc:subject :cat_general ;
     void:uriSpace "https://vocabularies.cessda.eu/vocabulary/DataSourceType/";
@@ -207,7 +207,7 @@
     skosmos:sparqlGraph <https://vocabularies.cessda.eu/vocabulary/DataSourceType> .
 
 :summarystatistictype a skosmos:Vocabulary, void:Dataset ;
-    dc:title "CESSDA Summary Statistics"@en ;
+    dc:title "CESSDA Summary Statistics" ;
     skosmos:shortname "CESSDA Summary Statistics";
     dc:subject :cat_general ;
     void:uriSpace "https://vocabularies.cessda.eu/vocabulary/SummaryStatisticType/";
@@ -218,7 +218,7 @@
     skosmos:sparqlGraph <https://vocabularies.cessda.eu/vocabulary/SummaryStatistics> .
 
 :modeofcollection a skosmos:Vocabulary, void:Dataset ;
-    dc:title "CESSDA Mode of Collection"@en ;
+    dc:title "CESSDA Mode of Collection" ;
     skosmos:shortname "CESSDA Mode Of Collection";
     dc:subject :cat_general ;
     void:uriSpace "https://vocabularies.cessda.eu/vocabulary/ModeOfCollection/";
