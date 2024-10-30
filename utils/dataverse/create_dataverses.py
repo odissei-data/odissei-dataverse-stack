@@ -114,7 +114,7 @@ def main():
     api_token = sys.argv[2]
 
     create_odissei_dataverses(root_url, api_token)
-    update_dataverse("root", "odissei-portal.json", root_url, api_token)
+    update_dataverse("0", "odissei-portal.json", root_url, api_token)
 
 
 if __name__ == "__main__":
