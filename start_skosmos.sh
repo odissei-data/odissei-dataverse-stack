@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-docker compose -f Skosmos/dockerfiles/docker-compose.yml up -d
+docker compose -f Skosmos/docker-compose.yml up -d
