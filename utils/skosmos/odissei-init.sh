@@ -40,7 +40,7 @@ ELSST_GRAPH_ENDPOINT=https://thesauri.cessda.eu/elsst/
 CBS_GRAPH_ENDPOINT=http://cbs.nl/variables/
 TOPIC_CLASSIFICATION_GRAPH_ENDPOINT=https://vocabularies.cessda.eu/vocabulary/TopicClassification
 GENERAL_DATA_FORMAT_GRAPH_ENDPOINT=https://vocabularies.cessda.eu/vocabulary/GeneralDataFormat
-ANALYSIS_UNIT_GRAPH_ENDPOINT=https://vocabularies.cessda.eu/vocabulary/GeneralDataFormat
+ANALYSIS_UNIT_GRAPH_ENDPOINT=https://vocabularies.cessda.eu/vocabulary/AnalysisUnit
 TIME_METHOD_GRAPH_ENDPOINT=https://vocabularies.cessda.eu/vocabulary/TimeMethod
 SAMPLING_PROCEDURE_GRAPH_ENDPOINT=https://vocabularies.cessda.eu/vocabulary/SamplingProcedure
 TYPE_OF_INSTRUMENT_GRAPH_ENDPOINT=https://vocabularies.cessda.eu/vocabulary/TypeOfInstrument
@@ -95,7 +95,7 @@ curl -X POST \
 
 # Topic classification
 echo "Getting topic classification"
-curl $ANALYSIS_UNIT_URL -H 'accept: application/xml' -o TopicClassification.rdf
+curl $TOPIC_CLASSIFICATION_URL -H 'accept: application/xml' -o TopicClassification.rdf
 rapper TopicClassification.rdf --output turtle > TopicClassification.ttl
 curl -X POST \
  -H "Content-Type: text/turtle" \
