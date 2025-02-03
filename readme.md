@@ -15,33 +15,24 @@ At the present date, a number of manual steps are (unfortunately) still required
 1. Install the `raptor2-utils` library on your machine. You need this for the conversion of rdf to ttl for Skosmos.
 2. Install docker (obviously)
 3. Ensure ports are open where they need to be.
-4. Run the setup.sh script. This copies all the files to the corresponding locations and gets you ready to roll.
+4. `cp dot_env_example .env` - make changes to the .env if necessary.
+5. Run the setup.sh script.
 
 Now get to manual steps.
 
-## Manual steps
-
-Below is a list of manual steps. Manual steps aren't great; the reason why they're here is because automation is tricky with quickly moving targets, and/or something upstream is busted which was found through experimentation.
-
-Sometimes keeping a config locally can work; sometimes manual fixes are the way to go.
-
-### (17-08-2023) Change dataverse docker file.
-
-1. Copy `utils/dataverse/mount` to the root folder of the dataverse directory
-2. Add the following lines to the dataverse container under dataverse volumes:
-
-```
-      # Specific ODISSEI mounts
-      - ./mounts/accessFilesFragment.xhtml:/opt/payara/deployments/dataverse/accessFilesFragment.xhtml
-      - ./mounts/dataset.xhtml:/opt/payara/deployments/dataverse/dataset.xhtml
-      - ./mounts/dataverse_footer.xhtml:/opt/payara/deployments/dataverse/dataverse_footer.xhtml
-      - ./mounts/bundle.Properties:/opt/payara/deployments/dataverse/WEB-INF/classes/propertyFiles/Bundle.properties
-      - ./mounts/search-include-fragment.xhtml:/opt/payara/deployments/dataverse/search-include-fragment.xhtml
-
-```
-3. Add all containers to traefik network
-4. Declare traefik network at the bottom; this network is NOT bridge.
-5. Update `.env` to use tag for dataverse to `alpha` version (otherwise it'll be unstable)
-6. Set the reboot parameter to `always` for all containers.
-7. Start containers normally
+## Setup script
+The setup script does the following things for you:
+1. Sets the variables in the .env file as environmental variables.
+2. Initiates and update the submodules.
+3. Copies docker-compose and config for Skosmos to the Skosmos submodule.
+4. Copies the docker-compose and .env to the Dataverse submodule.
+5. Creates the traefik network the containers will be using.
+6. Ups both the Skosmos, Dataverse and Traefik containers.
+7. Waits for Dataverse to be finished setting up.
+8. Runs a script that loads in the custom metadata blocks.
+9. Runs a script that imports the licenses and sets up the subverses.
+10. Runs a script that sets up the Dutch translation.
+11. Runs a script that copies and sets up the SOLR schema and config.
+12. Turns off the sign up option.
+13. Sets the changed version of the dataset page and restart the Dataverse container.
 
