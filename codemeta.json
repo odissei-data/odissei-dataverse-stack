@@ -1,34 +1,70 @@
 {
-    "@context": "https://github.com/odissei-data/odissei-devstack",
-    "@type": "SoftwareSourceCode",
-    "name": "Odissei",
-
-    "author": {
-        "@id": "https://orcid.org/0009-0007-6621-9696",
-        "@type": "Person",
-        "email": "t.erven@dans.nl",
-        "givenName": "Thomas",
-        "familyName": "van Erven"
+    "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+    "type": "SoftwareSourceCode",
+    "applicationCategory": "Software portal",
+    "author": [
+        {
+            "id": "https://orcid.org/0009-0002-8007-5119",
+            "type": "Person",
+            "affiliation": {
+                "type": "Organization",
+                "name": "DANS"
+            },
+            "givenName": "Fjodor"
+        },
+        {
+            "id": "https://orcid.org/0000-0001-9447-9830",
+            "type": "Person",
+            "givenName": "Slava"
+        },
+        {
+            "id": "https://orcid.org/0009-0007-6621-9696",
+            "type": "Person",
+            "givenName": "Thomas"
+        }
+    ],
+    "codeRepository": "https://github.com/odissei-data/odissei-devstack",
+    "contributor": [
+        {
+            "id": "https://orcid.org/0000-0002-0079-2533",
+            "type": "Person",
+            "affiliation": {
+                "type": "Organization",
+                "name": "VU Amsterdam"
+            },
+            "email": "a.valdestilhas@vu.nl",
+            "familyName": "Valdestilhas",
+            "givenName": "Andre"
+        },
+        {
+            "type": "schema:Role",
+            "contributor": "https://orcid.org/0000-0002-0079-2533",
+            "schema:roleName": "Researcher",
+            "schema:startDate": "2025-10-06"
+        }
+    ],
+    "dateCreated": "2023-07-21",
+    "description": "Odissei portal",
+    "funder": {
+        "type": "Organization",
+        "name": "SSHOC-NL"
     },
-    "author": {
-        "@id": "https://orcid.org/0009-0002-8007-5119",
-        "@type": "Person",
-        "email": "fjodor.van.rijsselberg@dans.knaw.nl",
-        "givenName": "Fjdor",
-        "familyName": "van Rijsselberg"
+    "identifier": "https://portal.odissei.nl/",
+    "keywords": "Odissei",
+    "license": "https://spdx.org/licenses/GPL-3.0",
+    "name": "Andre Valdestilhas",
+    "programmingLanguage": [
+        "Python",
+        "shell"
+    ],
+    "softwareRequirements": "Python 3",
+    "version": "1.0",
+    "contIntegration": "https://github.com/odissei-data/odissei-devstack",
+    "codemeta:continuousIntegration": {
+        "id": "https://github.com/odissei-data/odissei-devstack"
     },
-    "author": {
-        "@id": "https://orcid.org/0000-0001-9447-9830",
-        "@type": "Person",
-        "email": "vyacheslav.tykhonov@dans.knaw.nl",
-        "givenName": "Vyacheslav",
-        "familyName": "Tykhonov"
-    },
-    "maintainer": {
-        "@id": "https://orcid.org/0000-0002-0079-2533",
-        "@type": "Person",
-        "email": "a.valdestilhas@vu.nl",
-        "givenName": "Andre",
-        "familyName": "Valdestilhas"
-    }
+    "developmentStatus": "active",
+    "funding": "SSHOC-NL",
+    "issueTracker": "https://github.com/odissei-data/odissei-devstack/issues",
+    "referencePublication": "https://doi.org/10.5281/zenodo.4302096"
 }
