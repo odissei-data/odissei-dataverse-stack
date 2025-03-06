@@ -1,0 +1,20 @@
+{
+    "@context": "https://github.com/odissei-data/odissei-devstack",
+    "@type": "SoftwareSourceCode",
+    "name": "Odissei",
+
+    "author": {
+        "@id": "https://orcid.org/0009-0007-6621-9696",
+        "@type": "Person",
+        "email": "t.erven@dans.nl",
+        "givenName": "Thomas",
+        "familyName": "van Erven"
+    },
+    "maintainer": {
+        "@id": "https://orcid.org/0000-0002-0079-2533",
+        "@type": "Person",
+        "email": "a.valdestilhas@vu.nl",
+        "givenName": "Andre",
+        "familyName": "Valdestilhas"
+    }
+}
