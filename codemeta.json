@@ -10,6 +10,20 @@
         "givenName": "Thomas",
         "familyName": "van Erven"
     },
+    "author": {
+        "@id": "https://orcid.org/0009-0002-8007-5119",
+        "@type": "Person",
+        "email": "fjodor.van.rijsselberg@dans.knaw.nl",
+        "givenName": "Fjdor",
+        "familyName": "van Rijsselberg"
+    },
+    "author": {
+        "@id": "https://orcid.org/0000-0001-9447-9830",
+        "@type": "Person",
+        "email": "vyacheslav.tykhonov@dans.knaw.nl",
+        "givenName": "Vyacheslav",
+        "familyName": "Tykhonov"
+    },
     "maintainer": {
         "@id": "https://orcid.org/0000-0002-0079-2533",
         "@type": "Person",
