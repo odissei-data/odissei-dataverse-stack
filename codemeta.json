@@ -51,7 +51,7 @@
     },
     "identifier": "https://portal.odissei.nl/",
     "keywords": "Odissei",
-    "license": "https://spdx.org/licenses/GPL-3.0",
+    "license": "Apache-2.0 license",
     "name": "Odissei portal",
     "programmingLanguage": [
         "Python",
