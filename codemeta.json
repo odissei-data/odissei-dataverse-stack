@@ -52,7 +52,7 @@
     "identifier": "https://portal.odissei.nl/",
     "keywords": "Odissei",
     "license": "https://spdx.org/licenses/GPL-3.0",
-    "name": "Andre Valdestilhas",
+    "name": "Odissei portal",
     "programmingLanguage": [
         "Python",
         "shell"
