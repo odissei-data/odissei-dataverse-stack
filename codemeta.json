@@ -87,15 +87,6 @@
             },
             {
                 "@type": "Grant",
-                "name": "Building a FAIR Expertise Hub for the social sciences",
-                "funder": {
-                    "@type": "Organization",
-                    "name": "PDI-SSH",
-                    "url": "https://pdi-ssh.nl/nl/2021/11/gehonoreerde-projecten-2021-call/"
-                }
-            },
-            {
-                "@type": "Grant",
                 "name": "Social Science and Humanities Open Cloud for the Netherlands (SSHOC-NL, NWO Grant 184.036.020)",
                 "funder": {
                     "@type": "Organization",
