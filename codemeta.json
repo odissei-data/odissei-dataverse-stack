@@ -23,6 +23,17 @@
         ],
     "author": [
         {
+            "id": "https://orcid.org/0009-0002-8007-5119",
+            "type": "Person",
+            "affiliation": {
+                "@type": "Organization",
+                "@id": "https://ror.org/008pnp284",
+                "name": "DANS"
+            },
+            "familyName": "van Rijsselberg",
+            "givenName": "Fjodor"
+        },
+        {
             "@id": "https://orcid.org/0009-0007-6621-9696",
             "@type": "Person",
             "affiliation": {
@@ -36,6 +47,18 @@
     ],
     "codeRepository": "https://github.com/odissei-data/odissei-devstack",
     "contributor": [
+        {
+            "@id": "https://orcid.org/0000-0001-9447-9830",
+            "@type": "Person",
+            "affiliation": {  
+                "@type": "Organization",
+                "@id": "https://ror.org/008pnp284",
+                "name": "DANS"
+            },
+            "email": "vyacheslav.tykhonov@dans.knaw.nl",
+            "familyName": "Tykhonov",
+            "givenName": "Slava"
+        },
         {
             "@id": "https://orcid.org/0000-0002-0079-2533",
             "@type": "Person",
