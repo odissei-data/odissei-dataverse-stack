@@ -122,11 +122,7 @@
           "url": "https://github.com/odissei-data/odissei-devstack"
         }
     ],
-    "version": "1.0.1",
-    "contIntegration": "https://github.com/odissei-data/odissei-devstack",
-    "codemeta:continuousIntegration": {
-        "id": "https://github.com/odissei-data/odissei-devstack"
-    },
+    "version": "3.1.2",
     "developmentStatus": [ "https://www.repostatus.org/#active", "https://w3id.org/research-technology-readiness-levels#Level8Complete" ],
     "issueTracker": "https://github.com/odissei-data/odissei-devstack/issues",
     "referencePublication": {
