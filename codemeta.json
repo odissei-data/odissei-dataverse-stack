@@ -104,7 +104,7 @@
     "readme": "https://github.com/odissei-data/odissei-devstack/blob/main/README.md",
     "buildInstructions": "https://github.com/odissei-data/odissei-devstack/blob/main/README.md",
     "license": "http://www.apache.org/licenses/LICENSE-2.0",
-    "programmingLanguage": "TypeScript",
+    "programmingLanguage": "Python",
     "softwareHelp": [
         {
           "@id": "https://github.com/odissei-data/odissei-devstack",
@@ -113,11 +113,11 @@
           "url": "https://portal.odissei.nl/"
         }
     ],
-    "version": "3.1.2",
+    "version": "1.0.0",
     "developmentStatus": [ "https://www.repostatus.org/#active", "https://w3id.org/research-technology-readiness-levels#Level8Complete" ],
     "issueTracker": "https://github.com/odissei-data/odissei-devstack/issues",
     "referencePublication": {
         "@type": "ScholarlyArticle",
-        "id": "https://kg.odissei.nl/odissei/-/stories/ODISSEI-Knowledge-Graph-the-story"
+        "id": "https://doi.org/10.5281/zenodo.4302096"
     }
 }
