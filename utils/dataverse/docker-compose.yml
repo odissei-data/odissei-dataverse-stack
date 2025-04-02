@@ -120,7 +120,6 @@ services:
       - ./docker-dev-volumes/solr/data:/var/solr
       - ./docker-dev-volumes/solr/conf:/template
 
-
 networks:
   dataverse:
     driver: bridge

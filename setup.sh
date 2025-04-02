@@ -58,6 +58,9 @@ sh utils/dataverse/run_py_scripts.sh "$POSTGRES_CONTAINER"
 # Setup dutch translation
 sh utils/language_setup.sh "$DATAVERSE_CONTAINER"
 
+# Copy adjusted robots.txt
+sh utils/dataverse/fix_robots_txt.sh "$DATAVERSE_CONTAINER"
+
 # Import SOLR schema and config
 sh utils/solr/copy_solr.sh "$SOLR_CONTAINER"
 
