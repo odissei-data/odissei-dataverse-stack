@@ -12,11 +12,12 @@ At the present date, a number of manual steps are (unfortunately) still required
 
 ## Setup
 
-1. Install the `raptor2-utils` library on your machine. You need this for the conversion of rdf to ttl for Skosmos.
+1. Install the `raptor2-utils` library on your machine. You need this for the conversion of rdf to ttl for Skosmos. Make sure you have Python 3.10 or higher and also Poetry installed for the Dataverse setup. 
 2. Install docker (obviously)
 3. Ensure ports are open where they need to be.
-4. `cp dot_env_example .env` - make changes to the .env if necessary.
-5. Run the setup.sh script.
+4. `cp dot_env_example .env` - make changes to the .env if necessary. 
+   For instance, when running on a local machine make sure you have `ROOT_URL="http://localhost:8080"`. 
+5. Run the setup.sh script: `./setup.sh`.
 
 Now get to manual steps.
 

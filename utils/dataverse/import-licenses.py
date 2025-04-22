@@ -29,16 +29,22 @@ def main():
     if len(sys.argv) != 3:
         print("Usage: python script.py <root_url> <api_token>")
         sys.exit(1)
-
+    
+    print("Import licenses...")
+    
     root_url = sys.argv[1]
     api_token = sys.argv[2]
 
+    print(f"Using root_url: {root_url}")
+    print(f"Using api_token: {api_token}")
+    
     license_dirs = ["CBS_Licenses", "LISS_Licenses", "DANS_Licenses",
                     "Base_Licenses"]
 
     for directory_name in license_dirs:
         handle_licenses(root_url, api_token, "Licenses/" + directory_name)
-
+    
+    print("Import licenses done.")
 
 if __name__ == "__main__":
     main()
