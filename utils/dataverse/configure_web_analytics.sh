@@ -23,7 +23,7 @@ TMP_DIR=$(mktemp -d)
 echo "Temporary directory: $TMP_DIR"
 
 
-# use a variables for the JS html insertion code with newlines.  
+# use a variable for the JS html insertion code with newlines.  
 # note that double quotes needed to be escaped here.
 CODE="<script type=\"text/javascript\" id=\"Kiwip\"><!--/*--><![CDATA[/*><!--*/
 var _paq = _paq || [];

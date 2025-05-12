@@ -70,7 +70,7 @@ sh utils/dataverse/fix_robots_txt.sh "$DATAVERSE_CONTAINER"
 echo "--- Adjusted robots.txt copied!"
 
 # Configure web analytics
-echo "--- Copying adjusted robots.txt..."
+echo "--- Configuring web analytics..."
 sh utils/dataverse/configure_web_analytics.sh "$DATAVERSE_CONTAINER" "$ROOT_URL" "$DATAVERSE_WEB_ANALYTICS_ID"
 echo "--- Web analytics configured!"
 
