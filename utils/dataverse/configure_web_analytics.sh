@@ -2,16 +2,15 @@
 # This script first constructs and copies the html file for the web analytics
 # then it sets the web analytics settings in the dataverse container.
 # The script takes three arguments:
-# Example on dev:  ./configure_web_analytics.sh "dev_dataverse" "http://localhost:8080" "7"
+# Example on dev:  ./configure_web_analytics.sh "dev_dataverse" "7"
 # Note that the web analytics (site)id should be different for each server; 7 is a test id
 
-if [ $# -ne 3 ]; then
-  echo "Usage: $0 <dataverse_container_name> <root_url> <id>"
+if [ $# -ne 2 ]; then
+  echo "Usage: $0 <dataverse_container_name> <id>"
   exit 1
 fi
 DATAVERSE_CONTAINER=$1
-ROOT_URL=$2
-WEB_ANALYTICS_ID=$3
+WEB_ANALYTICS_ID=$2
 
 # the following is the same for all servers right now, 
 # but that might change one day
@@ -21,7 +20,6 @@ WEB_ANALYTICS_FILENAME="danstats"
 # create a temp dir
 TMP_DIR=$(mktemp -d)
 echo "Temporary directory: $TMP_DIR"
-
 
 # use a variable for the JS html insertion code with newlines.  
 # note that double quotes needed to be escaped here.
@@ -38,16 +36,8 @@ _paq.push(['enableLinkTracking']);
 # so to undo that escaping, replace all \" with " in the code
 echo "$CODE" | sed 's/\\"/"/g' > "$TMP_DIR"/web-analytics.html
 
-
-
-# note: should use a tmp directory for this,
-# but for now, just use the current directory
-
-#echo "$code" > web-analytics.html
-
 # the html fragment is read by the application and inserted into the rendered page, 
 # so the file does not need to be available via http(s)
-
 
 # create directory in the dataverse container
 docker exec -it "$DATAVERSE_CONTAINER" mkdir -p /dv/branding
@@ -61,7 +51,8 @@ docker cp "$TMP_DIR"/web-analytics.html "$DATAVERSE_CONTAINER":/dv/branding/web-
 
 # then run the curl command to set the web analytics code
 echo "Setting :WebAnalyticsCode to: /dv/branding/web-analytics.html"
-curl -X PUT -d '/dv/branding/web-analytics.html' "${ROOT_URL}/api/admin/settings/:WebAnalyticsCode"
+#curl -X PUT -d '/dv/branding/web-analytics.html' "${ROOT_URL}/api/admin/settings/:WebAnalyticsCode"
+docker exec "$DATAVERSE_CONTAINER" curl -X PUT -d '/dv/branding/web-analytics.html' "http://localhost:8080/api/admin/settings/:WebAnalyticsCode"
 
 # cleanup
 #rm "$TMP_DIR"/web-analytics.html

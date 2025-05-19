@@ -71,7 +71,7 @@ echo "--- Adjusted robots.txt copied!"
 
 # Configure web analytics
 echo "--- Configuring web analytics..."
-sh utils/dataverse/configure_web_analytics.sh "$DATAVERSE_CONTAINER" "$ROOT_URL" "$DATAVERSE_WEB_ANALYTICS_ID"
+sh utils/dataverse/configure_web_analytics.sh "$DATAVERSE_CONTAINER" "$DATAVERSE_WEB_ANALYTICS_ID"
 echo "--- Web analytics configured!"
 
 # Import SOLR schema and config
