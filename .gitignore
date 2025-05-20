@@ -1,13 +1,3 @@
 .env
 letsencrypt
 
-# Copied the .ttl config and docker-compose
-Skosmos/dockerfiles/config/config-docker-compose.ttl
-Skosmos/docker-compose.yml
-
-# Copied the docker-compose
-dataverse/docker-compose.yml
-
-# Copied metedata block scripts]
-utils/Custom-Metadata-Blocks/tsv_files/upload.sh
-utils/Custom-Metadata-Blocks/tsv_files/upload-blocks.sh
