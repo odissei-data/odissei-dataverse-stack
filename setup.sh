@@ -74,6 +74,11 @@ echo "--- Configuring web analytics..."
 sh utils/dataverse/configure_web_analytics.sh "$DATAVERSE_CONTAINER" "$DATAVERSE_WEB_ANALYTICS_ID"
 echo "--- Web analytics configured!"
 
+# Configure NavbarGuidesUrl
+echo "--- Configuring NavbarGuidesUrl..."
+docker exec "$DATAVERSE_CONTAINER" curl -X PUT -d "$DATAVERSE_NAVBAR_GUIDES_URL" http://localhost:8080/api/admin/settings/:NavbarGuidesUrl
+echo "--- NavbarGuidesUrl configured!"
+
 # Import SOLR schema and config
 echo "--- Importing SOLR schema and config..."
 sh utils/solr/copy_solr.sh "$SOLR_CONTAINER"
