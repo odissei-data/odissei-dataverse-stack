@@ -84,6 +84,13 @@ echo "--- Importing SOLR schema and config..."
 sh utils/solr/copy_solr.sh "$SOLR_CONTAINER"
 echo "--- SOLR schema and config imported!"
 
+# Note that teh schema is changed by the following action
+# Update the schema.xml file with the new fields
+echo "--- Updating schema.xml file with new fields..."
+sh utils/solr/schema/update.sh "$DATAVERSE_CONTAINER" "$SOLR_CONTAINER" 
+echo "--- Schema.xml file updated!"
+
+
 # Turn of sign up options
 echo "--- Turning off sign up options..."
 docker exec "$DATAVERSE_CONTAINER" curl -X PUT -d 'false' http://localhost:8080/api/admin/settings/:AllowSignUp
