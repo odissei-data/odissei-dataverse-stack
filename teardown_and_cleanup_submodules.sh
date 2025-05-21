@@ -17,6 +17,7 @@ if [ "$answer" != "${answer#[Yy]}" ]; then
   echo "Removing uncommitted changes in the submodules..."
   git submodule foreach --recursive git reset --hard
   git submodule foreach --recursive git clean -fd
+  git submodule update
 else
   echo "Aborting cleanup."
   exit 1
