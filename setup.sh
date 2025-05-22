@@ -93,10 +93,11 @@ echo "--- Sign up options turned off!"
 echo "--- Copying dataset.xhtml with file and version tab removed..."
 # test if we have the file in a target dir, assuming that is a Dataverse development setup
 if [ -f dataverse/target/dataverse/dataset.xhtml ]; then
-  echo "dataset.xhtml exists in target dir, copying assuming Dataverse development setup..."
+  echo "dataset.xhtml exists in target dir, NOT copying assuming Dataverse development setup..."
 else
   echo "dataset.xhtml does not exist in target dir, copying to dataverse container..."
-  docker cp utils/dataverse/mounts/dataset.xhtml "$DATAVERSE_CONTAINER:/opt/payara/deployments/dataverse/dataset.xhtml"
+  #docker cp utils/dataverse/mounts/dataset.xhtml "$DATAVERSE_CONTAINER:/opt/payara/deployments/dataverse/dataset.xhtml"
+  sh utils/dataverse/mounts/update.sh "$DATAVERSE_CONTAINER"
 fi
 echo "--- dataset.xhtml copied!"
 
