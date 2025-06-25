@@ -14,7 +14,6 @@ fi
 DATAVERSE_CONTAINER=$1
 SOLR_CONTAINER=$2
 
-
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 CURRENT_DIR="$(pwd)"
 
@@ -51,15 +50,23 @@ docker exec "$DATAVERSE_CONTAINER" bash -c "curl 'http://localhost:8080/api/admi
 docker cp "$DATAVERSE_CONTAINER":/opt/payara/fields.xml ./fields.xml
 
 # check if we have prerequisites installed for that script
+
 # Function to check if a command exists
-exists() {
+function exists {
 	command -v "$1" >/dev/null 2>&1
 }
 
-exists ed || { echo "Error: Please ensure ed, bc, sed + awk are installed"; exit 1; }
-exists bc || { echo "Error: Please ensure ed, bc, sed + awk are installed"; exit 1; }
-exists awk || { echo "Error: Please ensure ed, bc, sed + awk are installed"; exit 1; }
-exists sed || { echo "Error: Please ensure ed, bc, sed + awk are installed"; exit 1; }
+# Function to show an error message and exit
+function error {
+    echo "ERROR:" "$@" >&2
+    exit 2
+}
+
+# Check for ed and bc being present, is done in the script, but we need to do it here too
+exists ed || error "Please ensure ed, bc, sed + awk are installed"
+exists bc || error "Please ensure ed, bc, sed + awk are installed"
+exists awk || error "Please ensure ed, bc, sed + awk are installed"
+exists sed || error "Please ensure ed, bc, sed + awk are installed"
 
 cat fields.xml | ./update-fields.sh ./new-schema.xml
 
@@ -76,6 +83,5 @@ docker exec "$SOLR_CONTAINER" curl "http://localhost:8983/solr/admin/cores?actio
 # Hard re-indexing is simple and most likely not a burden, repo should be almost empty initially
 # If the repo has lots of stuff, we should NOT do re-indexing here!
 docker exec "$DATAVERSE_CONTAINER" curl http://localhost:8080/api/admin/index
-
 
 cd "$CURRENT_DIR" || exit 1
