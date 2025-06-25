@@ -37,3 +37,19 @@ The setup script does the following things for you:
 12. Turns off the sign up option.
 13. Sets the changed version of the dataset page and restart the Dataverse container.
 
+## Cleanup for Commits and Pull Requests
+
+The following files are overwritten by copy actions in the setup.sh script. 
+We can't ignore them via the .gitignore and also not in the respective submodules. 
+These changes must be ignored manual, by reverting or only selecting the other changes when committing. 
+
+Copied the .ttl config and docker-compose:
+`Skosmos/dockerfiles/config/config-docker-compose.ttl`
+`Skosmos/docker-compose.yml`
+
+Copied the docker-compose:
+`dataverse/docker-compose.yml`
+
+Copied metadata block scripts:
+`utils/Custom-Metadata-Blocks/tsv_files/upload.sh`
+`utils/Custom-Metadata-Blocks/tsv_files/upload-blocks.sh`
