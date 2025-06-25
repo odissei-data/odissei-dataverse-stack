@@ -34,7 +34,7 @@ echo "Starting to adapt dataset.xhtml file..."
 awk -v comment_tag="$COMMENT_TAG" '
 BEGIN {
   # List of tag patterns to comment out (case-sensitive)
-  tags["ui:fragment id=\"uploadFilesOnCreateTab\""]
+  #tags["ui:fragment id=\"uploadFilesOnCreateTab\""] # cannot remove this, parts are being referenced elsewhere
   tags["p:tab id=\"versionsTab\""]
   tags["p:tab id=\"dataFilesTab\""]
   inblock = 0
