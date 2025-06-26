@@ -3,6 +3,12 @@
 # This file takes care to copy the solr config to the correct location and rebooting the container.
 #
 
+# Note that config files could be obtained from the dataverse repo for version 6.6 for instance:
+#   wget https://raw.githubusercontent.com/IQSS/dataverse/v6.6/conf/solr/solrconfig.xml
+#   wget https://raw.githubusercontent.com/IQSS/dataverse/v6.6/conf/solr/schema.xml
+# However the config conflicted with the solr on our current container, 
+# The solrconfig.xml file is probably incompatible with our version !
+
 solr_container_name=$1
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"

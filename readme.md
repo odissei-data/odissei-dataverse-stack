@@ -53,3 +53,8 @@ Copied the docker-compose:
 Copied metadata block scripts:
 `utils/Custom-Metadata-Blocks/tsv_files/upload.sh`
 `utils/Custom-Metadata-Blocks/tsv_files/upload-blocks.sh`
+
+Cleanup is automated by running the following script:
+```
+./teardown_and_cleanup_submodules.sh
+```
