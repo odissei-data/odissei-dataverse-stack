@@ -52,12 +52,12 @@ docker cp "$DATAVERSE_CONTAINER":/opt/payara/fields.xml ./fields.xml
 # check if we have prerequisites installed for that script
 
 # Function to check if a command exists
-function exists {
-	command -v "$1" >/dev/null 2>&1
+exists() {
+    command -v "$1" >/dev/null 2>&1
 }
 
 # Function to show an error message and exit
-function error {
+error() {
     echo "ERROR:" "$@" >&2
     exit 2
 }
@@ -68,6 +68,7 @@ exists bc || error "Please ensure ed, bc, sed + awk are installed"
 exists awk || error "Please ensure ed, bc, sed + awk are installed"
 exists sed || error "Please ensure ed, bc, sed + awk are installed"
 
+cp schema.xml new-schema.xml
 cat fields.xml | ./update-fields.sh ./new-schema.xml
 
 docker cp new-schema.xml "$SOLR_CONTAINER":/var/solr/data/collection1/conf/schema.xml
