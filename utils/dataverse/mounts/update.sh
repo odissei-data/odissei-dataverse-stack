@@ -34,9 +34,9 @@ echo "Starting to adapt dataset.xhtml file..."
 awk -v comment_tag="$COMMENT_TAG" '
 BEGIN {
   # List of tag patterns to comment out (case-sensitive)
-  #tags["ui:fragment id=\"uploadFilesOnCreateTab\""] # cannot remove this, parts are being referenced elsewhere
   tags["p:tab id=\"versionsTab\""]
   tags["p:tab id=\"dataFilesTab\""]
+  tags["p:commandButton id=\"fileTagsPopupSaveButton\""]
   inblock = 0
 }
 
@@ -72,6 +72,13 @@ BEGIN {
   print
 }
 ' dataset.xhtml > dataset_commented.xhtml
+# Remove specific strings from the adapted file
+# List the strings to remove, separated by |
+STRINGS_TO_REMOVE=",:datasetForm:tabView:filesTable|:datasetForm:tabView:filesTable,"
+
+if [ -n "$STRINGS_TO_REMOVE" ]; then
+  sed -i -E "s/($STRINGS_TO_REMOVE)//g" dataset_commented.xhtml
+fi
 
 echo "Finished adapting dataset.xhtml file, now copying to dataverse container..."
 
