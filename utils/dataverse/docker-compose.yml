@@ -16,8 +16,13 @@ services:
       _CT_DATAVERSE_FQDN: "portal.odissei.nl"
       DATAVERSE_JSF_REFRESH_PERIOD: "1"
       DATAVERSE_FEATURE_API_BEARER_AUTH: "1"
-      DATAVERSE_MAIL_SYSTEM_EMAIL: "dataverse@localhost"
-      DATAVERSE_MAIL_MTA_HOST: "smtp"
+      DATAVERSE_MAIL_SYSTEM_EMAIL: "odissei@dansdemo.nl"
+      DATAVERSE_MAIL_MTA_HOST: "live.smtp.mailtrap.io"
+      DATAVERSE_MAIL_MTA_PORT: 465
+      DATAVERSE_MAIL_MTA_SSL_ENABLE: true
+      DATAVERSE_MAIL_MTA_AUTH: true
+      DATAVERSE_MAIL_MTA_USER: "api"
+      DATAVERSE_MAIL_MTA_PASSWORD: "secret"
       DATAVERSE_SPI_EXPORTERS_DIRECTORY: "/dv/exporters"
       # These two oai settings are here to get HarvestingServerIT to pass
       dataverse_oai_server_maxidentifiers: "2"
