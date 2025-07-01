@@ -22,6 +22,7 @@ cd "$SCRIPT_DIR" || exit 1
 # get the schema file from the solr container
 #docker cp "$SOLR_CONTAINER":/var/solr/data/collection1/conf/schema.xml ./schema.xml
 # DOESN"T WORK, use the one obtained from IQSS
+# for 6.6
 #   wget https://raw.githubusercontent.com/IQSS/dataverse/v6.6/conf/solr/schema.xml
 
 # ----
