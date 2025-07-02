@@ -47,6 +47,14 @@ done
 
 echo "Bootstrapping dataverse has finished!"
 
+# Solr should be ok for Dataverse already
+# However, this seems NOT to be the case!
+# Import SOLR schema and config, 
+# supplied with the release of the deployed Dataverse version!
+echo "--- Importing SOLR schema and config..."
+sh utils/solr/copy_solr.sh "$SOLR_CONTAINER"
+echo "--- SOLR schema and config imported!"
+
 # Loading our metadata blocks.
 echo "--- Loading metadata blocks..."
 CUSTOM_METADATA_DIR="utils/Custom-Metadata-Blocks/tsv_files/"
@@ -79,17 +87,11 @@ echo "--- Configuring NavbarGuidesUrl..."
 docker exec "$DATAVERSE_CONTAINER" curl -X PUT -d "$DATAVERSE_NAVBAR_GUIDES_URL" http://localhost:8080/api/admin/settings/:NavbarGuidesUrl
 echo "--- NavbarGuidesUrl configured!"
 
-# Import SOLR schema and config
-echo "--- Importing SOLR schema and config..."
-sh utils/solr/copy_solr.sh "$SOLR_CONTAINER"
-echo "--- SOLR schema and config imported!"
-
-# Note that teh schema is changed by the following action
-# Update the schema.xml file with the new fields
+# Note that the schema is changed by the following action
+# Update the schema.xml file with our custom fields
 echo "--- Updating schema.xml file with new fields..."
 sh utils/solr/schema/update.sh "$DATAVERSE_CONTAINER" "$SOLR_CONTAINER" 
 echo "--- Schema.xml file updated!"
-
 
 # Turn of sign up options
 echo "--- Turning off sign up options..."
