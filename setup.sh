@@ -90,7 +90,7 @@ echo "--- NavbarGuidesUrl configured!"
 # Note that the schema is changed by the following action
 # Update the schema.xml file with our custom fields
 echo "--- Updating schema.xml file with new fields..."
-sh utils/solr/schema/update.sh "$DATAVERSE_CONTAINER" "$SOLR_CONTAINER" 
+sh utils/solr/schema-update/update.sh "$DATAVERSE_CONTAINER" "$SOLR_CONTAINER" 
 echo "--- Schema.xml file updated!"
 
 # Turn of sign up options
