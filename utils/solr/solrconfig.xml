@@ -588,7 +588,7 @@
      check for "Circuit Breakers tripped" in logs and the corresponding error message should tell
      you what transpired (if the failure was caused by tripped circuit breakers).
     -->
-
+    
     <!--
     <str name="memEnabled">true</str>
     <str name="memThreshold">75</str>
@@ -600,7 +600,7 @@
      whether the circuit breaker is enabled and the average load over the last minute at which the
      circuit breaker should start rejecting queries.
     -->
-
+    
     <!--
     <str name="cpuEnabled">true</str>
     <str name="cpuThreshold">75</str>
@@ -723,55 +723,50 @@
         - been re-introduced in 2018 for Solr 7.2.1 update, see https://github.com/IQSS/dataverse/issues/4158,
         - and finally evolved to the current state later in 2018 https://github.com/IQSS/dataverse/issues/4938
           (merged with https://github.com/IQSS/dataverse/commit/3843e5366845d55c327cdb252dd9b4e4125b9b88)
-
+                
         Since then, this has not been touched again (2021-12-21).
       -->
       <str name="defType">edismax</str>
       <float name="tie">0.075</float>
-        <str name="qf">
-	        alternativeTitle^10000
-	        title^330
-            dvName^300
-            keyword^10210
-	        keywordValue^10210
-            topicClassValue^200
-            authorName^180
-	        variableLabel^160
-            variableName^150
-            dvSubject^190
-            dvDescription^10
-            dvAffiliation^170
-            subject^120
-            dsDescriptionValue^1
-            authorAffiliation^80
-            publicationCitation^60
-            producerName^50
-            fileName^30
-            fileDescription^30
-            _text_^1.0
-        </str>
-        <str name="pf">
-            dvName^200
-            authorName^100
-            dvSubject^100
-            dvDescription^100
-            dvAffiliation^100
-            title^75
-            subject^75
-            keyword^75
-            topicClassValue^75
-            dsDescriptionValue^75
-            authorAffiliation^75
-            publicationCitation^75
-            producerName^75
-        </str>
-        <!-- Even though this number is huge it only seems to apply a boost of ~1.5x to final result -MAD 4.9.3-->
-        <str name="bq">
-            isHarvested:false^25000
-	        frequencyOfUse:high^250000
-	        frequencyOfUse:middle^50000
-	        frequencyOfUse:low^2
-        </str>
+      <str name="qf">
+          dvName^400
+          authorName^180
+          dvSubject^190
+          dvDescription^180
+          dvAffiliation^170
+          title^130
+          subject^120
+          keyword^110
+          topicClassValue^100
+          dsDescriptionValue^90
+          authorAffiliation^80
+          publicationCitation^60
+          producerName^50
+          fileName^30
+          fileDescription^30
+          variableLabel^20
+          variableName^10
+          _text_^1.0
+      </str>
+      <str name="pf">
+          dvName^200
+          authorName^100
+          dvSubject^100
+          dvDescription^100
+          dvAffiliation^100
+          title^75
+          subject^75
+          keyword^75
+          topicClassValue^75
+          dsDescriptionValue^75
+          authorAffiliation^75
+          publicationCitation^75
+          producerName^75
+      </str>
+      <!-- Even though this number is huge it only seems to apply a boost of ~1.5x to final result -MAD 4.9.3 -->
+      <str name="bq">
+          isHarvested:false^25000
+      </str>
     </lst>
   </requestHandler>
 

@@ -19,29 +19,7 @@ CURRENT_DIR="$(pwd)"
 
 cd "$SCRIPT_DIR" || exit 1
 
-# get the schema file from the solr container
-#docker cp "$SOLR_CONTAINER":/var/solr/data/collection1/conf/schema.xml ./schema.xml
-# DOESN"T WORK, use the one obtained from IQSS
-#   wget https://raw.githubusercontent.com/IQSS/dataverse/v6.6/conf/solr/schema.xml
-
-# ----
-
-# # copy it to the docker container
-# docker cp schema.xml "$DATAVERSE_CONTAINER":/opt/payara/schema.xml
-# # also copy that update-fields.sh
-# # Note that it was obtained from the dataverse repo: 
-# #   wget https://raw.githubusercontent.com/IQSS/dataverse/v6.6/conf/solr/update-fields.sh
-# #   chmod +x update-fields.sh
-# docker cp update-fields.sh "$DATAVERSE_CONTAINER":/opt/payara/update-fields.sh
-
-# docker exec "$DATAVERSE_CONTAINER" bash -c "curl 'http://localhost:8080/api/admin/index/solr/schema' | ./update-fields.sh /opt/payara/schema.xml"
-
-# # get the result
-# docker cp "$DATAVERSE_CONTAINER":/opt/payara/schema.xml ./new-schema.xml
-
-# ---- 
-
-# Sorry we can't run that update-fields.sh on the dev_dataverse container,  
+# We can't run that update-fields.sh on the dev_dataverse container,  
 # because it needs 'ed' and bc' ( also 'sed' and 'awk') which are not installed there. 
 # Lets get that fields xml file from the dataverse container
 # and then run the script here
@@ -68,7 +46,7 @@ exists bc || error "Please ensure ed, bc, sed + awk are installed"
 exists awk || error "Please ensure ed, bc, sed + awk are installed"
 exists sed || error "Please ensure ed, bc, sed + awk are installed"
 
-cp schema.xml new-schema.xml
+cp ../schema.xml new-schema.xml
 cat fields.xml | ./update-fields.sh ./new-schema.xml
 
 docker cp new-schema.xml "$SOLR_CONTAINER":/var/solr/data/collection1/conf/schema.xml
