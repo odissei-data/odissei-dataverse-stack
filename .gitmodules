@@ -1,9 +1,6 @@
 [submodule "dataverse"]
 	path = dataverse
 	url = https://github.com/IQSS/dataverse
-[submodule "Skosmos"]
-	path = Skosmos
-	url = https://github.com/NatLibFi/Skosmos.git
 [submodule "utils/Custom-Metadata-Blocks"]
 	path = utils/Custom-Metadata-Blocks
 	url = https://github.com/odissei-data/Custom-Metadata-Blocks.git
