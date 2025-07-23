@@ -7,5 +7,7 @@ utils/dataverse/mounts/dataset_commented.xhtml
 utils/solr/schema-update/new-schema.xml
 utils/solr/schema-update/fields.xml
 
-# explicitly ignore the dataverse contents
-dataverse/*
+# explicitly ignore most dataverse contents
+dataverse/docker-dev-volumes
+dataverse/.env
+dataverse/docker-compose.yml
