@@ -1,6 +1,3 @@
-[submodule "dataverse"]
-	path = dataverse
-	url = https://github.com/IQSS/dataverse
 [submodule "utils/Custom-Metadata-Blocks"]
 	path = utils/Custom-Metadata-Blocks
 	url = https://github.com/odissei-data/Custom-Metadata-Blocks.git
