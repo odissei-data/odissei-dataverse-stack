@@ -17,7 +17,7 @@ cp utils/dataverse/dot_env dataverse/.env
 # Create Traefik network
 docker network create traefik
 
-# Upping the Skosmos and Dataverse stacks.
+# Upping the Dataverse stack.
 docker compose -f dataverse/docker-compose.yml up -d
 
 # Setup traefik container
