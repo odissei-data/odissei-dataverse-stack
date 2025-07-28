@@ -10,10 +10,6 @@ echo "Bootstrap container: $BOOTSTRAP_CONTAINER"
 # Initiating the submodule and fetching any changes.
 git submodule init && git submodule update --remote
 
-# Switching out the .ttl config and docker-compose for our setup.
-cp utils/skosmos/docker-compose-skosmos.ttl Skosmos/dockerfiles/config/config-docker-compose.ttl
-cp utils/skosmos/docker-compose.yml Skosmos/docker-compose.yml
-
 # Adding the docker-compose to the dataverse submodule
 cp utils/dataverse/docker-compose.yml dataverse/docker-compose.yml
 cp utils/dataverse/dot_env dataverse/.env
@@ -22,7 +18,6 @@ cp utils/dataverse/dot_env dataverse/.env
 docker network create traefik
 
 # Upping the Skosmos and Dataverse stacks.
-docker compose -f Skosmos/docker-compose.yml up -d
 docker compose -f dataverse/docker-compose.yml up -d
 
 # Setup traefik container

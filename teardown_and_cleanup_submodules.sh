@@ -1,11 +1,7 @@
 #!/usr/bin/env sh
 
-# Note that Skosmos stuff is in here as well, 
-# for the time being
+echo "Tearing down containers and cleaning up submodules..."
 
-echo "Tearing down and cleaning up submodules..."
-
-docker compose -f Skosmos/docker-compose.yml down 
 docker compose -f dataverse/docker-compose.yml down
 docker compose -f utils/traefik/docker-compose.yml down
 
