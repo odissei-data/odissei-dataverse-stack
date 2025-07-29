@@ -101,7 +101,7 @@ if [ -f dataverse/target/dataverse/dataset.xhtml ]; then
 else
   echo "dataset.xhtml does not exist in target dir, copying to dataverse container..."
   #docker cp utils/dataverse/mounts/dataset.xhtml "$DATAVERSE_CONTAINER:/opt/payara/deployments/dataverse/dataset.xhtml"
-  sh utils/dataverse/mounts/update.sh "$DATAVERSE_CONTAINER"
+  utils/dataverse/mounts/update.sh "$DATAVERSE_CONTAINER"
 fi
 echo "--- dataset.xhtml copied!"
 

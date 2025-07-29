@@ -57,12 +57,20 @@ docker cp new-schema.xml "$SOLR_CONTAINER":/template/conf/schema.xml
 
 # restart the solr container
 docker restart "$SOLR_CONTAINER"
-# maybe reload is enough, but seems to fail with 'No such core: collection1'
-# http://localhost:8983/solr/admin/cores?action=RELOAD&core=collection1
-# docker exec "$SOLR_CONTAINER" curl "http://localhost:8983/solr/admin/cores?action=RELOAD&core=collection1"
+
+# wait for Solr to be up
+echo "Waiting for Solr to be up..."
+while ! docker exec "$SOLR_CONTAINER" curl -s http://localhost:8983/solr/admin/info/system > /dev/null; do
+    sleep 5
+    echo "Still waiting..."
+done
+echo "Solr is up."
 
 # Hard re-indexing is simple and most likely not a burden, repo should be almost empty initially
-# If the repo has lots of stuff, we should NOT do re-indexing here!
+# If the repo has lots of stuff, we should NOT do re-indexing here and possibly make this optional
+# Note that clearing is definitely needed after a database import
+echo "--- Clearing and reindexing the Solr index..."
+docker exec "$DATAVERSE_CONTAINER" curl http://localhost:8080/api/admin/index/clear
 docker exec "$DATAVERSE_CONTAINER" curl http://localhost:8080/api/admin/index
 
 cd "$CURRENT_DIR" || exit 1
