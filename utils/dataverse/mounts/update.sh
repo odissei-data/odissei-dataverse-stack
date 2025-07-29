@@ -76,9 +76,15 @@ BEGIN {
 # List the strings to remove, separated by |
 STRINGS_TO_REMOVE=",:datasetForm:tabView:filesTable|:datasetForm:tabView:filesTable,"
 
+# On macOS, the sed -i option requires a backup extension (even if empty).
 if [ -n "$STRINGS_TO_REMOVE" ]; then
-  sed -i -E "s/($STRINGS_TO_REMOVE)//g" dataset_commented.xhtml
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    sed -i '' -E "s/($STRINGS_TO_REMOVE)//g" dataset_commented.xhtml
+  else
+    sed -i -E "s/($STRINGS_TO_REMOVE)//g" dataset_commented.xhtml
+  fi
 fi
+# NOTE we could try to run it on the container, but it is not guaranteed that the container has sed installed
 
 echo "Finished adapting dataset.xhtml file, now copying to dataverse container..."
 
