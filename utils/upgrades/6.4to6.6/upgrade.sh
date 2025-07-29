@@ -9,9 +9,8 @@ UPGRADE_DIR="utils/upgrades/6.4to6.6"
 # get the absolute path to this UPGRADE_DIR
 ABS_UPGRADE_DIR="$(cd "$(dirname "$UPGRADE_DIR")" && pwd)/$(basename "$UPGRADE_DIR")"
 echo "Using upgrade directory: $ABS_UPGRADE_DIR"
-
-# make sure we are running from the project root
-#cd "$(dirname "$0")/../../" || exit 1
+SQL_DUMP_FILENAME="upgrade-from6.4-dump.sql"
+DOT_ENV_FILENAME="dot_env_6.6"
 
 # check that we have a file (this one) at this upgrade directory
 if [ ! -f "$UPGRADE_DIR/upgrade.sh" ]; then
@@ -24,38 +23,7 @@ set -a
 source .env
 set +a
 
-# stop only the dev_dataverse container, just to prevent mutations
-#echo "--- Stop Dataverse..."
-#docker stop dev_dataverse
-
-# store a Postgres dump 
-echo "--- Dump Postgres database..."
-#docker exec -i dev_postgres /bin/bash -c "pg_dump --clean -U dataverse dataverse" > "$UPGRADE_DIR/upgrade-from6.4-dump.sql"
-docker exec -i "$POSTGRES_CONTAINER" /bin/bash -c "pg_dumpall --clean -U dataverse" > "$UPGRADE_DIR/upgrade-from6.4-dump.sql"
-
-# Down the dataverse container
-echo "--- Downing the datverse container..."
-docker compose -f dataverse/docker-compose.yml down -v
-
-# should wipe volumes, because we have a new dataverse, postgres and a new solr
-#docker volume rm dev_dataverse dev_postgres dev_solr
-echo "--- Wiping docker dev volumes..."
-sudo rm -rf ./dataverse/docker-dev-volumes
-
-
-# replace the .env with the new one specific for this upgrade
-echo "--- Replacing the .env file..."
-cp "$UPGRADE_DIR/dot_env_6.6" dataverse/.env
-
-# Deploy the new containers
-echo "--- Deploying the new containers..."
-
-# Upping the Dataverse stack.
-docker compose -f dataverse/docker-compose.yml up -d
-
-# Setup traefik container
-#docker compose -f utils/traefik/docker-compose.yml up -d
-
+### Helper functions
 
 # Function to check if the bootstrap container is still running
 is_running() {
@@ -66,6 +34,38 @@ is_running() {
     return 0
   fi
 }
+
+
+### Main script starts here
+
+# Stop only the dataverse container, just to prevent db mutations
+echo "--- Stop Dataverse..."
+docker stop "$DATAVERSE_CONTAINER"
+
+# store a Postgres dump 
+echo "--- Dump Postgres database..."
+docker exec -i "$POSTGRES_CONTAINER" /bin/bash -c "pg_dumpall --clean -U dataverse" > "$UPGRADE_DIR/$SQL_DUMP_FILENAME"
+
+# Down the dataverse container
+echo "--- Downing the datverse container..."
+docker compose -f dataverse/docker-compose.yml down -v
+
+# should wipe volumes, because we have a new dataverse, postgres and a new solr
+echo "--- Wiping docker dev volumes..."
+sudo rm -rf ./dataverse/docker-dev-volumes
+# TODO only wipe solr and postgresql volumes, not the dataverse one, that has branding and logos we want to keep
+#sudo rm -rf ./postgresql/docker-dev-volumes
+#sudo rm -rf ./solr/docker-dev-volumes
+
+# replace the .env with the new one specific for this upgrade
+echo "--- Replacing the .env file..."
+cp "$UPGRADE_DIR/$DOT_ENV_FILENAME" dataverse/.env
+
+# Deploy the new containers
+echo "--- Deploying the new containers..."
+
+# Upping the Dataverse stack.
+docker compose -f dataverse/docker-compose.yml up -d
 
 # Wait for the bootstrap container to finish
 echo "Waiting for the bootstrap container to finish..."
@@ -78,15 +78,13 @@ echo "Bootstrapping dataverse has finished!"
 
 # stop only the dev_dataverse container, just to prevent mutations
 echo "--- Stop Dataverse..."
-docker stop dev_dataverse
+docker stop "$DATAVERSE_CONTAINER"
 # restore the Postgres dump
 echo "--- Restoring Postgres database..."
-#docker exec -i dev_postgres /bin/bash -c "psql -U dataverse dataverse" < "$UPGRADE_DIR/upgrade-from6.4-dump.sql"
-docker exec -i "$POSTGRES_CONTAINER" /bin/bash -c "psql -X -U dataverse postgres" < "$UPGRADE_DIR/upgrade-from6.4-dump.sql"
-
+docker exec -i "$POSTGRES_CONTAINER" /bin/bash -c "psql -X -U dataverse postgres" < "$UPGRADE_DIR/$SQL_DUMP_FILENAME"
 # Start the dev_dataverse container
 echo "--- Starting the dev_dataverse container..."
-docker start dev_dataverse
+docker start "$DATAVERSE_CONTAINER"
 
 
 # wait for Dataverse to be up
@@ -116,14 +114,16 @@ echo "--- Adjusted robots.txt copied!"
 
 # Configure web analytics
 # The file needed was in dataverse/docker-dev-volumes/app/data/branding/web-analytics.html
-# sow we could have kept that dataverse/docker-dev-volumes/app/ dir
+# so we could have kept that dataverse/docker-dev-volumes/app/ dir
 echo "--- Configuring web analytics..."
 sh utils/dataverse/configure_web_analytics.sh "$DATAVERSE_CONTAINER" "$DATAVERSE_WEB_ANALYTICS_ID"
 echo "--- Web analytics configured!"
 
+# Note that if we wanted to set the logos back we could copy (zip, because it is a dir tree) them from docroot/logos
+
 # Copy dataset.xhtml with file and version tab removed to volume.
 echo "--- Copying dataset.xhtml with file and version tab removed..."
-sh utils/dataverse/mounts/update.sh "$DATAVERSE_CONTAINER"
+utils/dataverse/mounts/update.sh "$DATAVERSE_CONTAINER"
 echo "--- dataset.xhtml copied!"
 
 echo "--- Restarting dataverse container..."
@@ -142,11 +142,19 @@ while ! docker exec "$DATAVERSE_CONTAINER" curl -s http://localhost:8080/api/inf
 done
 echo "Dataverse is up."
 
-### Update the Metadata blocks
+### Update the Metadata blocks, this is in the release notes
 echo "--- Updating metadata blocks ---"
 docker cp "$UPGRADE_DIR/tsv_files" "$DATAVERSE_CONTAINER":/opt/payara/tsv_files
 docker exec "$DATAVERSE_CONTAINER" curl http://localhost:8080/api/admin/datasetfield/load -H "Content-type: text/tab-separated-values" -X POST --upload-file /opt/payara/tsv_files/citation.tsv
 docker exec "$DATAVERSE_CONTAINER" curl http://localhost:8080/api/admin/datasetfield/load -H "Content-type: text/tab-separated-values" -X POST --upload-file /opt/payara/tsv_files/3d_objects.tsv
+
+# Handle changed or added properties for languages, commands copied from utils/language_setup.sh
+echo "--- Updating changed languages files ---"
+docker cp "$UPGRADE_DIR/translations/en_US/." "$DATAVERSE_CONTAINER":/opt/payara
+docker cp "$UPGRADE_DIR/translations/nl_NL/." "$DATAVERSE_CONTAINER":/opt/payara
+# assume all others are still there, and we can assemble the zip file and post it
+docker exec "$DATAVERSE_CONTAINER" sh -c "find . -maxdepth 1 -name '*.properties' | zip languages.zip -@"
+docker exec "$DATAVERSE_CONTAINER" curl http://localhost:8080/api/admin/datasetfield/loadpropertyfiles -X POST --upload-file /opt/payara/languages.zip -H "Content-Type: application/zip"
 
 
 ### Fix Search indexing
@@ -161,18 +169,11 @@ echo ""
 # This will be indexing...
 echo "--- SOLR schema and config imported, reindexing..."
 
+# NOTE the schema-update needs to do a clear and full re-indexing, which is default now!
+
 # NOT sure why, but lets wait some extra time here
 echo "--- Waiting 30 seconds, just to be sure..."
 sleep 30
-
-
-## We must do full reindexing, with a clear. 
-## It has to do with the imported database, those timestamps have to be removed otherwise it's not reindexing
-echo "--- Clearing and reindexing the Solr index..."
-docker exec "$DATAVERSE_CONTAINER" curl http://localhost:8080/api/admin/index/clear
-docker exec "$DATAVERSE_CONTAINER" curl http://localhost:8080/api/admin/index
-echo ""
-echo "--- Reindexing started and will be ongoing..."
 
 
 # Print the version of Dataverse
