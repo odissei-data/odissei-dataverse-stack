@@ -7,12 +7,13 @@
 # so the schema is up to date.
 
 # check if we have the right number of arguments
-if [ "$#" -ne 2 ]; then
-    echo "Usage: $0 <dataverse_container_name> <solr_container_name>"
+if [ "$#" -lt 2 ] || [ "$#" -gt 3 ]; then
+    echo "Usage: $0 <dataverse_container_name> <solr_container_name> [schema_file]"
     exit 1
 fi
 DATAVERSE_CONTAINER=$1
 SOLR_CONTAINER=$2
+SCHEMA_FILE=${3:-../schema.xml}
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 CURRENT_DIR="$(pwd)"
@@ -46,7 +47,8 @@ exists bc || error "Please ensure ed, bc, sed + awk are installed"
 exists awk || error "Please ensure ed, bc, sed + awk are installed"
 exists sed || error "Please ensure ed, bc, sed + awk are installed"
 
-cp ../schema.xml new-schema.xml
+#cp ../schema.xml new-schema.xml
+cp "$SCHEMA_FILE" new-schema.xml
 cat fields.xml | ./update-fields.sh ./new-schema.xml
 
 docker cp new-schema.xml "$SOLR_CONTAINER":/var/solr/data/collection1/conf/schema.xml
@@ -55,12 +57,20 @@ docker cp new-schema.xml "$SOLR_CONTAINER":/template/conf/schema.xml
 
 # restart the solr container
 docker restart "$SOLR_CONTAINER"
-# maybe reload is enough, but seems to fail with 'No such core: collection1'
-# http://localhost:8983/solr/admin/cores?action=RELOAD&core=collection1
-# docker exec "$SOLR_CONTAINER" curl "http://localhost:8983/solr/admin/cores?action=RELOAD&core=collection1"
+
+# wait for Solr to be up
+echo "Waiting for Solr to be up..."
+while ! docker exec "$SOLR_CONTAINER" curl -s http://localhost:8983/solr/admin/info/system > /dev/null; do
+    sleep 5
+    echo "Still waiting..."
+done
+echo "Solr is up."
 
 # Hard re-indexing is simple and most likely not a burden, repo should be almost empty initially
-# If the repo has lots of stuff, we should NOT do re-indexing here!
+# If the repo has lots of stuff, we should NOT do re-indexing here and possibly make this optional
+# Note that clearing is definitely needed after a database import
+echo "--- Clearing and reindexing the Solr index..."
+docker exec "$DATAVERSE_CONTAINER" curl http://localhost:8080/api/admin/index/clear
 docker exec "$DATAVERSE_CONTAINER" curl http://localhost:8080/api/admin/index
 
 cd "$CURRENT_DIR" || exit 1

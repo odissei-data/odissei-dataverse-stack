@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This script addapts the given dataset.xhtml file 
+# This script adapts the given dataset.xhtml file 
 # in order to remove (comment out) the Files tab and the Versions tab 
 # And then copies that adapted file to the dataverse container
 
@@ -72,13 +72,24 @@ BEGIN {
   print
 }
 ' dataset.xhtml > dataset_commented.xhtml
+
 # Remove specific strings from the adapted file
 # List the strings to remove, separated by |
 STRINGS_TO_REMOVE=",:datasetForm:tabView:filesTable|:datasetForm:tabView:filesTable,"
 
+# On macOS, the sed -i option requires a backup extension (even if empty).
 if [ -n "$STRINGS_TO_REMOVE" ]; then
-  sed -i -E "s/($STRINGS_TO_REMOVE)//g" dataset_commented.xhtml
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    echo "Running sed on macOS (darwin)..."
+    sed -i '' -E "s/($STRINGS_TO_REMOVE)//g" dataset_commented.xhtml
+  else
+    echo "Running sed on Linux..."
+    # For Linux, we can use sed without a backup extension
+    sed -i -E "s/($STRINGS_TO_REMOVE)//g" dataset_commented.xhtml
+  fi
 fi
+
+# NOTE we could try to run it on the container, but it is not guaranteed that the container has sed installed
 
 echo "Finished adapting dataset.xhtml file, now copying to dataverse container..."
 
