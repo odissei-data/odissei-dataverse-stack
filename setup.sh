@@ -42,6 +42,23 @@ done
 
 echo "Bootstrapping dataverse has finished!"
 
+wait_for_dataverse_up() {
+  while true; do
+    STATUS_CODE=$(docker exec "$DATAVERSE_CONTAINER" curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/api/info/version)
+    
+    if [ "$STATUS_CODE" -eq 200 ]; then
+      echo "Dataverse is up."
+      break
+    else
+      echo "Still waiting... (HTTP $STATUS_CODE)"
+      sleep 5
+    fi
+  done
+}
+# wait for Dataverse to be up
+echo "Waiting for Dataverse to be up..."
+wait_for_dataverse_up
+
 # Solr should be ok for Dataverse already
 # However, this seems NOT to be the case!
 # Import SOLR schema and config, 
