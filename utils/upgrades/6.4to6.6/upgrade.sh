@@ -35,6 +35,19 @@ is_running() {
   fi
 }
 
+wait_for_dataverse_up() {
+  while true; do
+    STATUS_CODE=$(docker exec "$DATAVERSE_CONTAINER" curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/api/info/version)
+    
+    if [ "$STATUS_CODE" -eq 200 ]; then
+      echo "Dataverse is up."
+      break
+    else
+      echo "Still waiting... (HTTP $STATUS_CODE)"
+      sleep 5
+    fi
+  done
+}
 
 ### Main script starts here
 
@@ -42,9 +55,18 @@ is_running() {
 echo "--- Stop Dataverse..."
 docker stop "$DATAVERSE_CONTAINER"
 
-# store a Postgres dump 
+# if $UPGRADE_DIR/$SQL_DUMP_FILENAME exists, move it to a backup file
+if [ -f "$UPGRADE_DIR/$SQL_DUMP_FILENAME" ]; then
+    echo "--- Moving existing SQL dump to backup..."
+    mv "$UPGRADE_DIR/$SQL_DUMP_FILENAME" "$UPGRADE_DIR/backup-$(date +%Y%m%d%H%M%S)-$SQL_DUMP_FILENAME"
+fi
+
+# store a Postgres dump
 echo "--- Dump Postgres database..."
 docker exec -i "$POSTGRES_CONTAINER" /bin/bash -c "pg_dumpall --clean -U dataverse" > "$UPGRADE_DIR/$SQL_DUMP_FILENAME"
+
+# TODO: check if the dump was successful, exit if not
+[ -f "${UPGRADE_DIR}/${SQL_DUMP_FILENAME}" ] || { echo "Postgres dump failed!"; exit 1; }
 
 # Down the dataverse container
 echo "--- Downing the datverse container..."
@@ -53,9 +75,9 @@ docker compose -f dataverse/docker-compose.yml down -v
 # should wipe volumes, because we have a new dataverse, postgres and a new solr
 echo "--- Wiping docker dev volumes..."
 sudo rm -rf ./dataverse/docker-dev-volumes
-# TODO only wipe solr and postgresql volumes, not the dataverse one, that has branding and logos we want to keep
-#sudo rm -rf ./postgresql/docker-dev-volumes
-#sudo rm -rf ./solr/docker-dev-volumes
+# TODO only wipe solr and postgresql volumes, not the dataverse one, that has branding and logos (in app/data/docroot) we want to keep
+#sudo rm -rf ./dataverse/docker-dev-volumes/postgresql
+#sudo rm -rf ./dataverse/docker-dev-volumes/solr
 
 # replace the .env with the new one specific for this upgrade
 echo "--- Replacing the .env file..."
@@ -76,6 +98,10 @@ done
 
 echo "Bootstrapping dataverse has finished!"
 
+# wait for Dataverse to be up
+echo "Waiting for Dataverse to be up..."
+wait_for_dataverse_up
+
 # stop only the dev_dataverse container, just to prevent mutations
 echo "--- Stop Dataverse..."
 docker stop "$DATAVERSE_CONTAINER"
@@ -89,11 +115,7 @@ docker start "$DATAVERSE_CONTAINER"
 
 # wait for Dataverse to be up
 echo "Waiting for Dataverse to be up..."
-while ! docker exec "$DATAVERSE_CONTAINER" curl -s http://localhost:8080/api/info/version > /dev/null; do
-    sleep 5
-    echo "Still waiting..."
-done
-echo "Dataverse is up."
+wait_for_dataverse_up
 
 echo "--- Waiting 30 seconds, just to be sure..."
 sleep 30
@@ -136,11 +158,7 @@ sleep 30
 
 # wait for Dataverse to be up
 echo "Waiting for Dataverse to be up..."
-while ! docker exec "$DATAVERSE_CONTAINER" curl -s http://localhost:8080/api/info/version > /dev/null; do
-    sleep 5
-    echo "Still waiting..."
-done
-echo "Dataverse is up."
+wait_for_dataverse_up
 
 ### Update the Metadata blocks, this is in the release notes
 echo "--- Updating metadata blocks ---"

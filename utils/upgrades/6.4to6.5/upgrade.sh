@@ -37,6 +37,19 @@ is_running() {
   fi
 }
 
+wait_for_dataverse_up() {
+  while true; do
+    STATUS_CODE=$(docker exec "$DATAVERSE_CONTAINER" curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/api/info/version)
+    
+    if [ "$STATUS_CODE" -eq 200 ]; then
+      echo "Dataverse is up."
+      break
+    else
+      echo "Still waiting... (HTTP $STATUS_CODE)"
+      sleep 5
+    fi
+  done
+}
 
 ### Main script starts here
 
@@ -46,11 +59,21 @@ docker stop "$DATAVERSE_CONTAINER"
 
 # NOTE I would like to use the DATAVERSE_DB_USER, should I source that other .env file?
 
+# if $UPGRADE_DIR/$SQL_DUMP_FILENAME exists, move it to a backup file
+if [ -f "$UPGRADE_DIR/$SQL_DUMP_FILENAME" ]; then
+    echo "--- Moving existing SQL dump to backup..."
+    mv "$UPGRADE_DIR/$SQL_DUMP_FILENAME" "$UPGRADE_DIR/backup-$(date +%Y%m%d%H%M%S)-$SQL_DUMP_FILENAME"
+fi
+
 # Store a Postgres dump
 # In some upgrades "pg_dump --clean -U dataverse dataverse" might be enough, 
 # but pg_dumpall will always work
 echo "--- Dump Postgres database..."
 docker exec -i "$POSTGRES_CONTAINER" /bin/bash -c "pg_dumpall --clean -U dataverse" > "$UPGRADE_DIR/$SQL_DUMP_FILENAME"
+
+# TODO: check if the dump was successful, exit if not
+[ -f "${UPGRADE_DIR}/${SQL_DUMP_FILENAME}" ] || { echo "Postgres dump failed!"; exit 1; }
+
 
 # Down the dataverse container (no -v, we wipe the mounted volumes later on)
 echo "--- Downing the datverse container..."
@@ -81,6 +104,10 @@ done
 
 echo "Bootstrapping dataverse has finished!"
 
+# wait for Dataverse to be up
+echo "Waiting for Dataverse to be up..."
+wait_for_dataverse_up
+
 # stop only the dev_dataverse container, just to prevent mutations
 echo "--- Stop Dataverse..."
 docker stop "$DATAVERSE_CONTAINER"
@@ -94,11 +121,7 @@ docker start "$DATAVERSE_CONTAINER"
 
 # wait for Dataverse to be up
 echo "Waiting for Dataverse to be up..."
-while ! docker exec "$DATAVERSE_CONTAINER" curl -s http://localhost:8080/api/info/version > /dev/null; do
-    sleep 5
-    echo "Still waiting..."
-done
-echo "Dataverse is up."
+wait_for_dataverse_up
 
 echo "--- Waiting 30 seconds, just to be sure..."
 sleep 30
@@ -138,11 +161,7 @@ sleep 30
 
 # wait for Dataverse to be up
 echo "Waiting for Dataverse to be up..."
-while ! docker exec "$DATAVERSE_CONTAINER" curl -s http://localhost:8080/api/info/version > /dev/null; do
-    sleep 5
-    echo "Still waiting..."
-done
-echo "Dataverse is up."
+wait_for_dataverse_up
 
 ### Fix Search indexing
 echo "--- Fixing Search indexing ---"

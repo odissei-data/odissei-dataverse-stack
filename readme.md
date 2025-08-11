@@ -7,6 +7,8 @@ This is a test instance which combines two things:
 
 The goal of this repo is to reduce the code footprint of ODISSEI, while maximising the code (re-)usage of other solutions.
 
+For upgrading an existing system, read the [`upgrading.md`](upgrading.md) document. 
+
 At the present date, a number of manual steps are (unfortunately) still required. These are listed below, and commented out in the script.
 
 ## Setup
