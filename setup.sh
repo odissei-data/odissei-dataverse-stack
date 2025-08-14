@@ -8,7 +8,7 @@ source .env
 set +a
 echo "Bootstrap container: $BOOTSTRAP_CONTAINER"
 # Initiating the submodule and fetching any changes.
-git submodule init && git submodule update --remote
+#git submodule init && git submodule update --remote
 
 # Adding the docker-compose to the dataverse submodule
 cp utils/dataverse/docker-compose.yml dataverse/docker-compose.yml
@@ -112,10 +112,10 @@ echo "--- Sign up options turned off!"
 
 # Setup cvocconf
 echo "--- Setting up cvocconf..."
-docker cp cvconf.json "$DATAVERSE_CONTAINER":/opt/payara/cvconf.json
-docker exec "$DATAVERSE_CONTAINER" curl -X PUT --upload-file cvconf.json http://localhost:8080/api/admin/settings/:CVocConf
+docker cp utils/external_vocabularies/cvocconf.json "$DATAVERSE_CONTAINER":/opt/payara/cvocconf.json
+docker exec "$DATAVERSE_CONTAINER" curl -X PUT --upload-file cvocconf.json http://localhost:8080/api/admin/settings/:CVocConf
 docker exec "$DATAVERSE_CONTAINER" mkdir /opt/payara/deployments/dataverse/custom
-docker cp skosmos.js "$DATAVERSE_CONTAINER":/opt/payara/deployments/dataverse/custom/skosmos.js
+docker cp utils/external_vocabularies/skosmos.js "$DATAVERSE_CONTAINER":/opt/payara/deployments/dataverse/custom/skosmos.js
 echo "--- cvocconf setup complete!"
 
 # Copy dataset.xhtml with file and version tab removed to volume.
