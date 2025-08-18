@@ -8,7 +8,7 @@ source .env
 set +a
 echo "Bootstrap container: $BOOTSTRAP_CONTAINER"
 # Initiating the submodule and fetching any changes.
-#git submodule init && git submodule update --remote
+git submodule init && git submodule update --remote
 
 # Adding the docker-compose to the dataverse submodule
 cp utils/dataverse/docker-compose.yml dataverse/docker-compose.yml
