@@ -110,6 +110,14 @@ echo "--- Turning off sign up options..."
 docker exec "$DATAVERSE_CONTAINER" curl -X PUT -d 'false' http://localhost:8080/api/admin/settings/:AllowSignUp
 echo "--- Sign up options turned off!"
 
+# Setup cvocconf
+echo "--- Setting up cvocconf..."
+docker cp utils/external_vocabularies/cvocconf.json "$DATAVERSE_CONTAINER":/opt/payara/cvocconf.json
+docker exec "$DATAVERSE_CONTAINER" curl -X PUT --upload-file cvocconf.json http://localhost:8080/api/admin/settings/:CVocConf
+docker exec "$DATAVERSE_CONTAINER" mkdir /opt/payara/deployments/dataverse/custom
+docker cp utils/external_vocabularies/skosmos.js "$DATAVERSE_CONTAINER":/opt/payara/deployments/dataverse/custom/skosmos.js
+echo "--- cvocconf setup complete!"
+
 # Copy dataset.xhtml with file and version tab removed to volume.
 echo "--- Copying dataset.xhtml with file and version tab removed..."
 # test if we have the file in a target dir, assuming that is a Dataverse development setup
