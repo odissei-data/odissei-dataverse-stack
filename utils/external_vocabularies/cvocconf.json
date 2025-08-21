@@ -1,0 +1,742 @@
+[
+    {
+        "field-name": "dansAudience",
+        "term-uri-field": "dansAudience",
+        "cvoc-url": "https://vocabs.datastations.nl/",
+        "js-url": "/custom/skosmos.js",
+        "protocol": "skosmos",
+        "retrieval-uri": "https://vocabs.datastations.nl/rest/v1/data?uri={0}",
+        "term-parent-uri": "",
+        "languages": "en, nl",
+        "allow-free-text": false,
+        "vocabs": {
+            "NARCIS": {
+                "vocabularyUri": "https://www.narcis.nl/classification/",
+                "uriSpace": "https://www.narcis.nl/classification/"
+            }
+        },
+        "managed-fields": {},
+        "retrieval-filtering": {
+            "@context": {
+                "termName": "https://schema.org/name",
+                "vocabularyName": "https://dataverse.org/schema/vocabularyName",
+                "vocabularyUri": "https://dataverse.org/schema/vocabularyUri",
+                "lang": "@language",
+                "value": "@value"
+            },
+            "@id": {
+                "pattern": "{0}",
+                "params": [
+                    "@id"
+                ]
+            },
+            "termName": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/uri=@id/prefLabel"
+                ]
+            },
+            "vocabularyName": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/type=skos:ConceptScheme/prefLabel"
+                ]
+            },
+            "vocabularyUri": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/type=skos:ConceptScheme/uri"
+                ]
+            }
+        }
+    },
+    {
+        "field-name": "dansCollection",
+        "term-uri-field": "dansCollection",
+        "cvoc-url": "https://vocabs.datastations.nl/",
+        "js-url": "/custom/skosmos.js",
+        "protocol": "skosmos",
+        "retrieval-uri": "https://vocabs.datastations.nl/rest/v1/data?uri={0}",
+        "term-parent-uri": "https://vocabularies.dans.knaw.nl/collections/ssh",
+        "languages": "nl",
+        "allow-free-text": false,
+        "vocabs": {
+            "DansCollections": {
+                "vocabularyUri": "https://vocabularies.dans.knaw.nl/collections",
+                "uriSpace": "https://vocabularies.dans.knaw.nl/collections"
+            }
+        },
+        "managed-fields": {},
+        "retrieval-filtering": {
+            "@context": {
+                "termName": "https://schema.org/name",
+                "vocabularyName": "https://dataverse.org/schema/vocabularyName",
+                "vocabularyUri": "https://dataverse.org/schema/vocabularyUri",
+                "lang": "@language",
+                "value": "@value"
+            },
+            "@id": {
+                "pattern": "{0}",
+                "params": [
+                    "@id"
+                ]
+            },
+            "termName": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/uri=@id/prefLabel"
+                ]
+            },
+            "vocabularyName": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/type=skos:ConceptScheme/prefLabel"
+                ]
+            },
+            "vocabularyUri": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/type=skos:ConceptScheme/uri"
+                ]
+            }
+        }
+    },
+    {
+        "field-name": "dansAATClassification",
+        "term-uri-field": "dansAATClassification",
+        "cvoc-url": "https://vocabs.datastations.nl/",
+        "js-url": "/custom/skosmos.js",
+        "protocol": "skosmos",
+        "retrieval-uri": "https://vocabs.datastations.nl/rest/v1/data?uri={0}",
+        "term-parent-uri": "",
+        "languages": "en, nl",
+        "allow-free-text": false,
+        "vocabs": {
+            "AATC": {
+                "vocabularyUri": "http://vocab.getty.edu/aat/",
+                "uriSpace": "http://vocab.getty.edu/aat/"
+            }
+        },
+        "managed-fields": {},
+        "retrieval-filtering": {
+            "@context": {
+                "termName": "https://schema.org/name",
+                "vocabularyName": "https://dataverse.org/schema/vocabularyName",
+                "vocabularyUri": "https://dataverse.org/schema/vocabularyUri",
+                "lang": "@language",
+                "value": "@value"
+            },
+            "@id": {
+                "pattern": "{0}",
+                "params": [
+                    "@id"
+                ]
+            },
+            "termName": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/uri=@id/prefLabel"
+                ]
+            },
+            "vocabularyName": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/type=skos:ConceptScheme/prefLabel"
+                ]
+            },
+            "vocabularyUri": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/type=skos:ConceptScheme/uri"
+                ]
+            }
+        }
+    },
+    {
+        "field-name": "dansElsstClassification",
+        "term-uri-field": "dansElsstClassification",
+        "cvoc-url": "https://vocabs.datastations.nl/",
+        "js-url": "/custom/skosmos.js",
+        "protocol": "skosmos",
+        "retrieval-uri": "https://vocabs.datastations.nl/rest/v1/data?uri={0}",
+        "term-parent-uri": "",
+        "languages": "en",
+        "allow-free-text": false,
+        "vocabs": {
+            "ELSST_R4": {
+                "vocabularyUri": "https://elsst.cessda.eu/id/",
+                "uriSpace": "https://elsst.cessda.eu/id/"
+            }
+        },
+        "managed-fields": {},
+        "retrieval-filtering": {
+            "@context": {
+                "termName": "https://schema.org/name",
+                "vocabularyName": "https://dataverse.org/schema/vocabularyName",
+                "vocabularyUri": "https://dataverse.org/schema/vocabularyUri",
+                "lang": "@language",
+                "value": "@value"
+            },
+            "@id": {
+                "pattern": "{0}",
+                "params": [
+                    "@id"
+                ]
+            },
+            "termName": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/uri=@id/prefLabel"
+                ]
+            },
+            "vocabularyName": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/type=skos:ConceptScheme/prefLabel"
+                ]
+            },
+            "vocabularyUri": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/type=skos:ConceptScheme/uri"
+                ]
+            }
+        }
+    },
+    {
+        "field-name": "dansCessdaClassification",
+        "term-uri-field": "dansCessdaClassification",
+        "cvoc-url": "https://vocabs.datastations.nl/",
+        "js-url": "/custom/skosmos.js",
+        "protocol": "skosmos",
+        "retrieval-uri": "https://vocabs.datastations.nl/rest/v1/data?uri={0}",
+        "term-parent-uri": "",
+        "languages": "en",
+        "allow-free-text": false,
+        "vocabs": {
+            "TopicClassification_4_2": {
+                "vocabularyUri": "https://vocabularies.cessda.eu/vocabulary/TopicClassification?v=4.2",
+                "uriSpace": "https://vocabularies.cessda.eu/vocabulary/TopicClassification?v=4.2"
+            }
+        },
+        "managed-fields": {},
+        "retrieval-filtering": {
+            "@context": {
+                "termName": "https://schema.org/name",
+                "vocabularyName": "https://dataverse.org/schema/vocabularyName",
+                "vocabularyUri": "https://dataverse.org/schema/vocabularyUri",
+                "lang": "@language",
+                "value": "@value"
+            },
+            "@id": {
+                "pattern": "{0}",
+                "params": [
+                    "@id"
+                ]
+            },
+            "termName": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/uri=@id/prefLabel"
+                ]
+            },
+            "vocabularyName": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/type=skos:ConceptScheme/prefLabel"
+                ]
+            },
+            "vocabularyUri": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/type=skos:ConceptScheme/uri"
+                ]
+            }
+        }
+    },
+    {
+        "field-name": "dansUnitOfAnalysis",
+        "term-uri-field": "dansUnitOfAnalysis",
+        "cvoc-url": "https://vocabs.datastations.nl/",
+        "js-url": "/custom/skosmos.js",
+        "protocol": "skosmos",
+        "retrieval-uri": "https://vocabs.datastations.nl/rest/v1/data?uri={0}",
+        "term-parent-uri": "",
+        "languages": "en",
+        "allow-free-text": false,
+        "vocabs": {
+            "AnalysisUnit_2_1": {
+                "vocabularyUri": "http://rdf-vocabulary.ddialliance.org/cv/AnalysisUnit/2.1/",
+                "uriSpace": "http://rdf-vocabulary.ddialliance.org/cv/AnalysisUnit/2.1/"
+            }
+        },
+        "managed-fields": {},
+        "retrieval-filtering": {
+            "@context": {
+                "termName": "https://schema.org/name",
+                "vocabularyName": "https://dataverse.org/schema/vocabularyName",
+                "vocabularyUri": "https://dataverse.org/schema/vocabularyUri",
+                "lang": "@language",
+                "value": "@value"
+            },
+            "@id": {
+                "pattern": "{0}",
+                "params": [
+                    "@id"
+                ]
+            },
+            "termName": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/uri=@id/prefLabel"
+                ]
+            },
+            "vocabularyName": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/type=skos:ConceptScheme/prefLabel"
+                ]
+            },
+            "vocabularyUri": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/type=skos:ConceptScheme/uri"
+                ]
+            }
+        }
+    },
+    {
+        "field-name": "dansTimeMethod",
+        "term-uri-field": "dansTimeMethod",
+        "cvoc-url": "https://vocabs.datastations.nl/",
+        "js-url": "/custom/skosmos.js",
+        "protocol": "skosmos",
+        "retrieval-uri": "https://vocabs.datastations.nl/rest/v1/data?uri={0}",
+        "term-parent-uri": "",
+        "languages": "en",
+        "allow-free-text": false,
+        "vocabs": {
+            "TimeMethod_1_2": {
+                "vocabularyUri": "http://rdf-vocabulary.ddialliance.org/cv/TimeMethod/1.2/",
+                "uriSpace": "http://rdf-vocabulary.ddialliance.org/cv/TimeMethod/1.2/"
+            }
+        },
+        "managed-fields": {},
+        "retrieval-filtering": {
+            "@context": {
+                "termName": "https://schema.org/name",
+                "vocabularyName": "https://dataverse.org/schema/vocabularyName",
+                "vocabularyUri": "https://dataverse.org/schema/vocabularyUri",
+                "lang": "@language",
+                "value": "@value"
+            },
+            "@id": {
+                "pattern": "{0}",
+                "params": [
+                    "@id"
+                ]
+            },
+            "termName": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/uri=@id/prefLabel"
+                ]
+            },
+            "vocabularyName": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/type=skos:ConceptScheme/prefLabel"
+                ]
+            },
+            "vocabularyUri": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/type=skos:ConceptScheme/uri"
+                ]
+            }
+        }
+    },
+    {
+        "field-name": "dansSamplingProcedureCV",
+        "term-uri-field": "dansSamplingProcedureCV",
+        "cvoc-url": "https://vocabs.datastations.nl/",
+        "js-url": "/custom/skosmos.js",
+        "protocol": "skosmos",
+        "retrieval-uri": "https://vocabs.datastations.nl/rest/v1/data?uri={0}",
+        "term-parent-uri": "",
+        "languages": "en",
+        "allow-free-text": false,
+        "vocabs": {
+            "SamplingProcedure_1_1": {
+                "vocabularyUri": "http://rdf-vocabulary.ddialliance.org/cv/SamplingProcedure/1.1/",
+                "uriSpace": "http://rdf-vocabulary.ddialliance.org/cv/SamplingProcedure/1.1/"
+            }
+        },
+        "managed-fields": {},
+        "retrieval-filtering": {
+            "@context": {
+                "termName": "https://schema.org/name",
+                "vocabularyName": "https://dataverse.org/schema/vocabularyName",
+                "vocabularyUri": "https://dataverse.org/schema/vocabularyUri",
+                "lang": "@language",
+                "value": "@value"
+            },
+            "@id": {
+                "pattern": "{0}",
+                "params": [
+                    "@id"
+                ]
+            },
+            "termName": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/uri=@id/prefLabel"
+                ]
+            },
+            "vocabularyName": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/type=skos:ConceptScheme/prefLabel"
+                ]
+            },
+            "vocabularyUri": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/type=skos:ConceptScheme/uri"
+                ]
+            }
+        }
+    },
+    {
+        "field-name": "dansCollectionMode",
+        "term-uri-field": "dansCollectionMode",
+        "cvoc-url": "https://vocabs.datastations.nl/",
+        "js-url": "/custom/skosmos.js",
+        "protocol": "skosmos",
+        "retrieval-uri": "https://vocabs.datastations.nl/rest/v1/data?uri={0}",
+        "term-parent-uri": "",
+        "languages": "en",
+        "allow-free-text": false,
+        "vocabs": {
+            "ModeOfCollection_4_0": {
+                "vocabularyUri": "http://rdf-vocabulary.ddialliance.org/cv/ModeOfCollection/4.0/",
+                "uriSpace": "http://rdf-vocabulary.ddialliance.org/cv/ModeOfCollection/4.0/"
+            }
+        },
+        "managed-fields": {},
+        "retrieval-filtering": {
+            "@context": {
+                "termName": "https://schema.org/name",
+                "vocabularyName": "https://dataverse.org/schema/vocabularyName",
+                "vocabularyUri": "https://dataverse.org/schema/vocabularyUri",
+                "lang": "@language",
+                "value": "@value"
+            },
+            "@id": {
+                "pattern": "{0}",
+                "params": [
+                    "@id"
+                ]
+            },
+            "termName": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/uri=@id/prefLabel"
+                ]
+            },
+            "vocabularyName": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/type=skos:ConceptScheme/prefLabel"
+                ]
+            },
+            "vocabularyUri": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/type=skos:ConceptScheme/uri"
+                ]
+            }
+        }
+    },
+    {
+        "field-name": "dansResearchInstrument",
+        "term-uri-field": "dansResearchInstrument",
+        "cvoc-url": "https://vocabs.datastations.nl/",
+        "js-url": "/custom/skosmos.js",
+        "protocol": "skosmos",
+        "retrieval-uri": "https://vocabs.datastations.nl/rest/v1/data?uri={0}",
+        "term-parent-uri": "",
+        "languages": "en",
+        "allow-free-text": false,
+        "vocabs": {
+            "TypeOfInstrument_1_1": {
+                "vocabularyUri": "http://rdf-vocabulary.ddialliance.org/cv/TypeOfInstrument/1.1/",
+                "uriSpace": "http://rdf-vocabulary.ddialliance.org/cv/TypeOfInstrument/1.1/"
+            }
+        },
+        "managed-fields": {},
+        "retrieval-filtering": {
+            "@context": {
+                "termName": "https://schema.org/name",
+                "scheme": "http://www.w3.org/2004/02/skos/core#inScheme",
+                "lang": "@language",
+                "content": "@value"
+            },
+            "scheme": {
+                "pattern": "http://www.grid.ac/ontology/"
+            },
+            "termName": {
+                "pattern": "{0}",
+                "params": [
+                    "/name"
+                ]
+            },
+            "@type": {
+                "pattern": "https://schema.org/Organization"
+            }
+        }
+    },
+    {
+        "field-name": "authorAffiliation",
+        "term-uri-field": "authorAffiliation",
+        "js-url": [
+            "/custom/ror.js",
+            "/custom/cvocutils.js"
+        ],
+        "protocol": "ror",
+        "retrieval-uri": "https://api.ror.org/organizations/{0}",
+        "allow-free-text": true,
+        "prefix": "https://ror.org/",
+        "managed-fields": {},
+        "languages": "",
+        "vocabs": {
+            "rors": {
+                "uriSpace": "https://ror.org/"
+            }
+        },
+        "retrieval-filtering": {
+            "@context": {
+                "termName": "https://schema.org/name",
+                "scheme": "http://www.w3.org/2004/02/skos/core#inScheme",
+                "lang": "@language",
+                "content": "@value"
+            },
+            "scheme": {
+                "pattern": "http://www.grid.ac/ontology/"
+            },
+            "termName": {
+                "pattern": "{0}",
+                "params": [
+                    "/name"
+                ]
+            },
+            "@type": {
+                "pattern": "https://schema.org/Organization"
+            }
+        }
+    },
+    {
+        "field-name": "odisseiVariableVocabularyURI",
+        "term-uri-field": "odisseiVariableVocabularyURI",
+        "cvoc-url": "https://skosmos.odissei.nl/",
+        "js-url": "/custom/skosmos.js",
+        "protocol": "skosmos",
+        "retrieval-uri": "https://skosmos.odissei.nl/rest/v1/data?uri={0}",
+        "term-parent-uri": "",
+        "languages": "nl",
+        "allow-free-text": false,
+        "vocabs": {
+            "cbs": {
+                "vocabularyUri": "https://w3id.org/odissei/cv/cbs/variableThesaurus",
+                "uriSpace": "https://w3id.org/odissei/cv/cbs/variableThesaurus"
+            }
+        },
+        "managed-fields": {},
+        "retrieval-filtering": {
+            "@context": {
+                "termName": "https://schema.org/name",
+                "vocabularyName": "https://dataverse.org/schema/vocabularyName",
+                "vocabularyUri": "https://dataverse.org/schema/vocabularyUri",
+                "lang": "@language",
+                "value": "@value"
+            },
+            "@id": {
+                "pattern": "{0}",
+                "params": [
+                    "@id"
+                ]
+            },
+            "termName": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/uri=@id/prefLabel"
+                ]
+            },
+            "vocabularyName": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/type=skos:ConceptScheme/prefLabel"
+                ]
+            },
+            "vocabularyUri": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/type=skos:ConceptScheme/uri"
+                ]
+            }
+        }
+    },
+    {
+        "field-name": "enrichedElsstClassification",
+        "term-uri-field": "enrichedElsstClassification",
+        "cvoc-url": "https://thesauri.cessda.eu/",
+        "js-url": "/custom/skosmos.js",
+        "protocol": "skosmos",
+        "retrieval-uri": "https://thesauri.cessda.eu/rest/v1/data?uri={0}",
+        "term-parent-uri": "",
+        "languages": "en",
+        "allow-free-text": false,
+        "vocabs": {
+            "elsst-5": {
+                "vocabularyUri": "https://elsst.cessda.eu/id/",
+                "uriSpace": "https://elsst.cessda.eu/id/"
+            }
+        },
+        "managed-fields": {},
+        "retrieval-filtering": {
+            "@context": {
+                "termName": "https://schema.org/name",
+                "vocabularyName": "https://dataverse.org/schema/vocabularyName",
+                "vocabularyUri": "https://dataverse.org/schema/vocabularyUri",
+                "lang": "@language",
+                "value": "@value"
+            },
+            "@id": {
+                "pattern": "{0}",
+                "params": [
+                    "@id"
+                ]
+            },
+            "termName": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/uri=@id/prefLabel"
+                ]
+            },
+            "vocabularyName": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/type=skos:ConceptScheme/prefLabel"
+                ]
+            },
+            "vocabularyUri": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/type=skos:ConceptScheme/uri"
+                ]
+            }
+        }
+    },
+    {
+        "field-name": "enrichedCbsTaxonomyTerm",
+        "term-uri-field": "enrichedCbsTaxonomyTerm",
+        "cvoc-url": "https://skosmos.odissei.nl/",
+        "js-url": "/custom/skosmos.js",
+        "protocol": "skosmos",
+        "retrieval-uri": "https://skosmos.odissei.nl/rest/v1/data?uri={0}",
+        "term-parent-uri": "",
+        "languages": "nl",
+        "allow-free-text": false,
+        "vocabs": {
+            "taxonomie": {
+                "vocabularyUri": "https://taxonomie.cbs.nl/vocab/id/",
+                "uriSpace": "https://taxonomie.cbs.nl/vocab/id/"
+            }
+        },
+        "managed-fields": {},
+        "retrieval-filtering": {
+            "@context": {
+                "termName": "https://schema.org/name",
+                "vocabularyName": "https://dataverse.org/schema/vocabularyName",
+                "vocabularyUri": "https://dataverse.org/schema/vocabularyUri",
+                "lang": "@language",
+                "value": "@value"
+            },
+            "@id": {
+                "pattern": "{0}",
+                "params": [
+                    "@id"
+                ]
+            },
+            "termName": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/uri=@id/prefLabel"
+                ]
+            },
+            "vocabularyName": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/type=skos:ConceptScheme/prefLabel"
+                ]
+            },
+            "vocabularyUri": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/type=skos:ConceptScheme/uri"
+                ]
+            }
+        }
+    },
+    {
+        "field-name": "enrichedCbsConcept",
+        "term-uri-field": "enrichedCbsConcept",
+        "cvoc-url": "https://skosmos.odissei.nl/",
+        "js-url": "/custom/skosmos.js",
+        "protocol": "skosmos",
+        "retrieval-uri": "https://skosmos.odissei.nl/rest/v1/data?uri={0}",
+        "term-parent-uri": "",
+        "languages": "nl",
+        "allow-free-text": false,
+        "vocabs": {
+            "begrippen": {
+                "vocabularyUri": "https://vocabs.cbs.nl/def/begrippen/",
+                "uriSpace": "https://vocabs.cbs.nl/def/begrippen/"
+            }
+        },
+        "managed-fields": {},
+        "retrieval-filtering": {
+            "@context": {
+                "termName": "https://schema.org/name",
+                "vocabularyName": "https://dataverse.org/schema/vocabularyName",
+                "vocabularyUri": "https://dataverse.org/schema/vocabularyUri",
+                "lang": "@language",
+                "value": "@value"
+            },
+            "@id": {
+                "pattern": "{0}",
+                "params": [
+                    "@id"
+                ]
+            },
+            "termName": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/uri=@id/prefLabel"
+                ]
+            },
+            "vocabularyName": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/type=skos:ConceptScheme/prefLabel"
+                ]
+            },
+            "vocabularyUri": {
+                "pattern": "{0}",
+                "params": [
+                    "/graph/type=skos:ConceptScheme/uri"
+                ]
+            }
+        }
+    }
+]

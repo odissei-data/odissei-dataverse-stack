@@ -1,0 +1,10 @@
+APP_IMAGE=gdcc/dataverse:6.5-noble
+#BASE_IMAGE=gdcc/base:6.5-noble
+BASE_IMAGE=gdcc/configbaker:unstable
+POSTGRES_VERSION=17
+DATAVERSE_DB_USER=dataverse
+#SOLR_VERSION=9.4.1
+# NOTE Using 9.4.1 gives java.lang.ClassNotFoundException: solr.NumFieldLimitingUpdateRequestProcessorFactory
+SOLR_VERSION=9.8.0
+SKIP_DEPLOY=0
+DATAVERSE_MAIL_MTA_PASSWORD: "secret"

@@ -1,0 +1,76 @@
+#!/bin/bash
+
+# Updates the Solr configuration; schema.xml
+#
+# Note that this must be run after the custom metadata blocks are installed (loaded).
+# Also this must be run after changes to the metadata blocks are made, 
+# so the schema is up to date.
+
+# check if we have the right number of arguments
+if [ "$#" -lt 2 ] || [ "$#" -gt 3 ]; then
+    echo "Usage: $0 <dataverse_container_name> <solr_container_name> [schema_file]"
+    exit 1
+fi
+DATAVERSE_CONTAINER=$1
+SOLR_CONTAINER=$2
+SCHEMA_FILE=${3:-../schema.xml}
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+CURRENT_DIR="$(pwd)"
+
+cd "$SCRIPT_DIR" || exit 1
+
+# We can't run that update-fields.sh on the dev_dataverse container,  
+# because it needs 'ed' and bc' ( also 'sed' and 'awk') which are not installed there. 
+# Lets get that fields xml file from the dataverse container
+# and then run the script here
+
+docker exec "$DATAVERSE_CONTAINER" bash -c "curl 'http://localhost:8080/api/admin/index/solr/schema' > /opt/payara/fields.xml"
+docker cp "$DATAVERSE_CONTAINER":/opt/payara/fields.xml ./fields.xml
+
+# check if we have prerequisites installed for that script
+
+# Function to check if a command exists
+exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Function to show an error message and exit
+error() {
+    echo "ERROR:" "$@" >&2
+    exit 2
+}
+
+# Check for ed and bc being present, is done in the script, but we need to do it here too
+exists ed || error "Please ensure ed, bc, sed + awk are installed"
+exists bc || error "Please ensure ed, bc, sed + awk are installed"
+exists awk || error "Please ensure ed, bc, sed + awk are installed"
+exists sed || error "Please ensure ed, bc, sed + awk are installed"
+
+#cp ../schema.xml new-schema.xml
+cp "$SCHEMA_FILE" new-schema.xml
+cat fields.xml | ./update-fields.sh ./new-schema.xml
+
+docker cp new-schema.xml "$SOLR_CONTAINER":/var/solr/data/collection1/conf/schema.xml
+# not sure about that next copy...
+docker cp new-schema.xml "$SOLR_CONTAINER":/template/conf/schema.xml
+
+# restart the solr container
+docker restart "$SOLR_CONTAINER"
+
+# wait for Solr to be up
+echo "Waiting for Solr to be up..."
+while ! docker exec "$SOLR_CONTAINER" curl -s http://localhost:8983/solr/admin/info/system > /dev/null; do
+    sleep 5
+    echo "Still waiting..."
+done
+echo "Solr is up."
+
+# Hard re-indexing is simple and most likely not a burden, repo should be almost empty initially
+# If the repo has lots of stuff, we should NOT do re-indexing here and possibly make this optional
+# Note that clearing is definitely needed after a database import
+echo "--- Clearing and reindexing the Solr index..."
+docker exec "$DATAVERSE_CONTAINER" curl http://localhost:8080/api/admin/index/clear
+docker exec "$DATAVERSE_CONTAINER" curl http://localhost:8080/api/admin/index
+
+cd "$CURRENT_DIR" || exit 1
