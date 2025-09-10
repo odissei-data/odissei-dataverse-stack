@@ -99,6 +99,14 @@ echo "--- Configuring NavbarGuidesUrl..."
 docker exec "$DATAVERSE_CONTAINER" curl -X PUT -d "$DATAVERSE_NAVBAR_GUIDES_URL" http://localhost:8080/api/admin/settings/:NavbarGuidesUrl
 echo "--- NavbarGuidesUrl configured!"
 
+# Configure Notifications
+echo "--- Configuring Notifications..."
+# Enable to show options in UI
+docker exec "$DATAVERSE_CONTAINER" curl -X PUT -d 'true' http://localhost:8080/api/admin/settings/:ShowMuteOptions
+# Mute all that have to do with Dataset import, create and publish
+docker exec "$DATAVERSE_CONTAINER" curl -X PUT -d 'CREATEDS,CREATEDV,DATASETCREATED,FILESYSTEMIMPORT,PUBLISHEDDS,PUBLISHFAILED_PIDREG,STATUSUPDATED,SUBMITTEDDS,WORKFLOW_FAILURE,WORKFLOW_SUCCESS,SUBMITTEDDS,WORKFLOW_FAILURE,WORKFLOW_SUCCESS' http://localhost:8080/api/admin/settings/:AlwaysMuted
+echo "--- Notifications configured!"
+
 # Note that the schema is changed by the following action
 # Update the schema.xml file with our custom fields
 echo "--- Updating schema.xml file with new fields..."
