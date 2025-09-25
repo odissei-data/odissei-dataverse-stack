@@ -702,6 +702,10 @@
             "begrippen": {
                 "vocabularyUri": "https://vocabs.cbs.nl/def/begrippen/",
                 "uriSpace": "https://vocabs.cbs.nl/def/begrippen/"
+            },
+            "taxonomie": {
+                "vocabularyUri": "https://taxonomie.cbs.nl/vocab/id/",
+                "uriSpace": "https://taxonomie.cbs.nl/vocab/id/"
             }
         },
         "managed-fields": {},
