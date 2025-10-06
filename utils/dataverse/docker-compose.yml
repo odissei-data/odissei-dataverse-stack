@@ -44,6 +44,7 @@ services:
       - "8686:8686" # JMX
     networks:
       - dataverse
+      - traefik
     depends_on:
       - dev_postgres
       - dev_solr
@@ -128,5 +129,7 @@ services:
       - ./docker-dev-volumes/solr/conf:/template
 
 networks:
+  traefik:
+    external: true
   dataverse:
     driver: bridge

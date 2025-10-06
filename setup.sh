@@ -15,7 +15,6 @@ cp utils/dataverse/dot_env utils/dataverse/.env
 
 # Create Traefik network
 docker network create traefik
-docker network create dataverse_dataverse
 
 # Upping the Dataverse stack.
 docker compose -f utils/dataverse/docker-compose.yml up -d

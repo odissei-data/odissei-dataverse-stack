@@ -1,10 +1,6 @@
-version: '3.7'
-# Settings and configurations that are common for all containers
-
 services:
     reverse-proxy:
-    # The official v2 Traefik docker image
-      image: traefik:v2.9
+      image: traefik:v3.5.3
       container_name: traefik
     # Enables the web UI and tells Traefik to listen to docker
       command:
@@ -42,12 +38,9 @@ services:
           #- ./traefik.toml:/traefik.toml
         - ./rules-infra.toml:/etc/traefik/conf.d/rules.toml
       networks:
-        - dataverse_dataverse
         - traefik
 
 
 networks:
   traefik:
-    external: true
-  dataverse_dataverse:
     external: true

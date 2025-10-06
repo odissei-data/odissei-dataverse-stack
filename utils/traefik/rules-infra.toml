@@ -6,18 +6,10 @@
         service = "dataverse"
      [http.routers.dataverse.tls]
         certResolver = "myresolver"
-   #   [http.routers.solr]
-   #     rule = "Host(`solr.{{ env "hostname" }}`)"
-   #     entrypoints = ["websecure"]
-   #     service = "solr"
-   #   [http.routers.solr.tls]
-   #      certResolver = "myresolver"
 
  [http.services]
         # Define how to reach an existing service on our infrastructure
         [http.services.dataverse.loadBalancer]
            [[http.services.dataverse.loadBalancer.servers]]
              url = "http://dev_dataverse:8080"
-      #   [http.services.solr.loadBalancer]
-      #      [[http.services.solr.loadBalancer.servers]]
-      #        url = "http://dev_solr:8983"
+
