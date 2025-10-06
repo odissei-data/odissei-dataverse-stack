@@ -1,4 +1,4 @@
-APP_IMAGE=gdcc/dataverse:6.4-noble
+APP_IMAGE=gdcc/dataverse:6.6-noble
 #BASE_IMAGE=gdcc/base:6.4-noble
 BASE_IMAGE=gdcc/configbaker:unstable
 POSTGRES_VERSION=16
