@@ -11,14 +11,14 @@ echo "Bootstrap container: $BOOTSTRAP_CONTAINER"
 git submodule init && git submodule update --remote
 
 # Adding the docker-compose to the dataverse submodule
-cp utils/dataverse/docker-compose.yml dataverse/docker-compose.yml
-cp utils/dataverse/dot_env dataverse/.env
+cp utils/dataverse/dot_env utils/dataverse/.env
 
 # Create Traefik network
 docker network create traefik
+docker network create dataverse_dataverse
 
 # Upping the Dataverse stack.
-docker compose -f dataverse/docker-compose.yml up -d
+docker compose -f utils/dataverse/docker-compose.yml up -d
 
 # Setup traefik container
 docker compose -f utils/traefik/docker-compose.yml up -d
