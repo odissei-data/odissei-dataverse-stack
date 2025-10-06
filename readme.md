@@ -1,26 +1,45 @@
-# Experimental setup for Dataverse development version
+# ODISSEI Dataverse setup
 
-This is a test instance which combines two things:
+The Dataverse stack for the ODISSEI portal. provides a quick setup for the Dataverse stack used for the ODISSEI Portal. 
 
-- The development Dataverse stack
+- The Dataverse stack
 - A traefik configuration
 
 The goal of this repo is to reduce the code footprint of ODISSEI, while maximising the code (re-)usage of other solutions.
-
 For upgrading an existing system, read the [`upgrading.md`](upgrading.md) document. 
 
-At the present date, a number of manual steps are (unfortunately) still required. These are listed below, and commented out in the script.
+At the present date, a number of manual steps are still required. These are listed below, and commented out in the script.
 
 ## Setup
 
-1. Make sure you have Python 3.10 or higher and also Poetry installed for the Dataverse setup. 
+### Install Poetry
+
+Run the following commands:
+
+```bash
+curl -sSL https://install.python-poetry.org | python3 -
+```
+
+Add Poetry to your system path:
+
+```bash
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+Verify the installation:
+
+```bash
+poetry --version
+```
+
+### Steps
+1. Setup Poetry and Python
 2. Install docker (obviously)
 3. Ensure ports are open where they need to be.
 4. `cp dot_env_example .env` - make changes to the .env if necessary. 
    For instance, when running on a local machine make sure you have `ROOT_URL="http://localhost:8080"`. 
 5. Run the setup.sh script: `./setup.sh`.
-
-Now get to manual steps.
 
 ## Setup script
 The setup script does the following things for you:
