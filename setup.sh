@@ -125,6 +125,11 @@ docker exec "$DATAVERSE_CONTAINER" mkdir /opt/payara/deployments/dataverse/custo
 docker cp utils/external_vocabularies/skosmos.js "$DATAVERSE_CONTAINER":/opt/payara/deployments/dataverse/custom/skosmos.js
 echo "--- cvocconf setup complete!"
 
+# Install exporter jar files
+echo "--- Installing exporter jar files..."
+sh utils/dataverse/install_exporters.sh
+echo "--- Exporter jar files copied!"
+
 # Copy dataset.xhtml with file and version tab removed to volume.
 echo "--- Copying dataset.xhtml with file and version tab removed..."
 # test if we have the file in a target dir, assuming that is a Dataverse development setup
