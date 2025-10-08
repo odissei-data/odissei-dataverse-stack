@@ -13,7 +13,7 @@ cd "$SCRIPT_DIR" || exit 1
 echo "Installing exporter jar files. Script directory: $SCRIPT_DIR"
 
 # The dataverse docker volumes directory relative to this script
-DOCKER_VOLUMES_DIR=./docker-dev-volumes
+DOCKER_VOLUMES_DIR=../../dataverse/docker-dev-volumes
 
 # Test if we have the docker volumes directory
 if [ ! -d "$DOCKER_VOLUMES_DIR" ]; then
