@@ -8,7 +8,7 @@ utils/solr/schema-update/new-schema.xml
 utils/solr/schema-update/fields.xml
 
 # explicitly ignore most dataverse contents
-dataverse/docker-dev-volumes
+utils/dataverse/docker-dev-volumes/
 dataverse/.env
 dataverse/docker-compose.yml
 
