@@ -56,6 +56,19 @@ The setup script does the following things for you:
 11. Turns off the sign up option.
 12. Sets the changed version of the dataset page and restart the Dataverse container.
 
+## Manual steps (optional)
+
+After the setup script has run the 'dev' portal is not completely identical to the production. Some steps are simpler to do 'manually' instead of using scripts. But this may change over time as more is being automated. 
+
+There are now two 'steps' that need to be done: 
+
+1. Fix the portal 'theme': 
+   Use the files and instruction (`Settings_and_ColorCodes.md`) in the `utils/dataverse/theme` directory to change the site logo and other things. 
+2. Fix the logos for the data providers in their sub-verses. 
+   Upload them from the `utils/dataverse/dataverses/logos` directory. 
+   Note that we do not use logos for the DataverseNL sub-verses.
+
+
 ## Cleanup for Commits and Pull Requests
 
 The following files are overwritten by copy actions in the setup.sh script. 
@@ -72,4 +85,9 @@ Copied metadata block scripts:
 Cleanup is automated by running the following script:
 ```
 ./teardown_and_cleanup_submodules.sh
+```
+
+Note that if you want to have a fresh start the next time you run the setup, you need to wipe the persistent volumes:
+```
+sudo rm -rf dataverse/docker-dev-volumes
 ```
