@@ -13,7 +13,8 @@
     "facetIds": [
       "authorName",
       "topicClassValue",
-      "keywordValue"
+      "keywordValue",
+      "odisseiVariableName"
     ]
   }
 }
