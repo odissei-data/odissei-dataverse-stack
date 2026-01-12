@@ -67,7 +67,7 @@ There are now several 'steps' that need to be done:
 2. Fix the logos for the data providers in their sub-verses. 
    Upload them from the `utils/dataverse/dataverses/logos` directory. 
    Note that we do not use logos for the DataverseNL sub-verses.
-3. Remove the ‘Add Data’ button omn the menu bar. 
+3. Remove the ‘Add Data’ button on the menu bar. 
    Change the root dataverse permissions: From ' Anyone with an account can add a dataverse or dataset' into ‘Anyone adding to this dataverse needs to be given access’. And then the button in the navbar will disappear.
 
 
