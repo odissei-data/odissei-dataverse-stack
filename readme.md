@@ -60,13 +60,15 @@ The setup script does the following things for you:
 
 After the setup script has run the 'dev' portal is not completely identical to the production. Some steps are simpler to do 'manually' instead of using scripts. But this may change over time as more is being automated. 
 
-There are now two 'steps' that need to be done: 
+There are now several 'steps' that need to be done: 
 
-1. Fix the portal 'theme': 
+1. Fix the portal 'theme'. 
    Use the files and instruction (`Settings_and_ColorCodes.md`) in the `utils/dataverse/theme` directory to change the site logo and other things. 
 2. Fix the logos for the data providers in their sub-verses. 
    Upload them from the `utils/dataverse/dataverses/logos` directory. 
    Note that we do not use logos for the DataverseNL sub-verses.
+3. Remove the ‘Add Data’ button omn the menu bar. 
+   Change the root dataverse permissions: From ' Anyone with an account can add a dataverse or dataset' into ‘Anyone adding to this dataverse needs to be given access’. And then the button in the navbar will disappear.
 
 
 ## Cleanup for Commits and Pull Requests
