@@ -1,0 +1,316 @@
+console.log("ror.js..");
+var rorSelector = "span[data-cvoc-protocol='ror']";
+var rorInputSelector = "input[data-cvoc-protocol='ror']";
+var rorRetrievalUrl = "https://api.ror.org/v2/organizations";
+var rorIdStem = "https://ror.org/";
+var rorPrefix = "ror";
+//Max chars that displays well for a child field
+var rorMaxLength = 31;
+
+$(document).ready(function() {
+    expandRors();
+    updateRorInputs();
+});
+
+function expandRors() {
+    // Check each selected element
+    $(rorSelector).each(function() {
+        var rorElement = this;
+        if (rorElement != null) {
+            // If it hasn't already been processed
+            if (!$(rorElement).hasClass('expanded')) {
+                //Child field case - if non-managed display, the string before this is name (affiliation) and we need to remove the duplicate affiliation string
+                //This is true for Dataverse author field - may not be true elsewhere - tbd
+                let useParens = true;
+                let truncate = false;
+                let prev = $(rorElement)[0].previousSibling;
+                if (prev != null && prev.tagName != 'BR') {
+                    let val = prev.nodeValue;
+                    if (val !== null) {
+                        let index = val.indexOf('(');
+                        if (index != -1) {
+                            $(rorElement)[0].previousSibling.data = val.substring(0, val.indexOf('('));
+                        }
+                    }
+                } else {
+                    useParens = false;
+                    truncate = true;
+                }
+                // Mark it as processed
+                $(rorElement).addClass('expanded');
+                if(useParens) {
+                    $(rorElement).addClass('parenthetical');
+                }
+                var id = rorElement.textContent;
+                if (!id.startsWith(rorIdStem)) {
+                    $(rorElement).html(getRorDisplayHtml(id, null, ['No ROR Entry'], false, useParens));
+                } else {
+                    //Remove the URL prefix - "https://ror.org/".length = 16
+                    id = id.substring(rorIdStem.length);
+                    //Check for cached entry
+                    let value = getValue(rorPrefix, id);
+                    if (value.name != null) {
+                        $(rorElement).html(getRorDisplayHtml(value.name, rorIdStem + id, value.altNames, false, useParens));
+                    } else {
+                        // Try it as an ROR entry (could validate that it has the right form or can just let the GET fail)
+                        $.ajax({
+                            type: "GET",
+                            url: rorRetrievalUrl + "/" + id,
+                            dataType: 'json',
+                            headers: {
+                                'Accept': 'application/json',
+                            },
+                            success: function(ror, status) {
+                                // If found, construct the HTML for display
+                                // Find the display name (type: "ror_display" or "label")
+                                const displayName = ror.names.find(n => 
+                                    n.types && (n.types.includes("ror_display") || n.types.includes("label"))
+                                )?.value || ror.id;
+                                
+                                // Find all acronyms
+                                const acronyms = ror.names
+                                    .filter(n => n.types && n.types.includes("acronym"))
+                                    .map(n => n.value);
+
+                                $(rorElement).html(getRorDisplayHtml(displayName, rorIdStem + id, acronyms, false, true));
+                                //Store values in localStorage to avoid repeating calls to CrossRef
+                                storeValue(rorPrefix, id, displayName + "#" + acronyms.join(','));
+                            },
+                            failure: function(jqXHR, textStatus, errorThrown) {
+                                // Generic logging - don't need to do anything if 404 (leave
+                                // display as is)
+                                if (jqXHR.status != 404) {
+                                    console.error("The following error occurred: " + textStatus, errorThrown);
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        }
+    });
+}
+
+function getRorDisplayHtml(name, url, altNames, truncate = true, addParens = false) {
+    if (typeof (altNames) == 'undefined') {
+        altNames = [];
+    }
+    if (truncate && (name.length >= rorMaxLength)) {
+        // show the first characters of a long name
+        // return item.text.substring(0,25) + "…";
+        altNames.unshift(name);
+        name = name.substring(0, rorMaxLength) + "…";
+    }
+    if (url != null) {
+        name = name + '<a href="' + url + '" target="_blank" rel="nofollow" >' + '<img alt="ROR logo" src="https://raw.githubusercontent.com/ror-community/ror-logos/main/ror-icon-rgb.svg" height="20" class="ror"/></a>';
+    }
+    if (addParens) {
+        name = '(' + name + ')';
+    }
+    return $('<span></span>').append(name).attr("title", altNames);
+}
+
+function updateRorInputs() {
+    // For each input element within rorInputSelector elements
+    $(rorInputSelector).each(function() {
+        var rorInput = this;
+        if (!rorInput.hasAttribute('data-ror')) {
+            // Random identifier
+            let num = Math.floor(Math.random() * 100000000000);
+            // Hide the actual input and give it a data-ror number so we can
+            // find it
+            $(rorInput).hide();
+            $(rorInput).attr('data-ror', num);
+            // Todo: if not displayed, wait until it is to then create the
+            // select 2 with a non-zero width
+            // Add a select2 element to allow search and provide a list of
+            // choices
+            var selectId = "rorAddSelect_" + num;
+            $(rorInput).after(
+                '<select id=' + selectId + ' class="form-control add-resource select2" tabindex="0" >');
+            $("#" + selectId).select2({
+                theme: "classic",
+                tags: $(rorInput).data("cvoc-allowfreetext"),
+                delay: 500,
+                templateResult: function(item) {
+                    // No need to template the searching text
+                    if (item.loading) {
+                        return item.text;
+                    }
+                    // markMatch bolds the search term if/where it appears in
+                    // the result
+                    var $result = markMatch2(item.text, term);
+                    return $result;
+                },
+                templateSelection: function(item) {
+                    // For a selection, format as in display mode
+                    //Find/remove the id number
+                    var name = item.text;
+                    var pos = item.text.search(/, [a-z0-9]{9}/);
+                    if (pos >= 0) {
+                        name = name.substr(0, pos);
+                        var idnum = item.text.substr(pos + 2);
+                        var altNames = [];
+                        pos = idnum.indexOf(', ');
+                        if (pos > 0) {
+                            altNames = idnum.substr(pos + 2).split(',');
+                            idnum = idnum.substr(0, pos);
+                        }
+                        return getRorDisplayHtml(name, rorIdStem + idnum, altNames);
+                    }
+                    return getRorDisplayHtml(name, null, ['No ROR Entry']);
+                },
+                language: {
+                    searching: function(params) {
+                        // Change this to be appropriate for your application
+                        return 'Search by name or acronym…';
+                    }
+                },
+                placeholder: rorInput.hasAttribute("data-cvoc-placeholder") ? $(rorInput).attr('data-cvoc-placeholder') : "Select or enter...",
+                minimumInputLength: 3,
+                allowClear: true,
+                ajax: {
+                    // Use an ajax call to ROR to retrieve matching results
+                    url: rorRetrievalUrl,
+                    data: function(params) {
+                        term = params.term;
+                        if (!term) {
+                            term = "";
+                        } else {
+                            term = term.replace(/([+\-&|!(){}[\]^"~*?:\\\/])/g, "\\$1") + "*";
+                        }
+                        var query = {
+                            query: term,
+                        }
+                        return query;
+                    },
+                    // request json
+                    headers: {
+                        'Accept': 'application/json'
+                    },
+                    processResults: function(data, params) {
+                        //console.log("Data dump BEGIN");
+                        //console.log(data);
+                        //console.log("Data dump END");
+                        return {
+                            results: data['items']
+                                // Sort the list
+                                // Prioritize active orgs
+                                .sort((a, b) => Number(b.status === 'active') - Number(a.status === 'active'))
+                                // Extract display name and acronyms from the names array
+                                .map(org => {
+                                    // Find the display name (type: "ror_display" or "label")
+                                    const displayName = org.names.find(n => 
+                                        n.types && (n.types.includes("ror_display") || n.types.includes("label"))
+                                    )?.value || org.id;
+                                    
+                                    // Find all acronyms
+                                    const acronyms = org.names
+                                        .filter(n => n.types && n.types.includes("acronym"))
+                                        .map(n => n.value);
+                                    
+                                    return {
+                                        ...org,
+                                        name: displayName,
+                                        acronyms: acronyms
+                                    };
+                                })
+                                // Prioritize those with this acronym
+                                .sort((a, b) => Number(b.acronyms.some(acr => acr === params.term)) - 
+                                               Number(a.acronyms.some(acr => acr === params.term)))
+                                // Prioritize previously used entries
+                                .sort((a, b) => Number(getValue(rorPrefix, b['id'].replace(rorIdStem, '')).name != null) - 
+                                               Number(getValue(rorPrefix, a['id'].replace(rorIdStem, '')).name != null))
+                                .map(
+                                    function(x) {
+                                        return {
+                                            text: x.name + ", " + x.id.replace(rorIdStem, '') + ', ' + x.acronyms.join(','),
+                                            id: x.id
+                                        }
+                                    })
+                        };
+                    }
+                }
+            });
+            //Add a tab stop and key handling to allow the clear button to be selected via tab/enter
+            const observer = new MutationObserver((mutationList, observer) => {
+                var button = $('#' + selectId).parent().find('.select2-selection__clear');
+                console.log("BL : " + button.length);
+                button.attr("tabindex", "0");
+                button.on('keydown', function(e) {
+                    if (e.which == 13) {
+                        $('#' + selectId).val(null).trigger('change');
+                    }
+                });
+            });
+
+            observer.observe($('#' + selectId).parent()[0], {
+                childList: true,
+                subtree: true
+            }
+            );
+
+            // If the input has a value already, format it the same way as if it
+            // were a new selection
+            var id = $(rorInput).val();
+            if (id.startsWith(rorIdStem)) {
+                id = id.substring(rorIdStem.length);
+                $.ajax({
+                    type: "GET",
+                    url: rorRetrievalUrl + "/" + id,
+                    dataType: 'json',
+                    headers: {
+                        'Accept': 'application/json'
+                    },
+                    success: function(ror, status) {
+                        // Find the display name (type: "ror_display" or "label")
+                        const displayName = ror.names.find(n => 
+                            n.types && (n.types.includes("ror_display") || n.types.includes("label"))
+                        )?.value || ror.id;
+                        
+                        // Find all acronyms
+                        const acronyms = ror.names
+                            .filter(n => n.types && n.types.includes("acronym"))
+                            .map(n => n.value);
+                            
+                        //Display the name and id number in the selection menu
+                        var text = displayName + ", " + ror.id.replace(rorIdStem, '') + ', ' + acronyms.join(',');
+                        var newOption = new Option(text, id, true, true);
+                        $('#' + selectId).append(newOption).trigger('change');
+                    },
+                    failure: function(jqXHR, textStatus, errorThrown) {
+                        if (jqXHR.status != 404) {
+                            console.error("The following error occurred: " + textStatus, errorThrown);
+                        }
+                    }
+                });
+            } else {
+                // If the initial value is not in ROR, just display it as is
+                var newOption = new Option(id, id, true, true);
+                newOption.altNames = ['No ROR Entry'];
+                $('#' + selectId).append(newOption).trigger('change');
+            }
+            // Could start with the selection menu open
+            // $("#" + selectId).select2('open');
+            // When a selection is made, set the value of the hidden input field
+            $('#' + selectId).on('select2:select', function(e) {
+                var data = e.params.data;
+                // For entries from ROR, the id and text are different, and we want the ror url (id)
+                // For plain text entries (legacy or if tags are allowed), they are the same
+                // Setting .val() gets the info to Dataverse, using .attr() makes the change visible in the browser console
+                $("input[data-ror='" + num + "']").val(data.id).attr('value',data.id);
+            });
+            // When a selection is cleared, clear the hidden input
+            $('#' + selectId).on('select2:clear', function(e) {
+                $("input[data-ror='" + num + "']").val('').attr('value', '');
+            });
+            //When the field is selected via keyboard, move the focus and cursor to the new input
+            $('#' + selectId).on('select2:open', function(e) {
+                $(".select2-search__field").focus()
+                $(".select2-search__field").attr("id", selectId + "_input")
+                document.getElementById(selectId + "_input").select();
+
+            });
+        }
+    });
+}
