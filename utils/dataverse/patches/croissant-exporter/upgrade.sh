@@ -1,16 +1,26 @@
 #!/bin/bash
 
-# Need the DATAVERSE_CONTAINER in order to restart
-if [ -z "$DATAVERSE_CONTAINER" ]; then
-  echo "DATAVERSE_CONTAINER environment variable is not set!"
-    # check if it was passsed as parameter
-    if [ -z "$1" ]; then
-        echo "No parameter passed for dataverse container; exiting!"
-        exit 1
-    else
-        DATAVERSE_CONTAINER="$1"
-        echo "Using dataverse container from parameter: $DATAVERSE_CONTAINER"
-    fi
+# upgrade.sh
+#
+# description:
+# Upgrade the croissant exporter jar file
+#
+# arguments:
+# - dataverse container name (can also be set as environment variable)
+#
+# example call from the root of the project:
+# utils/dataverse/patches/croissant-exporter/upgrade.sh dev_dataverse
+# 
+
+# Get the dataverse container name from the parameter and, if not given, from the environment variable 
+if [ -n "$1" ]; then
+    DATAVERSE_CONTAINER="$1"
+    echo "Using dataverse container from parameter: $DATAVERSE_CONTAINER"
+elif [ -n "$DATAVERSE_CONTAINER" ]; then
+    echo "Using dataverse container from environment variable: $DATAVERSE_CONTAINER"
+else
+    echo "No dataverse container specified as parameter or environment variable; exiting!"
+    exit 1
 fi
 
 # Run this from the script directory
