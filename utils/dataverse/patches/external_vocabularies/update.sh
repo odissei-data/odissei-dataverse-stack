@@ -30,10 +30,16 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 CURRENT_DIR="$(pwd)"
 cd "$SCRIPT_DIR" || exit 1
 
+# script files to be copied to the dataverse container
 echo "Updating external vocabularies: Adding the files missing for ROR..."
 
 docker cp ../../../../utils/external_vocabularies/cvocutils.js "$DATAVERSE_CONTAINER":/opt/payara/deployments/dataverse/custom/cvocutils.js
 docker cp ../../../../utils/external_vocabularies/ror.js "$DATAVERSE_CONTAINER":/opt/payara/deployments/dataverse/custom/ror.js
+
+# cvoc configuration changes must also be applied
+echo "Updating external vocabularies: Adding the cvocconf.json file and updating the cvoc configuration in dataverse..."
+docker cp ../../../../utils/external_vocabularies/cvocconf.json "$DATAVERSE_CONTAINER":/opt/payara/cvocconf.json
+docker exec "$DATAVERSE_CONTAINER" curl -X PUT --upload-file cvocconf.json http://localhost:8080/api/admin/settings/:CVocConf
 
 echo "External vocabularies update complete!"
 echo "The ROR will now be visible as links in the dataset metadata"
