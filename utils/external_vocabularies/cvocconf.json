@@ -504,7 +504,7 @@
             "/custom/cvocutils.js"
         ],
         "protocol": "ror",
-        "retrieval-uri": "https://api.ror.org/organizations/{0}",
+        "retrieval-uri": "https://api.ror.org/v1/organizations/{0}",
         "allow-free-text": true,
         "prefix": "https://ror.org/",
         "managed-fields": {},
