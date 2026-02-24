@@ -123,6 +123,9 @@ docker cp utils/external_vocabularies/cvocconf.json "$DATAVERSE_CONTAINER":/opt/
 docker exec "$DATAVERSE_CONTAINER" curl -X PUT --upload-file cvocconf.json http://localhost:8080/api/admin/settings/:CVocConf
 docker exec "$DATAVERSE_CONTAINER" mkdir /opt/payara/deployments/dataverse/custom
 docker cp utils/external_vocabularies/skosmos.js "$DATAVERSE_CONTAINER":/opt/payara/deployments/dataverse/custom/skosmos.js
+# Uncomment the following for ror and cvocutils after we have fixed it on production
+#docker cp utils/external_vocabularies/cvocutils.js "$DATAVERSE_CONTAINER":/opt/payara/deployments/dataverse/custom/cvocutils.js
+#docker cp utils/external_vocabularies/ror.js "$DATAVERSE_CONTAINER":/opt/payara/deployments/dataverse/custom/ror.js
 echo "--- cvocconf setup complete!"
 
 # Install exporter jar files
