@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
 #
 # install the DCAT-AP exporter plugin
+# downloaded from 
+#  https://repo1.maven.org/maven2/io/gdcc/dcat-3/v0.8.3/dcat-3-v0.8.3.jar
 #
 # The 'caller' must restart the dataverse container to load the new exporter(s).
 
@@ -15,6 +17,8 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 CURRENT_DIR="$(pwd)"
 cd "$SCRIPT_DIR" || exit 1
 
+
+JAR_FILE=./dcat-3-0.1.1-SNAPSHOT.jar
 
 ### Almost copy paste the jar file copying from that other script
 
@@ -41,11 +45,26 @@ if [ ! -d "$EXPORTER_DIR_DST" ]; then
   mkdir -p $EXPORTER_DIR_DST
 fi
 
-# Copy al *.jar files from src to dst
-echo "Looking for *.jar files in $EXPORTER_DIR_SRC:"
-ls -1 $EXPORTER_DIR_SRC | grep .jar || echo "No .jar files found in $EXPORTER_DIR_SRC"
-echo "Copying *.jar files to $EXPORTER_DIR_DST"
-cp $EXPORTER_DIR_SRC/*.jar $EXPORTER_DIR_DST/
+# Copy all *.jar files from src to dst
+# echo "Looking for *.jar files in $EXPORTER_DIR_SRC:"
+# ls -1 $EXPORTER_DIR_SRC | grep .jar || echo "No .jar files found in $EXPORTER_DIR_SRC"
+# echo "Copying *.jar files to $EXPORTER_DIR_DST"
+# cp $EXPORTER_DIR_SRC/*.jar $EXPORTER_DIR_DST/
+
+# NOT sure we should copy all, maybe we even have to rename the old one???
+
+# copy the specific jar file we want, and check if it exists
+if [ -f "$JAR_FILE" ]; then
+  echo "Copying $JAR_FILE to $EXPORTER_DIR_DST"
+  cp "$JAR_FILE" "$EXPORTER_DIR_DST/"
+else
+  echo "No $JAR_FILE file found; exiting!"
+  # Get back to where we were
+  cd "$CURRENT_DIR" || exit 1
+  exit 1
+fi
+
+
 
 
 ### Extra; also copy that config directory
