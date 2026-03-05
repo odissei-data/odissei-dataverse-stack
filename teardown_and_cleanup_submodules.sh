@@ -19,9 +19,9 @@ else
   exit 1
 fi
 
-echo "The Final (optional step) is to wipe the shared volumes, 
-echo "which will remove all data from the dataverse application. 
-echo "This is useful if you want to start with a clean slate, 
+echo "The Final (optional step) is to wipe the shared volumes, "
+echo "which will remove all data from the dataverse application. "
+echo "This is useful if you want to start with a clean slate, "
 echo "but be aware that it will also remove any data that you have created in the dataverse application!"
 echo ""
 echo "Do you want to wipe the shared volumes? (y/n)"
