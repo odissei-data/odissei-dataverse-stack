@@ -10,8 +10,34 @@ echo "Bootstrap container: $BOOTSTRAP_CONTAINER"
 # Initiating the submodule and fetching any changes.
 git submodule init && git submodule update --remote
 
-# Adding the docker-compose to the dataverse submodule
-cp dataverse/dot_env dataverse/.env
+# Adding the docker-compose variables for dataverse
+#cp dataverse/dot_env dataverse/.env
+# Check if we have an .env file
+if [ ! -f dataverse/.env ]; then
+  echo "No .env file found in dataverse submodule, copying from dataverse/dot_env..."
+  cp dataverse/dot_env dataverse/.env
+else
+  echo ".env file already exists in dataverse; analyzing..."
+  # first read the existing .env file to get the values of the variables
+  source dataverse/.env
+  cp dataverse/dot_env dataverse/.env
+  # if we have _CT_DATAVERSE_SITEURL, then add it to the .env file
+  if [ -z "$_CT_DATAVERSE_SITEURL" ]; then
+    echo "_CT_DATAVERSE_SITEURL is not set, using dataverse/dot_env file..."
+  else
+    echo "_CT_DATAVERSE_SITEURL is set, adding it to the .env file..."
+    echo "" >> dataverse/.env
+    echo "_CT_DATAVERSE_SITEURL=$_CT_DATAVERSE_SITEURL" >> dataverse/.env
+  fi
+  # if we have _CT_DATAVERSE_FQDN, then add it to the .env file, otherwise we will use the value from the dataverse/dot_env file
+  if [ -z "$_CT_DATAVERSE_FQDN" ]; then
+    echo "_CT_DATAVERSE_FQDN is not set, using dataverse/dot_env file..."
+  else
+    echo "_CT_DATAVERSE_FQDN is set, adding it to the .env file..."
+    echo "" >> dataverse/.env
+    echo "_CT_DATAVERSE_FQDN=$_CT_DATAVERSE_FQDN" >> dataverse/.env
+  fi
+fi
 
 # Create Traefik network
 docker network create traefik
