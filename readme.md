@@ -8,6 +8,8 @@ The Dataverse stack for the ODISSEI portal. provides a quick setup for the Datav
 The goal of this repo is to reduce the code footprint of ODISSEI, while maximising the code (re-)usage of other solutions.
 For upgrading an existing system, read the [`upgrading.md`](upgrading.md) document. 
 
+For smaller changes like upgrades or additions of parts of the system there are scripts available. Read about these in [`utils/dataverse/patches/README.md`](utils/dataverse/patches/README.md). 
+
 At the present date, a number of manual steps are still required. These are listed below, and commented out in the script.
 
 ## Setup
@@ -93,3 +95,9 @@ Note that if you want to have a fresh start the next time you run the setup, you
 ```
 sudo rm -rf dataverse/docker-dev-volumes
 ```
+
+## Suggestions for future improvements
+
+- The properties files for the `language_setup.sh` should be stored in the persistent volume; that `langBundles` directory and the JVM option must also be changed, also via docker compose `JVM_ARGS`. 
+
+- Several changes to the `docker-compose`; auto start for instance, log rotation, but possibly much more. 

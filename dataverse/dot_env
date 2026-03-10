@@ -1,10 +1,15 @@
-APP_IMAGE=gdcc/dataverse:6.4-noble
-#BASE_IMAGE=gdcc/base:6.4-noble
+APP_IMAGE=gdcc/dataverse:6.6-noble
 BASE_IMAGE=gdcc/configbaker:unstable
-POSTGRES_VERSION=16
+POSTGRES_VERSION=17
 DATAVERSE_DB_USER=dataverse
-SOLR_VERSION=9.3.0
+SOLR_VERSION=9.8.0
 SKIP_DEPLOY=0
-DATAVERSE_MAIL_MTA_PASSWORD=secret
-_CT_DATAVERSE_SITEURL=https://portal.odissei.nl
-_CT_DATAVERSE_FQDN=portal.odissei.nl
+DATAVERSE_MAIL_MTA_PASSWORD: "secret"
+# The following variables are used in the configuration of the dataverse application 
+# and should be set to the appropriate values for your environment.
+# Here we show the production values
+#_CT_DATAVERSE_SITEURL=https://portal.odissei.nl
+#_CT_DATAVERSE_FQDN=portal.odissei.nl
+# on localhost (dev setup) these should be set to:
+#_CT_DATAVERSE_SITEURL=http://localhost:8080
+#_CT_DATAVERSE_FQDN=localhost
