@@ -100,4 +100,4 @@ sudo rm -rf dataverse/docker-dev-volumes
 
 - The properties files for the `language_setup.sh` should be stored in the persistent volume; that `langBundles` directory and the JVM option must also be changed, also via docker compose `JVM_ARGS`. 
 
-- Several changes to the `docker-compose`; auto start for instance, but possibly much more. 
+- Several changes to the `docker-compose`; auto start for instance, log rotation, but possibly much more. 
