@@ -76,7 +76,8 @@ else
   exit_with_error_message "No $JAR_FILE file found; exiting!"
 fi
 
-### Extra; also copy that config directory
+### Copy that config directory
+# Note that both config and export dir are hardcoded in the docker-compose.yml
 DCAT3_CONFIG_DIR=dcat3_config
 CONFIG_DIR_DST=$EXPORTER_DIR_DST/$DCAT3_CONFIG_DIR
 
@@ -90,11 +91,20 @@ CONFIG_DIR_SRC=./config
 echo "Copying config properties files from $CONFIG_DIR_SRC to $CONFIG_DIR_DST"
 cp $CONFIG_DIR_SRC/*.properties $CONFIG_DIR_DST/
 
-
-# The 'caller' must restart the dataverse container to load the new exporter(s).
-# echo "Note that you must restart the dataverse container to load the new exporter(s)."
-# echo "You can do this with a command like this (replace dataverse_container_name with the actual container name):"
-# echo "docker restart dataverse_container_name"
+# TODO
+# set the JVM options for the exporter plugin: -Ddataverse.dcat3.config=/dv/exporters/$DCAT3_CONFIG_DIR/dcat-root.properties
+# prevent duplicates: 
+# DELETE it first, which can fail if it does not exist, but we can ignore that error
+# when the value changes we need to delete the old one and the new one to be idempotent
+#
+# NOTE the following fails if not interactive; so it needs that -it
+# and it must be entered twice, this is a hassle...
+echo ""
+echo "Setting JVM options for the exporter plugin to find the config files..."
+echo "--- You need to provide asadmin credentials twice; sorry!"
+echo ""
+docker exec -it "$DATAVERSE_CONTAINER" asadmin delete-jvm-options "-Ddataverse.dcat3.config=/dv/exporters/${DCAT3_CONFIG_DIR}/dcat-root.properties" || true
+docker exec -it "$DATAVERSE_CONTAINER" asadmin create-jvm-options "-Ddataverse.dcat3.config=/dv/exporters/${DCAT3_CONFIG_DIR}/dcat-root.properties"
 
 # Restart the dataverse container to load the new exporter(s)
 echo "Restarting dataverse container..."
@@ -127,14 +137,14 @@ wait_for_dataverse_up
 # Note that this needs to be set in the docker-compose
 echo ""
 echo "Reminder for if it does not work: set the JVM options for the exporter plugin: -Ddataverse.dcat3.config=/dv/exporters/$DCAT3_CONFIG_DIR/dcat-root.properties"
-echo "Manually this can be done with a command like this (replace dataverse_container_name with the actual container name):"
+echo "Manually this can be done with a command like this; replace dataverse_container_name with the actual container name:"
 echo "docker exec -it dataverse_container_name asadmin create-jvm-options '-Ddataverse.dcat3.config=/dv/exporters/$DCAT3_CONFIG_DIR/dcat-root.properties'"
 echo ""
 
 # Mention that if the DCAT3 output changed you must clear the cached exports by starting a reExportAll
 echo "NOTE: "
 echo "If the DCAT-AP output changed, you must clear the cached exports by starting a reExportAll. "
-echo "You can do this with a command like this (replace dataverse_container_name with the actual container name):"
+echo "You can do this with a command like this; replace dataverse_container_name with the actual container name:"
 echo "docker exec -it dataverse_container_name curl http://localhost:8080/api/admin/metadata/reExportAll?exporter=dcat3"
 echo ""
 
