@@ -32,7 +32,7 @@ NOTE: Somehow `clearExportTimestamps` does not seem to help, not sure why, so re
 
 ## Developer notes
 
-When changing the jar file, you must amke sure that old vesriosn are removed. 
+When changing the jar file, you must make sure that old version are removed. 
 You can see if there are any with the following: 
 
 ```
