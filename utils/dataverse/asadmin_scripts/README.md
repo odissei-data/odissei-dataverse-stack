@@ -15,7 +15,6 @@ But if we want to change something on a system without having to reevaluate that
 Rebuilding the container results in some missing steps that we have to fix then, because automation for the portal is not fully implemented yet!
 
 
-
 As an example the `list-jvm-options` command
 
 1. Copy the script file: 
@@ -30,3 +29,4 @@ As an example the `list-jvm-options` command
    docker exec dev_dataverse bash /dv/asadmin-list-jvm-options.sh
    ```
 
+There is an install script (`install.sh`) that will do those copies. 
