@@ -65,12 +65,3 @@ If the archive has many datasets you might want to restrict the re-export to jus
 curl 'https://portal.odissei.nl/api/admin/metadata/:persistentId/reExportDataset?persistentId=doi:10.34894/8575OP'
 ```
 
-Or just the 'dcat3' format: 
-
-```
-docker exec -it dev_dataverse curl http://localhost:8080/api/admin/metadata/reExportAll?exporter=dcat3
-```
-
-
-
-

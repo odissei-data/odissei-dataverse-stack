@@ -27,7 +27,7 @@ cd "$SCRIPT_DIR" || exit 1
 # function to exit with message
 exit_with_error_message() {
     local message="$1"
-    echo "$message"
+    printf "%s\n" "$message"
     # Get back to where we were
     cd "$CURRENT_DIR" || exit 1
     exit 1
@@ -53,6 +53,14 @@ DOCKER_VOLUMES_DIR=../../../../dataverse/docker-dev-volumes
 # Test if we have the docker volumes directory
 if [ ! -d "$DOCKER_VOLUMES_DIR" ]; then
   exit_with_error_message "No $DOCKER_VOLUMES_DIR directory; exiting!"
+fi
+
+# Check if the asadmin scripts are there, we need them to set the JVM options for the exporter plugin
+if [ ! -f "$DOCKER_VOLUMES_DIR/app/data/asadmin-create-jvm-options.sh" ]; then
+  exit_with_error_message "No $DOCKER_VOLUMES_DIR/app/data/asadmin-create-jvm-options.sh file; exiting!"$'\nPlease install them first with utils/dataverse/asadmin_scripts/install.sh'
+fi
+if [ ! -f "$DOCKER_VOLUMES_DIR/app/data/asadmin-delete-jvm-options.sh" ]; then
+  exit_with_error_message "No $DOCKER_VOLUMES_DIR/app/data/asadmin-delete-jvm-options.sh file; exiting!"$'\nPlease install them first with utils/dataverse/asadmin_scripts/install.sh'
 fi
 
 EXPORTER_DIR_SRC=.
@@ -91,20 +99,25 @@ CONFIG_DIR_SRC=./config
 echo "Copying config properties files from $CONFIG_DIR_SRC to $CONFIG_DIR_DST"
 cp $CONFIG_DIR_SRC/*.properties $CONFIG_DIR_DST/
 
-# TODO
 # set the JVM options for the exporter plugin: -Ddataverse.dcat3.config=/dv/exporters/$DCAT3_CONFIG_DIR/dcat-root.properties
 # prevent duplicates: 
 # DELETE it first, which can fail if it does not exist, but we can ignore that error
 # when the value changes we need to delete the old one and the new one to be idempotent
-#
-# NOTE the following fails if not interactive; so it needs that -it
-# and it must be entered twice, this is a hassle...
+# also note that we use the scripts which replaces the interactive asadmin commands:
+#   docker exec -it "$DATAVERSE_CONTAINER" asadmin delete-jvm-options ...
 echo ""
 echo "Setting JVM options for the exporter plugin to find the config files..."
-echo "--- You need to provide asadmin credentials twice; sorry!"
-echo ""
-docker exec -it "$DATAVERSE_CONTAINER" asadmin delete-jvm-options "-Ddataverse.dcat3.config=/dv/exporters/${DCAT3_CONFIG_DIR}/dcat-root.properties" || true
-docker exec -it "$DATAVERSE_CONTAINER" asadmin create-jvm-options "-Ddataverse.dcat3.config=/dv/exporters/${DCAT3_CONFIG_DIR}/dcat-root.properties"
+docker exec -it "$DATAVERSE_CONTAINER" bash /dv/asadmin-delete-jvm-options.sh "-Ddataverse.dcat3.config=/dv/exporters/${DCAT3_CONFIG_DIR}/dcat-root.properties" || true
+docker exec -it "$DATAVERSE_CONTAINER" bash /dv/asadmin-create-jvm-options.sh "-Ddataverse.dcat3.config=/dv/exporters/${DCAT3_CONFIG_DIR}/dcat-root.properties"
+
+## NOTE the following fails if not interactive; so it needs that -it
+## and it must be entered twice, this is a hassle...
+# echo ""
+# echo "Setting JVM options for the exporter plugin to find the config files..."
+# echo "--- You need to provide asadmin credentials twice; sorry!"
+# echo ""
+# docker exec -it "$DATAVERSE_CONTAINER" asadmin delete-jvm-options "-Ddataverse.dcat3.config=/dv/exporters/${DCAT3_CONFIG_DIR}/dcat-root.properties" || true
+# docker exec -it "$DATAVERSE_CONTAINER" asadmin create-jvm-options "-Ddataverse.dcat3.config=/dv/exporters/${DCAT3_CONFIG_DIR}/dcat-root.properties"
 
 # Restart the dataverse container to load the new exporter(s)
 echo "Restarting dataverse container..."
