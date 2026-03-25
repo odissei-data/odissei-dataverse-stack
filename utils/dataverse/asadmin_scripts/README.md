@@ -1,4 +1,4 @@
-alPayara asadmin scripts
+Payara asadmin scripts
 ======================
 
 These are helper scripts to circumvent the interactive command with the user needing to enter the `asadmin` credentials.
