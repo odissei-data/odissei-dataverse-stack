@@ -40,7 +40,7 @@ exit_with_error_message() {
 
 
 #JAR_FILE=./dcat-3-0.1.1-SNAPSHOT.jar
-JAR_FILE=./dcat-3-v0.8.3.jar
+JAR_FILE=./dcat-3-v0.8.4.jar
 
 ### Almost copy paste the jar file copying from that other script
 

@@ -5,9 +5,10 @@ Installing the DCAT-AP Exporter plugin.
 
 The plugin code is on the following GitHub repo: https://github.com/gdcc/exporter-dcat3 .
 
-Without building it, the plugin `jar` can be downloaded from a maven repo, for example version 0.8.3 was downloaded from: 
-`https://repo1.maven.org/maven2/io/gdcc/dcat-3/v0.8.3/dcat-3-v0.8.3.jar`. 
+Without building it, the plugin `jar` can be downloaded from a maven repo, for example version 0.8.4 was downloaded (wget) from: 
+`https://repo1.maven.org/maven2/io/gdcc/dcat-3/v0.8.4/dcat-3-v0.8.4.jar`. 
 
+__Note:__ when upgrading do not forget to remove the old jar from `dataverse/docker-dev-volumes/app/data/exporters`!
 
 The `install.sh` will install the DCAT-AP Exporter plugin:  
 
