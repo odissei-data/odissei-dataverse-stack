@@ -10,10 +10,10 @@ Allow: /api/datasets/:persistentId/thumbnail
 Allow: /javax.faces.resource/images/
 Disallow: /*;jsessionid
 Disallow: /dataset.xhtml;jsessionid=
+Disallow: /dataset.xhtml?jsessionid=
 Disallow: /javax.faces.resource/.xhtml;jsessionid=
-Disallow: /api/datasets/:persistentId/thumbnaill;jsessionid=
+Disallow: /api/datasets/:persistentId/thumbnail;jsessionid=
 Disallow: /dataverse/*?q
 Disallow: /dataverse/*/search
-Disallow: /
 Crawl-delay: 10
-sitemap: https://portal.odissei.nl/sitemap.xml
+Sitemap: https://portal.odissei.nl/sitemap.xml
