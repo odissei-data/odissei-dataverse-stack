@@ -72,6 +72,15 @@ There are now several 'steps' that need to be done:
 3. Remove the ‘Add Data’ button on the menu bar. 
    Change the root dataverse permissions: From ' Anyone with an account can add a dataverse or dataset' into ‘Anyone adding to this dataverse needs to be given access’. And then the button in the navbar will disappear.
 
+### Sitemap generation
+
+On a server you would like to have the portal sitemap generation working. 
+run the script that will install the con job that will trigger a generation every night:
+```
+./install_sitemap_crontab.sh
+```
+The sitemap should become available under via the portal site under `/sitemap/sitemap.xml`. 
+
 
 ## Cleanup for Commits and Pull Requests
 
