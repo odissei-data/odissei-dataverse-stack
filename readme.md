@@ -79,7 +79,7 @@ run the script that will install the con job that will trigger a generation ever
 ```
 ./install_sitemap_crontab.sh
 ```
-The sitemap is available under via the portal site under `/sitemap/sitemap.xml`. 
+The sitemap should become available under via the portal site under `/sitemap/sitemap.xml`. 
 
 
 ## Cleanup for Commits and Pull Requests
