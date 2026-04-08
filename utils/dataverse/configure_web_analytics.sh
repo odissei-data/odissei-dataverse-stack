@@ -1,16 +1,20 @@
 #!/usr/bin/env sh
 # This script first constructs and copies the html file for the web analytics
 # then it sets the web analytics settings in the dataverse container.
+# It also injects structured data (JSON-LD, og:site_name) so that Google
+# displays the correct site name in search results.
 # The script takes three arguments:
-# Example on dev:  ./configure_web_analytics.sh "dev_dataverse" "7"
+# Example on dev:  ./configure_web_analytics.sh "dev_dataverse" "7" "http://localhost:8080"
+# Example on prod: ./configure_web_analytics.sh "dev_dataverse" "19" "https://portal.odissei.nl"
 # Note that the web analytics (site)id should be different for each server; 7 is a test id
 
-if [ $# -ne 2 ]; then
-  echo "Usage: $0 <dataverse_container_name> <id>"
+if [ $# -ne 3 ]; then
+  echo "Usage: $0 <dataverse_container_name> <id> <root_url>"
   exit 1
 fi
 DATAVERSE_CONTAINER=$1
 WEB_ANALYTICS_ID=$2
+ROOT_URL=$3
 
 # the following is the same for all servers right now, 
 # but that might change one day
@@ -35,6 +39,15 @@ _paq.push(['enableLinkTracking']);
 # but then the escape '\' are outputted as well'
 # so to undo that escaping, replace all \" with " in the code
 echo "$CODE" | sed 's/\\"/"/g' > "$TMP_DIR"/web-analytics.html
+
+# append structured data so Google uses the correct site name instead of
+# inferring it from the GitHub org page that links to this portal
+cat >> "$TMP_DIR"/web-analytics.html << EOF
+<meta property="og:site_name" content="ODISSEI Portal" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"ODISSEI Portal","url":"${ROOT_URL}"}
+</script>
+EOF
 
 # the html fragment is read by the application and inserted into the rendered page, 
 # so the file does not need to be available via http(s)
