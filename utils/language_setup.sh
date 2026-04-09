@@ -3,7 +3,9 @@
 dataverse_container_name=$1
 docker exec "$dataverse_container_name" curl http://localhost:8080/api/admin/settings/:Languages -X PUT -d '[{"locale":"en","title":"English"},{"locale":"nl","title":"Nederlands"}]'
 docker exec "$dataverse_container_name" mkdir langBundles
-docker exec -it "$dataverse_container_name" asadmin create-jvm-options '-Ddataverse.lang.directory=/opt/payara/langBundles'
+#docker exec -it "$dataverse_container_name" asadmin create-jvm-options '-Ddataverse.lang.directory=/opt/payara/langBundles'
+# replaced with non-interactive version, but scripts must have been installed
+docker exec "$dataverse_container_name" bash /dv/asadmin-create-jvm-options.sh '-Ddataverse.lang.directory=/opt/payara/langBundles'
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 CURRENT_DIR="$(pwd)"
