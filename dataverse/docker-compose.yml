@@ -3,7 +3,7 @@ services:
     container_name: "dev_dataverse"
     hostname: dataverse
     image: ${APP_IMAGE}
-    restart: on-failure
+    restart: unless-stopped
     user: payara
     environment:
       DATAVERSE_DB_HOST: postgres
@@ -86,7 +86,7 @@ services:
     container_name: "dev_postgres"
     hostname: postgres
     image: postgres:${POSTGRES_VERSION}
-    restart: on-failure
+    restart: unless-stopped
     environment:
       - POSTGRES_USER=${DATAVERSE_DB_USER}
       - POSTGRES_PASSWORD=secret
@@ -115,7 +115,7 @@ services:
     image: solr:${SOLR_VERSION}
     depends_on:
       - dev_solr_initializer
-    restart: on-failure
+    restart: unless-stopped
     ports:
       - "8983:8983"
     networks:
