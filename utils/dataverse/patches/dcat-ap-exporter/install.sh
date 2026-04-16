@@ -5,6 +5,16 @@
 #  https://repo1.maven.org/maven2/io/gdcc/dcat-3/v0.8.3/dcat-3-v0.8.3.jar
 #
 
+source .env
+
+# if ther is no ROOT_URL variable, exit with error message
+if [ -z "$ROOT_URL" ]; then
+    echo "No ROOT_URL variable specified in .env file; exiting!"
+    exit 1
+else
+    echo "Using ROOT_URL variable from .env file: $ROOT_URL"
+fi
+
 set -e
 
 # Get the dataverse container name from the parameter and, if not given, from the environment variable 
@@ -98,9 +108,10 @@ fi
 CONFIG_DIR_SRC=./config
 echo "Copying config properties files from $CONFIG_DIR_SRC to $CONFIG_DIR_DST"
 cp $CONFIG_DIR_SRC/*.properties $CONFIG_DIR_DST/
-# replace a template value with the value of _CT_DATAVERSE_SITEURL
+
+echo "Replacing template value __DATAVERSE_SITEURL__ with the value of ROOT_URL: $ROOT_URL in the config files in $CONFIG_DIR_DST"
 for file in $CONFIG_DIR_DST/*.properties; do
-  sed -i "s|__DATAVERSE_SITEURL__|$_CT_DATAVERSE_SITEURL|g" "$file"
+  sed -i "s|__DATAVERSE_SITEURL__|$ROOT_URL|g" "$file"
 done
 
 # set the JVM options for the exporter plugin: -Ddataverse.dcat3.config=/dv/exporters/$DCAT3_CONFIG_DIR/dcat-root.properties
