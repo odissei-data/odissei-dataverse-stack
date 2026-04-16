@@ -98,6 +98,10 @@ fi
 CONFIG_DIR_SRC=./config
 echo "Copying config properties files from $CONFIG_DIR_SRC to $CONFIG_DIR_DST"
 cp $CONFIG_DIR_SRC/*.properties $CONFIG_DIR_DST/
+# replace a template value with the value of _CT_DATAVERSE_SITEURL
+for file in $CONFIG_DIR_DST/*.properties; do
+  sed -i "s|__DATAVERSE_SITEURL__|$_CT_DATAVERSE_SITEURL|g" "$file"
+done
 
 # set the JVM options for the exporter plugin: -Ddataverse.dcat3.config=/dv/exporters/$DCAT3_CONFIG_DIR/dcat-root.properties
 # prevent duplicates: 
