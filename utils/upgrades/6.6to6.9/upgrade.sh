@@ -72,12 +72,28 @@ docker exec -i "$POSTGRES_CONTAINER" /bin/bash -c "pg_dumpall --clean -U dataver
 echo "--- Downing the datverse container..."
 docker compose -f dataverse/docker-compose.yml down -v
 
+# create copy of the logos dir, the directory names correspond with the database
+# first determine if it has any, because in development we might not
+if [ -d "dataverse/docker-dev-volumes/app/data/docroot/logos" ] && [ "$(ls -A dataverse/docker-dev-volumes/app/data/docroot/logos)" ]; then
+    echo "--- Backing up logos directory..."
+    # move the backup dir if it exists, to prevent confusion
+    if [ -d "$UPGRADE_DIR/logos_backup" ]; then
+        echo "--- Moving existing logos backup directory..."
+        #rm -rf "$UPGRADE_DIR/logos_backup"
+        # rename it, using the timestamp
+        mv "$UPGRADE_DIR/logos_backup" "$UPGRADE_DIR/backup-$(date +%Y%m%d%H%M%S)-logos_backup"
+    fi
+    echo "--- Creating logos backup directory, and copying logos into it..."
+    mkdir -p "$UPGRADE_DIR/logos_backup"
+    cp -r dataverse/docker-dev-volumes/app/data/docroot/logos/. "$UPGRADE_DIR/logos_backup/"
+else
+    echo "--- No logos directory found, skipping backup."
+fi
+
 # should wipe volumes, because we have a new dataverse, postgres and a new solr
 echo "--- Wiping docker dev volumes..."
 sudo rm -rf ./dataverse/docker-dev-volumes
-# TODO only wipe solr and postgresql volumes, not the dataverse one, that has branding and logos (in app/data/docroot) we want to keep
-#sudo rm -rf ./dataverse/docker-dev-volumes/postgresql
-#sudo rm -rf ./dataverse/docker-dev-volumes/solr
+# Note that if we do not wipe everything we end up with vague problems!
 
 # replace the .env with the new one specific for this upgrade
 echo "--- Replacing the .env file..."
@@ -120,6 +136,17 @@ wait_for_dataverse_up
 echo "--- Waiting 30 seconds, just to be sure..."
 sleep 30
 
+### copy back logos if we had them
+if [ -d "$UPGRADE_DIR/logos_backup" ]; then
+    if [ ! -d "dataverse/docker-dev-volumes/app/data/docroot/logos" ]; then
+        echo "--- Creating logos directory..."
+        mkdir -p dataverse/docker-dev-volumes/app/data/docroot/logos
+    fi
+    echo "--- Restoring logos directory contents..."
+    cp -r "$UPGRADE_DIR/logos_backup/." dataverse/docker-dev-volumes/app/data/docroot/logos/
+else
+    echo "--- No logos backup found, skipping restore."
+fi
 
 ### Repair the dataverse container ODISEI changes
 echo "--- Repairing the dataverse container with ODISSEI changes ---"
