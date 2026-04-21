@@ -136,6 +136,10 @@ wait_for_dataverse_up
 echo "--- Waiting 30 seconds, just to be sure..."
 sleep 30
 
+
+### Repair the dataverse container ODISEI changes
+echo "--- Repairing the dataverse container with ODISSEI changes ---"
+
 ### copy back logos if we had them
 if [ -d "$UPGRADE_DIR/logos_backup" ]; then
     if [ ! -d "dataverse/docker-dev-volumes/app/data/docroot/logos" ]; then
@@ -148,8 +152,10 @@ else
     echo "--- No logos backup found, skipping restore."
 fi
 
-### Repair the dataverse container ODISEI changes
-echo "--- Repairing the dataverse container with ODISSEI changes ---"
+### Reinstall the asadmin scripts
+echo "--- Reinstall asadmin scripts - copying back to the volumes..."
+bash utils/dataverse/asadmin_scripts/install.sh
+
 
 # Setup dutch translation
 echo "--- Setting up dutch translation..."
