@@ -3,7 +3,7 @@ services:
     container_name: "dev_dataverse"
     hostname: dataverse
     image: ${APP_IMAGE}
-    restart: on-failure
+    restart: unless-stopped
     user: payara
     environment:
       DATAVERSE_DB_HOST: postgres
@@ -27,6 +27,8 @@ services:
       # These two oai settings are here to get HarvestingServerIT to pass
       dataverse_oai_server_maxidentifiers: "2"
       dataverse_oai_server_maxrecords: "2"
+      DATAVERSE_API_BLOCKED_ENDPOINTS: "api/admin,api/builtin-users"
+      DATAVERSE_API_BLOCKED_POLICY: "localhost-only"
       JVM_ARGS: -Ddataverse.files.storage-driver-id=file1
         -Ddataverse.files.file1.type=file
         -Ddataverse.files.file1.label=Filesystem
@@ -86,7 +88,7 @@ services:
     container_name: "dev_postgres"
     hostname: postgres
     image: postgres:${POSTGRES_VERSION}
-    restart: on-failure
+    restart: unless-stopped
     environment:
       - POSTGRES_USER=${DATAVERSE_DB_USER}
       - POSTGRES_PASSWORD=secret
@@ -115,7 +117,7 @@ services:
     image: solr:${SOLR_VERSION}
     depends_on:
       - dev_solr_initializer
-    restart: on-failure
+    restart: unless-stopped
     ports:
       - "8983:8983"
     networks:

@@ -84,6 +84,10 @@ wait_for_dataverse_up() {
 echo "Waiting for Dataverse to be up..."
 wait_for_dataverse_up
 
+echo "--- Installing asadmin scripts, copy to persistent volume..."
+bash utils/dataverse/asadmin_scripts/install.sh
+echo "--- asadmin scripts installed!"
+
 # Solr should be ok for Dataverse already
 # However, this seems NOT to be the case!
 # Import SOLR schema and config, 
