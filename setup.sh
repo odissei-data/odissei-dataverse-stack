@@ -113,6 +113,11 @@ echo "--- Setting up dutch translation..."
 sh utils/language_setup.sh "$DATAVERSE_CONTAINER"
 echo "--- Dutch translation setup complete!"
 
+# Dutch switch somehow does not work, temporarily disable it !
+echo "--- Disabling Dutch translation, only English available..."
+docker exec "$DATAVERSE_CONTAINER" curl http://localhost:8080/api/admin/settings/:Languages -X PUT -d '[{"locale":"en","title":"English"}]'
+echo "--- Dutch translation disabled!"
+
 # Copy adjusted robots.txt
 echo "--- Copying adjusted robots.txt..."
 sh utils/dataverse/fix_robots_txt.sh "$DATAVERSE_CONTAINER"
