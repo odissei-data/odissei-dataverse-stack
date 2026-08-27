@@ -33,12 +33,35 @@ services:
         -Ddataverse.files.file1.type=file
         -Ddataverse.files.file1.label=Filesystem
         -Ddataverse.files.file1.directory=${STORAGE_DIR}/store
-        -Ddataverse.pid.providers=fake
+        -Ddataverse.pid.providers=fake,dvnl,dans,cbs,cid,liss,hsn
         -Ddataverse.pid.default-provider=fake
         -Ddataverse.pid.fake.type=FAKE
         -Ddataverse.pid.fake.label=FakeDOIProvider
         -Ddataverse.pid.fake.authority=10.5072
         -Ddataverse.pid.fake.shoulder=FK2/
+        -Ddataverse.pid.dvnl.type=FAKE
+        -Ddataverse.pid.dvnl.label=FakeDOIProviderDVNL
+        -Ddataverse.pid.dvnl.authority=10.34894
+        -Ddataverse.pid.dans.type=FAKE
+        -Ddataverse.pid.dans.label=FakeDOIProviderDANS
+        -Ddataverse.pid.dans.authority=10.17026
+        -Ddataverse.pid.cbs.type=FAKE
+        -Ddataverse.pid.cbs.label=FakeDOIProviderCBS
+        -Ddataverse.pid.cbs.authority=10.57934
+        -Ddataverse.pid.cid.type=FAKE
+        -Ddataverse.pid.cid.label=FakeDOIProviderCID
+        -Ddataverse.pid.cid.authority=10.60641
+        -Ddataverse.pid.liss.type=FAKE
+        -Ddataverse.pid.liss.label=FakeDOIProviderLISS
+        -Ddataverse.pid.liss.authority=10.57990
+        -Ddataverse.pid.hsn.type=hdl
+        -Ddataverse.pid.hsn.label=HandleProviderHSN
+        -Ddataverse.pid.hsn.authority=10622
+        -Ddataverse.pid.hsn.shoulder=
+        -Ddataverse.pid.hsn.handlenet.auth-handle=0.NA/10622
+        -Ddataverse.pid.hsn.handlenet.key.path=/secrets/handle-key
+        -Ddataverse.pid.hsn.handlenet.key.passphrase=placeholder
+        -Ddataverse.dcat3.config=/dv/exporters/dcat3_config/dcat-root.properties
     ports:
       - "8080:8080" # HTTP (Dataverse Application)
       - "4949:4848" # HTTPS (Payara Admin Console)
