@@ -217,8 +217,8 @@ def main():
     sub_level_aliases = [
         "AvansHogeschool", "delft", "fontys", "groningen", "hanze", "hr",
         "leidenuniversity", "maastricht", "tiu",
-        "umcu", "UU", "vuamsterdam",
-        "Erasmusmc", "AmsterdamUMC", "eur", "HU"
+        "UMCU", "UU", "vuamsterdam",
+        "ErasmusMC", "AmsterdamUMC", "eur", "HU"
     ]
     for alias in sub_level_aliases:
         publish_dataverse(alias, root_url, api_token)
