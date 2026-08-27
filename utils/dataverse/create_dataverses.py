@@ -173,7 +173,8 @@ def create_odissei_dataverses(dataverse_url, api_token):
         "avans.json", "delft.json", "fontys.json", "groningen.json",
         "hanze.json", "hr.json", "leiden.json", "maastricht.json",
         "tilburg.json", "umcu.json",
-        "utrecht.json", "vu.json"
+        "utrecht.json", "vu.json",
+        "AmsterdamUMC.json", "ErasmusMC.json", "eur.json", "HU.json"
     ]
 
     for json_path in json_paths_dv_nl:
@@ -216,17 +217,20 @@ def main():
     sub_level_aliases = [
         "AvansHogeschool", "delft", "fontys", "groningen", "hanze", "hr",
         "leidenuniversity", "maastricht", "tiu",
-        "umcu", "UU", "vuamsterdam"
+        "UMCU", "UU", "vuamsterdam",
+        "ErasmusMC", "AmsterdamUMC", "eur", "HU"
     ]
     for alias in sub_level_aliases:
         publish_dataverse(alias, root_url, api_token)
     print("Dataverses publishing done.")
 
     print("Setting featured dataverses...")
-    # only the top level dataverses are featured
+    # The top level dataverses are featured (and have logos 'manually set' on real servers)
     set_featured_dataverses(ROOT_ID, top_level_aliases, root_url, api_token)
+    # DataverseNL sub-level dataverses are also featured
+    set_featured_dataverses("DV_NL", sub_level_aliases, root_url, api_token)
 
-    # Note that we don't set the logo's for the dataverses!
+    # Note that we don't set the logo's for the dataverses here!
 
     print("All done.")
     
