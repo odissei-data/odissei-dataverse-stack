@@ -1,123 +1,101 @@
 {
-    "@context": [
-        "https://w3id.org/codemeta/3.0",
-        "http://schema.org",
-        "https://w3id.org/software-types",
-        "https://w3id.org/software-iodata"
-    ],
-    "type": "SoftwareSourceCode",
-    "applicationCategory": [ 
-        { "@id": "https://w3id.org/nwo-research-fields#CommunicationScience"},
-        { "@id": "https://w3id.org/nwo-research-fields#Demography"},
-        { "@id": "https://w3id.org/nwo-research-fields#Economics"}, 
-        { "@id": "https://w3id.org/nwo-research-fields#LifeSciences"}, 
-        { "@id": "https://w3id.org/nwo-research-fields#Medicine"}, 
-        { "@id": "https://w3id.org/nwo-research-fields#Psychology"}, 
-        { "@id": "https://w3id.org/nwo-research-fields#EducationalSciences"},
-        { "@id": "https://w3id.org/nwo-research-fields#Pedagogics"},
-        { "@id": "https://w3id.org/nwo-research-fields#Law"}, 
-        { "@id": "https://w3id.org/nwo-research-fields#PublicAdministrationAndPoliticalScience"}, 
-        { "@id": "https://w3id.org/nwo-research-fields#GeographyPlanning"}, 
-        { "@id": "https://w3id.org/nwo-research-fields#Sociology"},
-        { "@id": "https://vocabs.dariah.eu/tadirah/disseminating"}
-        ],
-    "author": [
-        {
-            "id": "https://orcid.org/0009-0002-8007-5119",
-            "type": "Person",
-            "affiliation": {
-                "@type": "Organization",
-                "@id": "https://ror.org/008pnp284",
-                "name": "DANS"
-            },
-            "familyName": "van Rijsselberg",
-            "givenName": "Fjodor"
-        },
-        {
-            "@id": "https://orcid.org/0009-0007-6621-9696",
-            "@type": "Person",
-            "affiliation": {
-                "@type": "Organization",
-                "@id": "https://ror.org/008pnp284",
-                "name": "DANS"
-            },
-            "familyName": "van Erven",
-            "givenName": "Thomas"
-        }
-    ],
-    "codeRepository": "https://github.com/odissei-data/odissei-devstack",
-    "contributor": [
-        {
-            "@id": "https://orcid.org/0000-0001-9447-9830",
-            "@type": "Person",
-            "affiliation": {  
-                "@type": "Organization",
-                "@id": "https://ror.org/008pnp284",
-                "name": "DANS"
-            },
-            "email": "vyacheslav.tykhonov@dans.knaw.nl",
-            "familyName": "Tykhonov",
-            "givenName": "Slava"
-        },
-        {
-            "@id": "https://orcid.org/0000-0002-0079-2533",
-            "@type": "Person",
-            "affiliation": {  
-                "@type": "Organization",
-                "@id": "https://ror.org/008xxew50",
-                "name": "VU Amsterdam"
-            },
-            "email": "a.valdestilhas@vu.nl",
-            "familyName": "Valdestilhas",
-            "givenName": "Andre"
-        }
-    ],
-    "dateCreated": "2023-07-21",
-    "description": "This repository is used for setting up the front-end of portal.odissei.nl and skosmos.odissei.nl.",
-    "funding": 
-    [
-        {
-            "@type": "Grant",
-            "name": "ODISSEI: Better Infrastructure, Better Science, Better Society (NWO Grant 184.035.014)",
-            "funder": {
-                "@type": "Organization",
-                "name": "NWO",
-                "@id": "https://www.nwo.nl"
-                }
-            },
-            {
-                "@type": "Grant",
-                "name": "Social Science and Humanities Open Cloud for the Netherlands (SSHOC-NL, NWO Grant 184.036.020)",
-                "funder": {
-                    "@type": "Organization",
-                    "name": "NWO",
-                    "@id": "https://www.nwo.nl"
-                    }
-            }
-        ],
-    "identifier": "https://github.com/odissei-data/odissei-devstack",
-    "keywords": [
-        "ODISSEI",
-        "portal"
-    ],
-    "name": "ODISSEI portal",
-    "readme": "https://github.com/odissei-data/odissei-devstack/blob/main/README.md",
-    "buildInstructions": "https://github.com/odissei-data/odissei-devstack/blob/main/README.md",
-    "license": "http://www.apache.org/licenses/LICENSE-2.0",
-    "programmingLanguage": "Python",
-    "softwareHelp": [
-        {
-          "@id": "https://github.com/odissei-data/odissei-devstack",
-          "@type": "Source code",
-          "name": "ODISSEI portal",
-          "url": "https://portal.odissei.nl/"
-        }
-    ],
-    "version": "1.0.0",
-    "developmentStatus": [ "https://www.repostatus.org/#active", "https://w3id.org/research-technology-readiness-levels#Level8Complete" ],
-    "issueTracker": "https://github.com/odissei-data/odissei-devstack/issues",
-    "referencePublication": {
-        "@type": "ScholarlyArticle",
-        "id": "https://doi.org/10.5281/zenodo.4302096"
+  "@context": [
+    "https://w3id.org/codemeta/3.0",
+    "http://schema.org",
+    "https://w3id.org/software-types",
+    "https://w3id.org/software-iodata"
+  ],
+  "type": "SoftwareSourceCode",
+  "applicationCategory": [
+    { "@id": "https://www.narcis.nl/classification/D60000" }
+  ],
+  "author": [
+    {
+      "@id": "https://ror.org/008pnp284",
+      "@type": "Organization",
+      "name": "DANS",
+      "email": "info@odissei-data.nl"
     }
+  ],
+  "maintainer": {
+    "@id": "https://ror.org/008pnp284",
+    "@type": "Organization",
+    "name": "DANS",
+    "email": "info@odissei-data.nl"
+  },
+  "producer": {
+    "@id": "https://ror.org/008pnp284",
+    "@type": "Organization",
+    "name": "DANS"
+  },
+  "sourceOrganization": {
+    "@id": "https://ror.org/03m8v6t10",
+    "@type": "Organization",
+    "name": "ODISSEI"
+  },
+  "codeRepository": "https://github.com/odissei-data/odissei-dataverse-stack",
+  "dateCreated": "2023-07-21",
+  "description": "The Dataverse stack for the ODISSEI portal. It provides a quick setup for the Dataverse stack used for the ODISSEI Portal.",
+  "funding": [
+    {
+      "@type": "Grant",
+      "name": "ODISSEI: Better Infrastructure, Better Science, Better Society (NWO Grant 184.035.014)",
+      "funder": {
+        "@type": "Organization",
+        "name": "NWO",
+        "@id": "https://www.nwo.nl"
+      }
+    },
+    {
+      "@type": "Grant",
+      "name": "Building a FAIR Expertise Hub for the social sciences",
+      "funder": {
+        "@type": "Organization",
+        "name": "PDI-SSH",
+        "url": "https://pdi-ssh.nl/nl/2021/11/gehonoreerde-projecten-2021-call/"
+      }
+    },
+    {
+      "@type": "Grant",
+      "name": "Social Science and Humanities Open Cloud for the Netherlands (SSHOC-NL, NWO Grant 184.036.020)",
+      "funder": {
+        "@type": "Organization",
+        "name": "NWO",
+        "@id": "https://www.nwo.nl"
+      }
+    }
+  ],
+  "identifier": "https://github.com/odissei-data/odissei-dataverse-stack",
+  "keywords": [
+    "ODISSEI",
+    "Dataverse",
+    "metadata ingestion",
+    "harvesting",
+    "social sciences"
+  ],
+  "name": "ODISSEI Portal Dataverse Stack",
+  "readme": "https://github.com/odissei-data/odissei-dataverse-stack/blob/master/readme.md",
+  "buildInstructions": "https://github.com/odissei-data/odissei-dataverse-stack/blob/master/readme.md",
+  "license": "https://spdx.org/licenses/Apache-2.0",
+  "programmingLanguage": "Python",
+  "softwareHelp": [
+    {
+      "@id": "hhttps://github.com/odissei-data/odissei-dataverse-stack",
+      "@type": "Guide",
+      "name": "ODISSEI Portal GitHub",
+      "url": "https://github.com/odissei-data/"
+    }
+  ],
+  "version": "4.3.1",
+  "continuousIntegration": "https://github.com/odissei-data/ingestion-workflow-orchestrator/actions",
+  "developmentStatus": [
+    "https://www.repostatus.org/#active",
+    "https://w3id.org/research-technology-readiness-levels#Level9Proven"
+  ],
+  "issueTracker": "https://github.com/odissei-data/ingestion-workflow-orchestrator/issues",
+  "referencePublication": {
+    "@type": "Article",
+    "id": "https://doi.org/10.5281/zenodo.20411584",
+    "name": "ODISSEI Portal Development In Macroscope"
+  }
 }
